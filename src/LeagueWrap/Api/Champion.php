@@ -19,6 +19,15 @@ class Champion extends Api {
 	 */
 	protected $champions = [];
 
+	/**
+	 * Valid versions for this api call.
+	 *
+	 * @var string
+	 */
+	protected $versions = [
+		'v1.1',
+	];
+
 	public function __construct($client)
 	{
 		$this->client = $client;
@@ -52,8 +61,9 @@ class Champion extends Api {
 			'freeToPlay' => $this->free,
 		];
 
+		$version  = $this->getVersion();
 		$response = $this->client
-		                 ->get('/api/lol/'.$this->region.'/v1.1/champion?'.http_build_query($params))
+		                 ->get($this->region.'/'.$version.'/champion?'.http_build_query($params))
 		                 ->send();
 		
 		$body = $response->getBody();
