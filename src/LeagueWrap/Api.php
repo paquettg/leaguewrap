@@ -89,4 +89,19 @@ class Api {
 
 		return $champion;
 	}
+
+	/**
+	 * Start a summoner request. We need either the summoner name
+	 * or id.
+	 *
+	 * @return Api\Summoner;
+	 */
+	public function summoner()
+	{
+		$summoner = new Api\Summoner($this->client);
+		$summoner->setKey($this->key)
+		         ->setRegion($this->region);
+
+		return $summoner;
+	}
 }

@@ -77,6 +77,32 @@ abstract class Api {
 	}
 
 	/**
+	 * Wraps the request of the api in this method.
+	 *
+	 * @param string $path
+	 * @param array $params
+	 * @return array
+	 */
+	protected function Request($path, $params = [])
+	{
+		// get version
+		$version = $this->getVersion();
+		// set up the uri
+		$params['api_key'] = $this->key;
+		$uri      = $this->region.'/'.$version.'/'.$path.'?'.http_build_query($params);
+		$response = $this->client
+		                 ->get($uri)
+		                 ->send();
+
+		$body = $response->getBody();
+		$body->seek(0);
+		$content = $body->read($body->getSize());
+
+		// decode the content
+		return json_decode($content, true);
+	}
+
+	/**
 	 * Get the version string.
 	 *
 	 * @return string
@@ -86,7 +112,7 @@ abstract class Api {
 		if (is_null($this->version))
 		{
 			// get the first version in versions
-			return reset($this->versions);
+			$this->version = reset($this->versions);
 		}
 		
 		return $this->version;

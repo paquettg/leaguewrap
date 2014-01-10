@@ -22,7 +22,7 @@ class Champion extends Api {
 	/**
 	 * Valid versions for this api call.
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $versions = [
 		'v1.1',
@@ -41,6 +41,17 @@ class Champion extends Api {
 	 */
 	public function __get($key)
 	{
+		return $this->get($key);
+	}
+
+	/**
+	 * Attempt to get a champion by key.
+	 *
+	 * @param string $key
+	 * @return object|null
+	 */
+	public function get($key)
+	{
 		$key = strtolower($key);
 		if (isset($this->champions[$key]))
 		{
@@ -57,21 +68,10 @@ class Champion extends Api {
 	public function all()
 	{
 		$params   = [
-			'api_key'    => $this->key,
 			'freeToPlay' => $this->free,
 		];
 
-		$version  = $this->getVersion();
-		$response = $this->client
-		                 ->get($this->region.'/'.$version.'/champion?'.http_build_query($params))
-		                 ->send();
-		
-		$body = $response->getBody();
-		$body->seek(0);
-		$content = $body->read($body->getSize());
-
-		// decode the content
-		$array = json_decode($content, true);
+		$array = $this->request('champion', $params);
 
 		// set up the champions
 		foreach ($array['champions'] as $info)
