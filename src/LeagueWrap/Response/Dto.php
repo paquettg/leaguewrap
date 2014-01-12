@@ -6,7 +6,7 @@ class Dto {
 	protected $info;
 
 	/**
-	 * Set up the information about this champion.
+	 * Set up the information about this response.
 	 *
 	 * @param array $info
 	 */

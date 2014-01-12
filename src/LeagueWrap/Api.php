@@ -2,6 +2,9 @@
 namespace LeagueWrap;
 
 use Guzzle\Http\Client;
+use LeagueWrap\Api\Champion;
+use LeagueWrap\Api\Summoner;
+use LeagueWrap\Api\Game;
 
 class Api {
 
@@ -79,11 +82,11 @@ class Api {
 	/**
 	 * Start a champion request.
 	 *
-	 * @return Api\Champion
+	 * @return Champion
 	 */
 	public function champion()
 	{
-		$champion = new Api\Champion($this->client);
+		$champion = new Champion($this->client);
 		$champion->setKey($this->key)
 		         ->setRegion($this->region);
 
@@ -92,16 +95,31 @@ class Api {
 
 	/**
 	 * Start a summoner request. We need either the summoner name
-	 * or id.
+	 * or id for most of the requests in this object.
 	 *
-	 * @return Api\Summoner;
+	 * @return Summoner;
 	 */
 	public function summoner()
 	{
-		$summoner = new Api\Summoner($this->client);
+		$summoner = new Summoner($this->client);
 		$summoner->setKey($this->key)
 		         ->setRegion($this->region);
 
 		return $summoner;
+	}
+
+	/**
+	 * Start a game request. We need the summoner id for all
+	 * requests in this object.
+	 *
+	 * @return Game;
+	 */
+	public function game()
+	{
+		$game = new Game($this->client);
+		$game->setKey($this->key)
+		     ->setRegion($this->region);
+
+		return $game;
 	}
 }

@@ -15,8 +15,8 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfo()
 	{
-		$bakasan = $this->summoner->info('bakasan');
-		$this->assertEquals(74602, $bakasan->id);
+		$this->summoner->info('bakasan');
+		$this->assertEquals(74602, $this->summoner->bakasan->id);
 	}
 
 	public function testInfoId()

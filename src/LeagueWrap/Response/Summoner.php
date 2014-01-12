@@ -45,4 +45,24 @@ class Summoner extends Dto {
 		return null;
 	}
 
+	/**
+	 * Attempts to get the game by the id.
+	 *
+	 * @param int $id
+	 * @return MasteryPage|null
+	 */
+	public function recentGame($id)
+	{
+		if ( ! isset($this->info['recentGames']))
+		{
+			// no rune pages
+			return null;
+		}
+		$masteryPages = $this->info['recentGames'];
+		if (isset($masteryPages[$id]))
+		{
+			return $masteryPages[$id];
+		}
+		return null;
+	}
 }

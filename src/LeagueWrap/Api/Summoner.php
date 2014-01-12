@@ -217,6 +217,8 @@ class Summoner extends Api {
 	 */
 	protected function infoByName($name)
 	{
+		// clean the name
+		$name     = htmlspecialchars($name);
 		$array    = $this->request('summoner/by-name/'.$name);
 		$summoner = new Response\Summoner($array);
 		$name     = strtolower($summoner->name);
