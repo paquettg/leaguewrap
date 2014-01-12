@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap;
 
-use Guzzle\Http\Client;
 use LeagueWrap\Api\Champion;
 use LeagueWrap\Api\Summoner;
 use LeagueWrap\Api\Game;
@@ -41,15 +40,20 @@ class Api {
 	 *
 	 * @param string $key
 	 */
-	public function __construct($key = null)
+	public function __construct($key = null, ClientInterface $client = null)
 	{
 		if (is_null($key))
 		{
 			throw new Exception('We need a key... it\'s very important!');
 		}
 
-		// set up the default client
-		$this->client = new Client($this->url);
+		if (is_null($client))
+		{
+			// set up the default client
+			$client = new Client;
+		}
+		$this->client = $client;
+		$this->client->baseUrl($this->url);
 
 		// add the key
 		$this->key = $key;
@@ -63,7 +67,7 @@ class Api {
 	 */
 	public function resetUrl($url)
 	{
-		$this->client = new Client($url);
+		$this->client->baseUrl($url);
 		return $this;
 	}
 

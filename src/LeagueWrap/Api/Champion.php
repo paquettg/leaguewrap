@@ -1,6 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
+use LeagueWrap\ClientInterface;
 use LeagueWrap\Response\Champion as Champ;
 
 class Champion extends Api {
@@ -28,7 +29,7 @@ class Champion extends Api {
 		'v1.1',
 	];
 
-	public function __construct($client)
+	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;
 	}

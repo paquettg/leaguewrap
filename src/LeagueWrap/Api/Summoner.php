@@ -1,6 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
+use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 use LeagueWrap\Response\RunePage;
 use LeagueWrap\Response\Rune;
@@ -25,7 +26,7 @@ class Summoner extends Api {
 		'v1.2',
 	];
 
-	public function __construct($client)
+	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;
 	}

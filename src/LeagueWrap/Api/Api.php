@@ -110,17 +110,11 @@ abstract class Api {
 		$version = $this->getVersion();
 		// set up the uri
 		$params['api_key'] = $this->key;
-		$uri      = $this->region.'/'.$version.'/'.$path.'?'.http_build_query($params);
-		$response = $this->client
-		                 ->get($uri)
-		                 ->send();
+		$uri     = $this->region.'/'.$version.'/'.$path;
+		$content = $this->client->request($uri, $params);
 
 		// request was succesful
 		++$this->requests;
-
-		$body = $response->getBody();
-		$body->seek(0);
-		$content = $body->read($body->getSize());
 
 		// decode the content
 		return json_decode($content, true);

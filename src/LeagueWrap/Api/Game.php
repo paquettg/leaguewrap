@@ -1,6 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
+use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 
 class Game extends Api {
@@ -21,7 +22,7 @@ class Game extends Api {
 		'v1.3',
 	];
 
-	public function __construct($client)
+	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;
 	}
