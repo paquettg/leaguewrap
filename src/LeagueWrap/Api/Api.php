@@ -33,6 +33,25 @@ abstract class Api {
 	protected $version = null;
 
 	/**
+	 * A count of the amount of API request this object has done
+	 * so far.
+	 *
+	 * @param int
+	 */
+	protected $requests = 0;
+
+	/**
+	 * Returns the amount of requests this object has done
+	 * to the api so far.
+	 *
+	 * @return int
+	 */
+	public function getRequestCount()
+	{
+		return $this->requests;
+	}
+
+	/**
 	 * Set the key to be used in the api.
 	 *
 	 * @param string $key
@@ -93,6 +112,9 @@ abstract class Api {
 		$response = $this->client
 		                 ->get($uri)
 		                 ->send();
+
+		// request was succesful
+		++$this->requests;
 
 		$body = $response->getBody();
 		$body->seek(0);

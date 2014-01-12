@@ -23,7 +23,6 @@ class Summoner extends Api {
 	 */
 	protected $versions = [
 		'v1.2',
-		'v1.1',
 	];
 
 	public function __construct($client)

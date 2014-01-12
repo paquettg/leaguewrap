@@ -56,7 +56,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testAllInfo()
 	{
 		$bakasan = $this->summoner->allInfo('bakasan');
-		$this->assertTrue($bakasan->runePage(0) instanceof LeagueWrap\Response\RunePage);
+		$this->assertEquals(3, $this->summoner->getRequestCount());
 	}
 
 	public function testAllInfoId()
