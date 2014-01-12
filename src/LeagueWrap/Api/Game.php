@@ -34,18 +34,7 @@ class Game extends Api {
 	 */
 	public function recent($identity)
 	{
-		if ($identity instanceof Response\Summoner)
-		{
-			$id = $identity->id;
-		}
-		elseif (is_int($identity))
-		{
-			$id = $identity;
-		}
-		else
-		{
-			throw new Exception('The identity given was not valid for a recent games request.');
-		}
+		$id = $this->extractId($identity);
 
 		$array = $this->request('game/by-summoner/'.$id.'/recent');
 		$games = [];
@@ -55,10 +44,7 @@ class Game extends Api {
 			$games[] = $game;
 		}
 
-		if ($identity instanceof Response\Summoner)
-		{
-			$identity->recentGames = $games;
-		}
+		$this->attachResponse($identity, $games, 'recentGames');
 
 		return $games;
 	}

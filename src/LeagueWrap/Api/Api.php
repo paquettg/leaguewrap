@@ -1,6 +1,8 @@
 <?php
 namespace LeagueWrap\Api;
 
+use LeagueWrap\Response\Summoner;
+
 abstract class Api {
 	
 	/**
@@ -138,5 +140,47 @@ abstract class Api {
 		}
 		
 		return $this->version;
+	}
+
+	/**
+	 * Attempts to extract an ID from the object/value given
+	 *
+	 * @param mixed $identity
+	 * @return int
+	 * @throws Exception
+	 */
+	protected function extractId($identity)
+	{
+		if ($identity instanceof Summoner)
+		{
+			return $identity->id;
+		}
+		elseif (is_int($identity))
+		{
+			return $identity;
+		}
+		else
+		{
+			throw new Exception('The identity given was not valid.');
+		}
+	}
+
+	/**
+	 * Attempts to attach the response to a summoner object.
+	 *
+	 * @param mixed $identity
+	 * @param mixed $response
+	 * @param string $key
+	 * @return bool
+	 */
+	protected function attachResponse($identity, $response, $key)
+	{
+		if ($identity instanceof Summoner)
+		{
+			$identity->set($key, $response);
+			return true;
+		}
+		
+		return false;
 	}
 }

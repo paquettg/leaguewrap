@@ -104,18 +104,7 @@ class Summoner extends Api {
 	 */
 	public function runePages($identity)
 	{
-		if ($identity instanceof Response\Summoner)
-		{
-			$id = $identity->id;
-		}
-		elseif (is_int($identity))
-		{
-			$id = $identity;
-		}
-		else
-		{
-			throw new Exception('The identity given was not valid for a runes request.');
-		}
+		$id = $this->extractId($identity);
 
 		$array     = $this->request('summoner/'.$id.'/runes');
 		$runePages = [];
@@ -136,10 +125,7 @@ class Summoner extends Api {
 			$runePages[]     = $runePage;
 		}
 
-		if ($identity instanceof Response\Summoner)
-		{
-			$identity->runePages = $runePages;
-		}
+		$this->attachResponse($identity, $runePages, 'runePages');
 
 		return $runePages;
 	}
@@ -153,18 +139,7 @@ class Summoner extends Api {
 	 */
 	public function masteryPages($identity)
 	{
-		if ($identity instanceof Response\Summoner)
-		{
-			$id = $identity->id;
-		}
-		elseif (is_int($identity))
-		{
-			$id = $identity;
-		}
-		else
-		{
-			throw new Exception('The identity given was not valid for a mastery request.');
-		}
+		$id = $this->extractId($identity);
 
 		$array        = $this->request('summoner/'.$id.'/masteries');
 		$masteryPages = [];
@@ -185,10 +160,7 @@ class Summoner extends Api {
 			$masteryPages[]       = $masteryPage;
 		}
 
-		if ($identity instanceof Response\Summoner)
-		{
-			$identity->masteryPages = $masteryPages;
-		}
+		$this->attachResponse($identity, $masteryPages, 'masteryPages');
 
 		return $masteryPages;
 	}
