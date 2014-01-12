@@ -34,8 +34,8 @@ echo $bakasan->revisionDateStr;        // "12/18/2013 06:32 PM UTC"
 
 The above gets the basic information about the user 'bakasan'. It is a very simple example but it gets the general idea of how things work. You load up the API with your given key, this API object can be used as many times as possible and is encouraged to only have one instance of it. From the API you can select which API to query (in this case the summoner api). Finally, you use a method, dependant of the PI you query, to performe a request on that API.
 
-Setting the Region
-------------------
+Regions
+-------
 
 You can set the region that you wish to query. By default it is 'na' but it can be changed to any string.
 
@@ -46,6 +46,11 @@ $api = new Api($myKey);  // Load up the API
 $api->setRegion('euw');  // Set the region to 'euw'
 ```
 
-Really easy no?
+The above is straight forward and applies to all api request objects that this api will generate. There is also built in support for API calls that restrict regional access. Continuing from the above code snippet.
 
+```php
+$api->setRegion('br');                 // Set the region to 'br'
+$champions = $api->champion()->free(); // will throw a LeagueWrap\Api\Exception
+```
 
+The LeagueWrap\Api\Exception in the above example will contain the string 'The region "br" is not permited to query this API.'.

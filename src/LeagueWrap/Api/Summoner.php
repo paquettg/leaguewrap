@@ -26,6 +26,17 @@ class Summoner extends Api {
 		'v1.2',
 	];
 
+	/**
+	 * A list of all permitted regions for the Champion api call.
+	 *
+	 * @param array
+	 */
+	protected $permittedRegions = [
+		'euw',
+		'eune',
+		'na',
+	];
+
 	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;

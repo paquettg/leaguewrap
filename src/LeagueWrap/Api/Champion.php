@@ -29,6 +29,17 @@ class Champion extends Api {
 		'v1.1',
 	];
 
+	/**
+	 * A list of all permitted regions for the Champion api call.
+	 *
+	 * @param array
+	 */
+	protected $permittedRegions = [
+		'na',
+		'eune',
+		'euw',
+	];
+
 	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;

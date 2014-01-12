@@ -27,6 +27,14 @@ abstract class Api {
 	protected $region;
 
 	/**
+	 * A list of all permitted regions for this API call. Leave
+	 * it empty to not lock out any region string.
+	 *
+	 * @param array
+	 */
+	protected $permittedRegions = [];
+
+	/**
 	 * The version we want to use. If null use the first
 	 * version in the array.
 	 *
@@ -73,7 +81,7 @@ abstract class Api {
 	 */
 	public function setRegion($region)
 	{
-		$this->region = $region;
+		$this->region = strtolower($region);
 		return $this;
 	}
 
@@ -108,9 +116,18 @@ abstract class Api {
 	{
 		// get version
 		$version = $this->getVersion();
-		// set up the uri
+
+		// get and validate the region
+		$region = $this->region;
+		if ($this->regionLocked($region))
+		{
+			throw new Exception('The region "'.$region.'" is not permited to query this API.');
+		}
+
+		// add the key to the param list
 		$params['api_key'] = $this->key;
-		$uri     = $this->region.'/'.$version.'/'.$path;
+
+		$uri     = $region.'/'.$version.'/'.$path;
 		$content = $this->client->request($uri, $params);
 
 		// request was succesful
@@ -134,6 +151,24 @@ abstract class Api {
 		}
 		
 		return $this->version;
+	}
+
+	/**
+	 * Determine if the given region is locked from doing
+	 * requests to this api.
+	 * 
+	 * @param string $region
+	 * @return bool
+	 */
+	protected function regionLocked($region)
+	{
+		if (count($this->permittedRegions) == 0)
+		{
+			// no regions are locked from this call.
+			return true;
+		}
+
+		return ! in_array($region, $this->permittedRegions);
 	}
 
 	/**

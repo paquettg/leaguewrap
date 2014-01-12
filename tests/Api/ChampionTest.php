@@ -24,5 +24,18 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$free = $this->api->champion()->free();
 		$this->assertEquals(10, count($free));
 	}
+
+	public function testLockedRegion()
+	{
+		$this->api->setRegion('BR');
+		try
+		{
+			$free = $this->api->champion()->free();
+		}
+		catch (LeagueWrap\Api\Exception $e)
+		{
+			$this->assertEquals('The region "br" is not permited to query this API.', $e->getMessage());
+		}
+	}
 }
 
