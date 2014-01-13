@@ -111,6 +111,7 @@ abstract class Api {
 	 * @param string $path
 	 * @param array $params
 	 * @return array
+	 * @throws RegionException
 	 */
 	protected function Request($path, $params = [])
 	{
@@ -121,7 +122,7 @@ abstract class Api {
 		$region = $this->region;
 		if ($this->regionLocked($region))
 		{
-			throw new Exception('The region "'.$region.'" is not permited to query this API.');
+			throw new RegionException('The region "'.$region.'" is not permited to query this API.');
 		}
 
 		// add the key to the param list

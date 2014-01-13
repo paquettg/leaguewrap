@@ -50,7 +50,7 @@ The above is straight forward and applies to all api request objects that this a
 
 ```php
 $api->setRegion('br');                 // Set the region to 'br'
-$champions = $api->champion()->free(); // will throw a LeagueWrap\Api\Exception
+$champions = $api->champion()->free(); // will throw a LeagueWrap\Api\RegionException
 ```
 
 The LeagueWrap\Api\Exception in the above example will contain the string 'The region "br" is not permited to query this API.'.

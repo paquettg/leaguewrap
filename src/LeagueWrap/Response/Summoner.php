@@ -65,4 +65,42 @@ class Summoner extends Dto {
 		}
 		return null;
 	}
+
+	/**
+	 * Attempts to get a league by the champion/team name or
+	 * id.
+	 *
+	 * @param mixed $identity
+	 * @return League|null
+	 */
+	public function league($identity)
+	{
+		if ( ! isset($this->info['leagues']))
+		{
+			// no leagues
+			return null;
+		}
+		$leagues = $this->info['leagues'];
+		foreach ($leagues as $league)
+		{
+			if (is_null($league->playerOrTeam))
+			{
+				// we could not find the player or team in this league
+				continue;
+			}
+
+			// try the name
+			if ($league->playerOrTeam->playerOrTeamName == $identity)
+			{
+				return $league;
+			}
+
+			// try the id
+			if ($league->playerOrTeam->playerOrTeamId == $identity)
+			{
+				return $league;
+			}
+		}
+		return null;
+	}
 }

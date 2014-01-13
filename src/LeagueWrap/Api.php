@@ -4,6 +4,9 @@ namespace LeagueWrap;
 use LeagueWrap\Api\Champion;
 use LeagueWrap\Api\Summoner;
 use LeagueWrap\Api\Game;
+use LeagueWrap\Api\League;
+use LeagueWrap\Api\Stats;
+use LeagueWrap\Api\Team;
 
 class Api {
 
@@ -125,5 +128,50 @@ class Api {
 		     ->setRegion($this->region);
 
 		return $game;
+	}
+
+	/**
+	 * Starts a league request. We need the summoner id for all
+	 * requests in this object.
+	 *
+	 * @return League
+	 */
+	public function league()
+	{
+		$league = new League($this->client);
+		$league->setKey($this->key)
+		       ->setRegion($this->region);
+		
+		return $league;
+	}
+
+	/**
+	 * Starts a stats request. We need the summoner id for all
+	 * requests in this object.
+	 *
+	 * @return Stats
+	 */
+	public function stats()
+	{
+		$stats = new Stats($this->client);
+		$stats->setKey($this->key)
+		      ->setRegion($this->region);
+		
+		return $stats;
+	}
+
+	/**
+	 * Starts a team request. We need the summoner id for all
+	 * requests in this object.
+	 *
+	 * @return Team
+	 */
+	public function team()
+	{
+		$team = new Team($this->team);
+		$team->setKey($this->key)
+		     ->setRegion($this->region);
+	    
+	    return $team;
 	}
 }

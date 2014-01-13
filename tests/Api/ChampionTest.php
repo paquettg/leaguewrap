@@ -32,7 +32,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		{
 			$free = $this->api->champion()->free();
 		}
-		catch (LeagueWrap\Api\Exception $e)
+		catch (LeagueWrap\Api\RegionException $e)
 		{
 			$this->assertEquals('The region "br" is not permited to query this API.', $e->getMessage());
 		}

@@ -7,7 +7,7 @@ use LeagueWrap\Response;
 class Game extends Api {
 
 	/**
-	 * The games we have loaded
+	 * The games we have loaded.
 	 * 
 	 * @var array
 	 */
