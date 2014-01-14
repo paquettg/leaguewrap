@@ -7,13 +7,6 @@ use LeagueWrap\Response;
 class League extends Api {
 
 	/**
-	 * The players found in this league.
-	 *
-	 * @var array
-	 */
-	protected $league = [];
-
-	/**
 	 * Valid version for this api call.
 	 *
 	 * @var array
@@ -43,7 +36,7 @@ class League extends Api {
 	/**
 	 * Gets the league information by summoner id.
 	 *
-	 * @param mixed $id
+	 * @param mixed $identity
 	 * @return array
 	 */
 	public function league($identity)

@@ -7,13 +7,6 @@ use LeagueWrap\Response;
 class Game extends Api {
 
 	/**
-	 * The games we have loaded.
-	 * 
-	 * @var array
-	 */
-	protected $games = [];
-
-	/**
 	 * Valid version for this api call.
 	 *
 	 * @var array
