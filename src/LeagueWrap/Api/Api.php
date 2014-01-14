@@ -2,6 +2,7 @@
 namespace LeagueWrap\Api;
 
 use LeagueWrap\Response\Summoner;
+use LeagueWrap\Region;
 
 abstract class Api {
 	
@@ -119,10 +120,10 @@ abstract class Api {
 		$version = $this->getVersion();
 
 		// get and validate the region
-		$region = $this->region;
-		if ($this->regionLocked($region))
+		$region = new Region($this->permittedRegions);
+		if ($region->isLocked($this->region))
 		{
-			throw new RegionException('The region "'.$region.'" is not permited to query this API.');
+			throw new RegionException('The region "'.$this->region.'" is not permited to query this API.');
 		}
 
 		// add the key to the param list
@@ -152,24 +153,6 @@ abstract class Api {
 		}
 		
 		return $this->version;
-	}
-
-	/**
-	 * Determine if the given region is locked from doing
-	 * requests to this api.
-	 * 
-	 * @param string $region
-	 * @return bool
-	 */
-	protected function regionLocked($region)
-	{
-		if (count($this->permittedRegions) == 0)
-		{
-			// no regions are locked from this call.
-			return true;
-		}
-
-		return ! in_array($region, $this->permittedRegions);
 	}
 
 	/**
