@@ -129,7 +129,7 @@ abstract class Api {
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri     = $region.'/'.$version.'/'.$path;
+		$uri     = $this->region.'/'.$version.'/'.$path;
 		$content = $this->client->request($uri, $params);
 
 		// request was succesful

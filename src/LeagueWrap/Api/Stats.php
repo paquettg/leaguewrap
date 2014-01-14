@@ -4,7 +4,6 @@ namespace LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 use LeagueWrap\Response\PlayerStats;
-use LeagueWrap\Response\Champion;
 
 class Stats extends Api {
 
@@ -101,7 +100,7 @@ class Stats extends Api {
 		foreach ($array['champions'] as $key => $info)
 		{
 			$info['stats'] = new Response\Stats($info['stats']);
-			$championStats = new Champion($info);
+			$championStats = new Response\Champion($info);
 			$stats[$key]   = $championStats;
 		}
 
