@@ -1,41 +1,54 @@
 <?php
 
 use LeagueWrap\Api;
+use Mockery as m;
 
 class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
-	protected $api;
+	protected $client;
 
 	public function setUp()
 	{
-		$key = trim(file_get_contents('tests/key.txt'));
-		$this->api = new Api($key);
+		$client       = m::mock('LeagueWrap\Client');
+		$this->client = $client;
+	}
+
+	public function tearDown()
+	{
+		m::close();
 	}
 
 	public function testAll()
 	{
-		$champion = $this->api->champion();
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.1/champion', [
+						'freeToPlay' => 'false',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn('{"champions":[{"id":266,"name":"Aatrox","active":true,"attackRank":8,"defenseRank":4,"magicRank":3,"difficultyRank":6,"botEnabled":false,"freeToPlay":false,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":103,"name":"Ahri","active":true,"attackRank":3,"defenseRank":4,"magicRank":8,"difficultyRank":8,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":84,"name":"Akali","active":true,"attackRank":5,"defenseRank":3,"magicRank":8,"difficultyRank":6,"botEnabled":false,"freeToPlay":false,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":12,"name":"Alistar","active":true,"attackRank":6,"defenseRank":9,"magicRank":5,"difficultyRank":8,"botEnabled":false,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":32,"name":"Amumu","active":true,"attackRank":2,"defenseRank":6,"magicRank":8,"difficultyRank":4,"botEnabled":false,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":34,"name":"Anivia","active":true,"attackRank":1,"defenseRank":4,"magicRank":10,"difficultyRank":8,"botEnabled":false,"freeToPlay":false,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":1,"name":"Annie","active":true,"attackRank":2,"defenseRank":3,"magicRank":10,"difficultyRank":4,"botEnabled":true,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":22,"name":"Ashe","active":true,"attackRank":7,"defenseRank":3,"magicRank":2,"difficultyRank":4,"botEnabled":true,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":53,"name":"Blitzcrank","active":true,"attackRank":4,"defenseRank":8,"magicRank":5,"difficultyRank":6,"botEnabled":false,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":63,"name":"Brand","active":true,"attackRank":2,"defenseRank":2,"magicRank":9,"difficultyRank":6,"botEnabled":false,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":51,"name":"Caitlyn","active":true,"attackRank":8,"defenseRank":2,"magicRank":2,"difficultyRank":4,"botEnabled":false,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":69,"name":"Cassiopeia","active":true,"attackRank":2,"defenseRank":3,"magicRank":9,"difficultyRank":10,"botEnabled":false,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":31,"name":"Chogath","active":true,"attackRank":3,"defenseRank":7,"magicRank":7,"difficultyRank":7,"botEnabled":true,"freeToPlay":false,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":42,"name":"Corki","active":true,"attackRank":8,"defenseRank":3,"magicRank":6,"difficultyRank":7,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true}]}');
+
+		$api = new Api('key', $this->client);
+		$champion = $api->champion();
 		$champion->all();
-		$this->assertEquals(103, $champion->ahri->id);
+		$this->assertTrue($champion->blitzcrank instanceof LeagueWrap\Response\Champion);
 	}
 
 	public function testFree()
 	{
-		$free = $this->api->champion()->free();
-		$this->assertEquals(10, count($free));
-	}
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.1/champion', [
+						'freeToPlay' => 'true',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn('{"champions":[{"id":103,"name":"Ahri","active":true,"attackRank":3,"defenseRank":4,"magicRank":8,"difficultyRank":8,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":51,"name":"Caitlyn","active":true,"attackRank":8,"defenseRank":2,"magicRank":2,"difficultyRank":4,"botEnabled":false,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":42,"name":"Corki","active":true,"attackRank":8,"defenseRank":3,"magicRank":6,"difficultyRank":7,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":105,"name":"Fizz","active":true,"attackRank":6,"defenseRank":4,"magicRank":7,"difficultyRank":8,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":121,"name":"Khazix","active":true,"attackRank":9,"defenseRank":4,"magicRank":3,"difficultyRank":7,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":99,"name":"Lux","active":true,"attackRank":2,"defenseRank":4,"magicRank":9,"difficultyRank":6,"botEnabled":true,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":33,"name":"Rammus","active":true,"attackRank":4,"defenseRank":10,"magicRank":5,"difficultyRank":5,"botEnabled":false,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":107,"name":"Rengar","active":true,"attackRank":7,"defenseRank":4,"magicRank":2,"difficultyRank":5,"botEnabled":false,"freeToPlay":true,"botMmEnabled":false,"rankedPlayEnabled":true},{"id":44,"name":"Taric","active":true,"attackRank":4,"defenseRank":8,"magicRank":5,"difficultyRank":3,"botEnabled":true,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true},{"id":77,"name":"Udyr","active":true,"attackRank":8,"defenseRank":7,"magicRank":4,"difficultyRank":5,"botEnabled":false,"freeToPlay":true,"botMmEnabled":true,"rankedPlayEnabled":true}]}');
 
-	public function testLockedRegion()
-	{
-		$this->api->setRegion('BR');
-		try
-		{
-			$free = $this->api->champion()->free();
-		}
-		catch (LeagueWrap\Api\RegionException $e)
-		{
-			$this->assertEquals('The region "br" is not permited to query this API.', $e->getMessage());
-		}
+		$api  = new Api('key', $this->client);
+		$free = $api->champion()->free();
+		$this->assertEquals(10, count($free));
 	}
 }
 
