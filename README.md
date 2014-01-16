@@ -10,8 +10,8 @@ Install
 
 This package can be found on [packagist](https://packagist.org/packages/paquettg/leaguewrap) and is best loaded using [composer](http://getcomposer.org/).
 
-Usage
------
+Simple Example
+--------------
 
 You can find many examples of how to use the wrapper and any of its parts (which you will most likely never touch) in the tests directory. The tests are done using PHPUnit and are very small, a few lines each, and are a great place to start. Given that, I'll still be showing examples of how the package is intended to work. The following example is a very simplistic usage of the package, good place to start.
 
@@ -54,3 +54,58 @@ $champions = $api->champion()->free(); // will throw a LeagueWrap\Api\RegionExce
 ```
 
 The LeagueWrap\Api\Exception in the above example will contain the string 'The region "br" is not permited to query this API.'.
+
+Quick Reference
+---------------
+
+LeagueWrap implements a very strict interface for the api where everything is within your control and easy to test. Here's a sampling of the possible startup methods.
+
+```php
+$api = new \LeagueWrap\Api($myKey);
+```
+
+Creates a new Api instance with the key. The key is mandatory and will throw an exception if not given. This instance will be used to orginize future calls to the api with out having to re-enter the key. 
+
+```php
+$api = new \LeagueWrap\Api($myKey, $myClient);
+```
+
+Using the Dependency Injection (DI) principle we allow you to inject your own client object that implements LeagueWrap\ClientInterface. This allows you to use your own REST client if you wish to instead of Guzzle (which is what comes with the package).
+
+```php
+$summoner = $api->summoner();
+```
+
+This gets you an instance of the LeagueWrap\Api\Summoner object which is used to request information of the summoner api. This is the primary way you should be getting this object.
+
+```php
+$summoner = new \LeagueWrap\Api\Summoner($myClient);
+$summoner->setKey($myKey);
+$summoner->setRegion('na');
+```
+
+This is an alternative method of loading a summoner object with out having to use the Api instance. This is not recommended but it is possible if you find yourself in a situation where you can't live with out it.
+
+```php
+$summoner->selectVersion('v1.2')
+```
+
+Selecting a valid version to be used by the summoner api. These version can be found in the object class file and we have a goal of only support at most 2 minor version of any major versions. Therefor you should not expect to be able to use 'v1.1' if 'v1.2' has been released for over a month.
+
+```php
+$bakasan = $summoner->info('bakasan');
+```
+
+Doing a summoner info request by the summoner name 'bakasan' will return a Response\Summoner Dto object that contains the information for this summoner.
+
+```php
+$info = $summoner->info(76204);
+```
+
+The above will do a info request by the summoner id 76204 and works the same as the above method.
+
+```php
+$summoner->getRequestCount()
+```
+
+If you wish to know how many requests you have done so far with a single api object you can always request the request count. It will simply return the number of requests to the api it has performed so far.
