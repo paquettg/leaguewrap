@@ -13,6 +13,11 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client = $client;
 	}
 
+	public function tearDown()
+	{
+		m::close();
+	}
+
 	public function testInfo()
 	{
 		$this->client->shouldReceive('baseUrl')

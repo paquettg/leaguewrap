@@ -168,7 +168,7 @@ class Api {
 	 */
 	public function team()
 	{
-		$team = new Team($this->team);
+		$team = new Team($this->client);
 		$team->setKey($this->key)
 		     ->setRegion($this->region);
 	    
