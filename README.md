@@ -55,6 +55,29 @@ $champions = $api->champion()->free(); // will throw a LeagueWrap\Api\RegionExce
 
 The LeagueWrap\Api\Exception in the above example will contain the string 'The region "br" is not permited to query this API.'.
 
+Facade
+------
+
+You can use LeagueWrap through a static client to make it even easier to send API requests.
+
+```php
+LeagueWrap\StaticApi::mount(); // Mount all the static facades
+
+Api::setKey('my-key'); // set the key for the api
+
+$summoner = Api::summoner(); // get a champion api instance
+$summoner->info('bakasan');  // get info about summoner
+echo $summoner->bakasan->id; // 74602
+// or
+Summoner::info('bakasan');        // get info about the summoner 'bakasan'
+echo Summoner::get('bakasan')->id // 74602
+
+Game::recent(Summoner::get('bakasan'));          // get the recent games for bakasan
+$game = Summoner::get('bakasan')->recentGame(0); // get the most recent game
+```
+
+All normal api methods and api requests can be done using the facades and you no longuer need to have an instance of LeagueWrap\Api. You must always set the key at least once befor you can call any api requests but after it is set it will be used everywhere. 
+
 Quick Reference
 ---------------
 
