@@ -15,7 +15,7 @@ class Api {
 	 *
 	 * @var string
 	 */
-	protected $url = 'http://prod.api.pvp.net/api/lol/';
+	protected $url = 'https://prod.api.pvp.net/api/lol/';
 
 	/**
 	 * The region to be used. Defaults to 'na'.

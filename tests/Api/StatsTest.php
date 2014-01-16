@@ -1,7 +1,6 @@
 <?php
 
 use LeagueWrap\Api;
-
 use Mockery as m;
 
 class ApiStatsTest extends PHPUnit_Framework_TestCase {
