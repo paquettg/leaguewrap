@@ -5,7 +5,7 @@ use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 use LeagueWrap\Response\PlayerStats;
 
-class Stats extends Api {
+class Stats extends AbstractApi {
 
 	/**
 	 * Valid version for this api call.

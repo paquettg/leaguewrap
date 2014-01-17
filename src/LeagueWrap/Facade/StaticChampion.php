@@ -1,9 +1,10 @@
 <?php
 namespace LeagueWrap\Facade;
 
-use LeagueWrap;
+use Api;
+use LeagueWrap\Api\Champion;
 
-class Champion extends Facade {
+class StaticChampion extends AbstractFacade {
 
 	/**
 	 * The champion api class to be used for all requests.
@@ -14,7 +15,7 @@ class Champion extends Facade {
 
 	public static function __callStatic($method, $arguments)
 	{
-		if (self::$champion instanceof LeagueWrap\Api\Champion)
+		if (self::$champion instanceof Champion)
 		{
 			return call_user_func_array([self::$champion, $method], $arguments);
 		}

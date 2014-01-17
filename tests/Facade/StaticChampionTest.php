@@ -2,7 +2,7 @@
 
 use Mockery as m;
 
-class FacadeChampionTest extends PHPUnit_Framework_TestCase {
+class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	protected $client;
 

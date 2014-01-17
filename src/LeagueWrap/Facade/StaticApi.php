@@ -1,10 +1,10 @@
 <?php
 namespace LeagueWrap\Facade;
 
-use LeagueWrap;
+use LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 
-final class Api extends Facade {
+final class StaticApi extends AbstractFacade {
 
 	/**
 	 * The api class to be used for all requests.
@@ -15,7 +15,7 @@ final class Api extends Facade {
 
 	public static function __callStatic($method, $arguments)
 	{
-		if (self::$api instanceof LeagueWrap\Api)
+		if (self::$api instanceof Api)
 		{
 			return call_user_func_array([self::$api, $method], $arguments);
 		}
@@ -34,7 +34,7 @@ final class Api extends Facade {
 	 */
 	public static function setKey($key, ClientInterface $client = null)
 	{
-		self::$api = new LeagueWrap\Api($key, $client);
+		self::$api = new Api($key, $client);
 		return self::$api;
 	}
 

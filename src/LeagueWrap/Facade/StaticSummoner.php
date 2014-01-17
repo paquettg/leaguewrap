@@ -1,9 +1,10 @@
 <?php
 namespace LeagueWrap\Facade;
 
-use LeagueWrap;
+use Api;
+use LeagueWrap\Api\Summoner;
 
-class Summoner extends Facade {
+class StaticSummoner extends AbstractFacade {
 
 	/**
 	 * The summoner api class to be used for all requests.
@@ -14,7 +15,7 @@ class Summoner extends Facade {
 
 	public static function __callStatic($method, $arguments)
 	{
-		if (self::$summoner instanceof LeagueWrap\Api\Summoner)
+		if (self::$summoner instanceof Summoner)
 		{
 			return call_user_func_array([self::$summoner, $method], $arguments);
 		}

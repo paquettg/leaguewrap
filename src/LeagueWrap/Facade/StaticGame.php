@@ -1,9 +1,10 @@
 <?php
 namespace LeagueWrap\Facade;
 
-use LeagueWrap;
+use Api;
+use LeagueWrap\Api\Game;
 
-class Game extends Facade {
+class StaticGame extends AbstractFacade {
 
 	/**
 	 * The game api class to be used for all requests.
@@ -14,7 +15,7 @@ class Game extends Facade {
 
 	public static function __callStatic($method, $arguments)
 	{
-		if (self::$game instanceof LeagueWrap\Api\Game)
+		if (self::$game instanceof Game)
 		{
 			return call_user_func_array([self::$game, $method], $arguments);
 		}

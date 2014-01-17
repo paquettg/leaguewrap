@@ -1,6 +1,6 @@
 <?php
 
-class FacadeApiTest extends PHPUnit_Framework_TestCase {
+class FacadeStaticApiTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
@@ -53,5 +53,13 @@ class FacadeApiTest extends PHPUnit_Framework_TestCase {
 		Api::setKey('key');
 		$team = Api::team();
 		$this->assertTrue($team instanceof LeagueWrap\Api\Team);
+	}
+
+	public function testFresh()
+	{
+		$api1 = Api::setKey('key');
+		Api::fresh();
+		$api2 = Api::setKey('key');
+		$this->assertNotEquals(spl_object_hash($api1), spl_object_hash($api2));
 	}
 }

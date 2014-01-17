@@ -4,7 +4,7 @@ namespace LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Response\Champion as Champ;
 
-class Champion extends Api {
+class Champion extends AbstractApi {
 	
 	/**
 	 * Do we want to only get the free champions?

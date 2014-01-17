@@ -27,7 +27,7 @@ final class StaticApi {
 	{
 		foreach (self::$facades as $facade)
 		{
-			$facade = '\\LeagueWrap\\Facade\\'.$facade;
+			$facade = '\\LeagueWrap\\Facade\\Static'.$facade;
 			// mount it
 			$facade::mount();
 			// freshen it up

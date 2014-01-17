@@ -4,7 +4,7 @@ namespace LeagueWrap\Api;
 use LeagueWrap\Response\Summoner;
 use LeagueWrap\Region;
 
-abstract class Api {
+abstract class AbstractApi {
 	
 	/**
 	 * The client used to communicate with the api
@@ -197,3 +197,4 @@ abstract class Api {
 		return false;
 	}
 }
+

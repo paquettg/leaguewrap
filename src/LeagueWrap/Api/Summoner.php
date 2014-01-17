@@ -8,7 +8,7 @@ use LeagueWrap\Response\Rune;
 use LeagueWrap\Response\MasteryPage;
 use LeagueWrap\Response\Talent;
 
-class Summoner extends Api {
+class Summoner extends AbstractApi {
 
 	/**
 	 * The summoners we have loaded.

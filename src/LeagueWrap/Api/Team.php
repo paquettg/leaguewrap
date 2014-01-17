@@ -4,7 +4,7 @@ namespace LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 
-class Team extends Api {
+class Team extends AbstractApi {
 
 	/**
 	 * A list of all the teams we have received so far.

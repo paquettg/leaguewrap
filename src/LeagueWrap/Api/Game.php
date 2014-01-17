@@ -4,7 +4,7 @@ namespace LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 
-class Game extends Api {
+class Game extends AbstractApi {
 
 	/**
 	 * Valid version for this api call.

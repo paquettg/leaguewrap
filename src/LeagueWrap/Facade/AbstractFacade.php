@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Facade;
 
-abstract class Facade {
+abstract class AbstractFacade {
 
 	/**
 	 * Mount this class as an alias.
@@ -9,10 +9,14 @@ abstract class Facade {
 	 * @param string $className
 	 * @return void
 	 */
-	public static function mount()
+	public static function mount($className = null)
 	{
-		$class     = get_called_class();
-		$className = end(explode('\\', $class));
+		if (is_null($className))
+		{
+			$class      = get_called_class();
+			$staticName = end(explode('\\', $class));
+			$className  = str_replace('Static', '', $staticName);
+		}
 		if (class_exists($className))
 		{
 			return;
