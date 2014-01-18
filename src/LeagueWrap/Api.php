@@ -1,12 +1,7 @@
 <?php
 namespace LeagueWrap;
 
-use LeagueWrap\Api\Champion;
-use LeagueWrap\Api\Summoner;
-use LeagueWrap\Api\Game;
-use LeagueWrap\Api\League;
-use LeagueWrap\Api\Stats;
-use LeagueWrap\Api\Team;
+use LeagueWrap\Api\AbstractApi;
 
 class Api {
 
@@ -30,6 +25,20 @@ class Api {
 	 * @var object
 	 */
 	protected $client;
+
+	/**
+	 * Should we even try to cache any of the requests?
+	 *
+	 * @var bool
+	 */
+	protected $cache = false;
+
+	/**
+	 * How long, in seconds, should we remember a query's response.
+	 *
+	 * @var int
+	 */
+	protected $remember = null;
 
 	/**
 	 * This is the api key, very important.
@@ -63,6 +72,36 @@ class Api {
 	}
 
 	/**
+	 * This is the primary service locater if you utilize the api (which you should) to 
+	 * load instance of the abstractApi. This is the method that is called when you attempt
+	 * to invoke "Champion()", "League()", etc.
+	 *
+	 * @param string $method
+	 * @param array $arguments
+	 * @return AbstractApi
+	 */
+	public function __call($method, $arguments)
+	{
+		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
+		$api       = new $className($this->client);
+		if ( ! $api instanceof AbstractApi)
+		{
+			// This is not an api class.
+			throw new Exception('The api class "'.$className.'" was not found.');
+		}
+
+		$api->setKey($this->key)
+		    ->setRegion($this->region);
+
+		if ($this->cache)
+		{
+			$api->remember($this->remember);
+		}
+
+		return $api;
+	}
+
+	/**
 	 * Change the url for the client.
 	 *
 	 * @param string $url
@@ -87,91 +126,17 @@ class Api {
 	}
 
 	/**
-	 * Start a champion request.
+	 * Sets the amount of seconds we should remember the response for.
+	 * Leave it empty (or null) if you want to use the default set for 
+	 * each api request.
 	 *
-	 * @return Champion
+	 * @param int $seconds
+	 * @chainable
 	 */
-	public function champion()
+	public function remember($seconds = null)
 	{
-		$champion = new Champion($this->client);
-		$champion->setKey($this->key)
-		         ->setRegion($this->region);
-
-		return $champion;
-	}
-
-	/**
-	 * Start a summoner request. We need either the summoner name
-	 * or id for most of the requests in this object.
-	 *
-	 * @return Summoner;
-	 */
-	public function summoner()
-	{
-		$summoner = new Summoner($this->client);
-		$summoner->setKey($this->key)
-		         ->setRegion($this->region);
-
-		return $summoner;
-	}
-
-	/**
-	 * Start a game request. We need the summoner id for all
-	 * requests in this object.
-	 *
-	 * @return Game;
-	 */
-	public function game()
-	{
-		$game = new Game($this->client);
-		$game->setKey($this->key)
-		     ->setRegion($this->region);
-
-		return $game;
-	}
-
-	/**
-	 * Starts a league request. We need the summoner id for all
-	 * requests in this object.
-	 *
-	 * @return League
-	 */
-	public function league()
-	{
-		$league = new League($this->client);
-		$league->setKey($this->key)
-		       ->setRegion($this->region);
-		
-		return $league;
-	}
-
-	/**
-	 * Starts a stats request. We need the summoner id for all
-	 * requests in this object.
-	 *
-	 * @return Stats
-	 */
-	public function stats()
-	{
-		$stats = new Stats($this->client);
-		$stats->setKey($this->key)
-		      ->setRegion($this->region);
-		
-		return $stats;
-	}
-
-	/**
-	 * Starts a team request. We need the summoner id for all
-	 * requests in this object.
-	 *
-	 * @return Team
-	 */
-	public function team()
-	{
-		$team = new Team($this->client);
-		$team->setKey($this->key)
-		     ->setRegion($this->region);
-	    
-	    return $team;
+		$this->cache    = true;
+		$this->remember = $seconds;
+		return $this;
 	}
 }
