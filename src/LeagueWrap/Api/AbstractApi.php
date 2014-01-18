@@ -3,6 +3,7 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Response\Summoner;
 use LeagueWrap\Region;
+use LeagueWrap\CacheInterface;
 
 abstract class AbstractApi {
 	
@@ -50,6 +51,20 @@ abstract class AbstractApi {
 	 * @param int
 	 */
 	protected $requests = 0;
+
+	/**
+	 * This is the cache container that we intend to use.
+	 *
+	 * @var CacheInterface
+	 */
+	protected $cache = null;
+
+	/**
+	 * The amount of time we intend to remember the response for.
+	 *
+	 * @var int
+	 */
+	protected $defaultRemember = 0;
 
 	/**
 	 * Returns the amount of requests this object has done
@@ -107,6 +122,35 @@ abstract class AbstractApi {
 	}
 
 	/**
+	 * Sets the amount of seconds we should remember the response for.
+	 * Leave it empty (or null) if you want to use the default set for 
+	 * each api request.
+	 *
+	 * @param int $seconds
+	 * @param CacheInterface $cache
+	 * @chainable
+	 */
+	public function remember($seconds = null, CacheInterface $cache = null)
+	{
+		if (is_null($cache))
+		{
+			// use the built in cache interface
+			$cache = new Cache;
+		}
+		$this->cache = $cache;
+		if (is_null($seconds))
+		{
+			$this->cache->setSeconds($this->defaultRemember);
+		}
+		else
+		{
+			$this->cache->setSeconds($seconds);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Wraps the request of the api in this method.
 	 *
 	 * @param string $path
@@ -129,11 +173,33 @@ abstract class AbstractApi {
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri     = $this->region.'/'.$version.'/'.$path;
-		$content = $this->client->request($uri, $params);
+		$uri = $this->region.'/'.$version.'/'.$path;
+		// check cache
+		if ($this->cache instanceof CacheInterface)
+		{
+			$cacheKey = md5($uri.'?'.http_build_query($params));
+			if ($this->cache->has($cacheKey))
+			{
+				$content = $this->cache->get($cacheKey);
+			}
+			else
+			{
+				$content = $this->client->request($uri, $params);
 
-		// request was succesful
-		++$this->requests;
+				// request was succesful
+				++$this->requests;
+
+				// we want to cache this response
+				$this->cache->remember($content, $cacheKey);
+			}
+		}
+		else
+		{
+			$content = $this->client->request($uri, $params);
+
+			// request was succesful
+			++$this->requests;
+		}
 
 		// decode the content
 		return json_decode($content, true);
