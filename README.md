@@ -40,7 +40,7 @@ Regions
 You can set the region that you wish to query. By default it is 'na' but it can be changed to any string.
 
 ```php
-use LeagueWrap\Api
+use LeagueWrap\Api;
 
 $api = new Api($myKey);  // Load up the API
 $api->setRegion('euw');  // Set the region to 'euw'
@@ -54,6 +54,47 @@ $champions = $api->champion()->free(); // will throw a LeagueWrap\Api\RegionExce
 ```
 
 The `LeagueWrap\Api\RegionException` in the above example will contain the string `'The region "br" is not permited to query this API.'`.
+
+Cache
+-----
+
+Caching is very important, we all know that and given the query limit impossed on every application this part of the package is very important to every developer. Given this, by default, the cache requiers `memcached` to be installed and operation on default port and localhost. This can easily be changed by implementing your own version of the cacheInterface. Lets start with an example of how to use the cache.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey); // Load up the API
+$api->remember(60);     // Set the cache to remember every request for 60 seconds
+// or
+$api->remember();     // Enable cache with the default value for each api call.
+$api->remember(null); // Same as above, null is the default value
+```
+
+The above applies to every future request done trough the `$api` methods. If you wish to set the cache time for any individual request, which is reasonable given that things change at a different pace.
+
+```php
+use LeagueWrap\Api;
+
+$api      = new Api($myKey);           // Load up the API
+$summoner = $api->summoner()           // Get the summoner api request object
+                ->remember(3600);      // Remember all request done by this single request object
+$bakasan = $summoner->info('bakasan'); // This request is cached for 1 hour (3600 seconds)
+```
+
+Now we will only remember the response for the info() method is cached for 1 hour (3600 seconds). All other api objects, such as League, does not get effected by this cache time and, by default, does not cache the response.
+
+Now, lets say you don't want to use memcached or you wish to use the caching service provided by your framework? I completly understand and that is why you can implement the `LeagueWrap\CacheInterface` to implement your own cache. This Dependency Injection (DI) is also used by the Api client as shown in the Quick Reference section. To use your own cache implementation you can just do the following.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey);       // Load up the API
+$api->remember(60, $myCache); // Set the cache to use your own cache implementation
+// or
+$api->remember(null, $myCache); // Set the cache implementation but keep the default cache times
+```
+
+It's even easyer to do using Facades, which you will see in the next second.
 
 Facade
 ------
@@ -76,7 +117,18 @@ Game::recent(Summoner::get('bakasan'));          // get the recent games for bak
 $game = Summoner::get('bakasan')->recentGame(0); // get the most recent game
 ```
 
-All normal API methods and API requests can be done using the facades and you no longer need to have an instance of `LeagueWrap\Api`. You must always set the key at least once before you can call any API requests but after it is set it will be used everywhere. 
+All normal API methods and API requests can be done using the facades and you no longer need to have an instance of `LeagueWrap\Api`. You must always set the key at least once before you can call any API requests but after it is set it will be used everywhere. The same can be applied to the cache reminder.
+
+```
+LeagueWrap\StaticApi::mount(); // Mount all the static facades
+
+Api::setKey('my-key');                // set the key for the API
+Api::remember(60);                    // cache all request for 60 seconds
+$bakasan = Summoner::info('bakasan'); // cached for 60 seconds
+// or
+Api::remember(60, $myCache);          // cache all request using my own 
+$bakasan = Summoner::info('bakasan'); // cached for 60 seconds using $myCache
+```
 
 Quick Reference
 ---------------
@@ -93,7 +145,7 @@ Creates a new Api instance with the key. The key is mandatory and will throw an 
 $api = new \LeagueWrap\Api($myKey, $myClient);
 ```
 
-Using the Dependency Injection (DI) principle we allow you to inject your own client object that implements `LeagueWrap\ClientInterface`. This allows you to use your own REST client if you wish to instead of Guzzle (which is what comes with the package).
+Using the DI principle we allow you to inject your own client object that implements `LeagueWrap\ClientInterface`. This allows you to use your own REST client if you wish to instead of Guzzle (which is what comes with the package).
 
 ```php
 $summoner = $api->summoner();
