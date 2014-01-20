@@ -3,6 +3,7 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Response\Summoner;
 use LeagueWrap\Region;
+use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
 
 abstract class AbstractApi {
@@ -65,6 +66,13 @@ abstract class AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 0;
+
+	/**
+	 * The amount of seconds to keep things in cache
+	 *
+	 * @var int
+	 */
+	protected $seconds = 0;
 
 	/**
 	 * Returns the amount of requests this object has done
@@ -140,11 +148,11 @@ abstract class AbstractApi {
 		$this->cache = $cache;
 		if (is_null($seconds))
 		{
-			$this->cache->setSeconds($this->defaultRemember);
+			$this->seconds = $this->defaultRemember;
 		}
 		else
 		{
-			$this->cache->setSeconds($seconds);
+			$this->seconds = $seconds;
 		}
 
 		return $this;
@@ -190,7 +198,7 @@ abstract class AbstractApi {
 				++$this->requests;
 
 				// we want to cache this response
-				$this->cache->remember($content, $cacheKey);
+				$this->cache->set($content, $cacheKey, $this->seconds);
 			}
 		}
 		else

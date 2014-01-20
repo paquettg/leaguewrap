@@ -4,23 +4,15 @@ namespace LeagueWrap;
 interface CacheInterface {
 
 	/**
-	 * Sets the amount of time you would like the cache to live
-	 * for.
-	 *
-	 * @param int $seconds
-	 * @chainable
-	 */
-	public function setSeconds($seconds);
-
-	/**
 	 * Adds the response string into the cache under the given key for
 	 * $seconds.
 	 *
 	 * @param string $key
 	 * @param string $response
+	 * @param int $seconds
 	 * @return bool
 	 */
-	public function remember($key, $response);
+	public function set($key, $response, $seconds);
 
 	/**
 	 * Determines if the cache has the given key.
