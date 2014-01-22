@@ -72,39 +72,89 @@ class Summoner extends AbstractApi {
 	/**
 	 * Gets the information about the user by the given identification.
      *
-     * @param mixed $identity
+     * @param mixed $identities
      * @return Response\Summoner
 	 */
-	public function info($identity)
+	public function info($identities)
 	{
-		if (is_int($identity))
+		$ids   = [];
+		$names = [];
+		if (is_array($identities))
 		{
-			// it's the id
-			$summoner = $this->infoById($identity);
+			foreach ($identities as $identity)
+			{
+				if (is_int($identity))
+				{
+					// it's the id
+					$ids[] = $identity;
+				}
+				else
+				{
+					// the summoner name
+					$names[] = $identity;
+				}
+			}
 		}
 		else
 		{
+			if (is_int($identities))
+			{
+				// it's the id
+				$ids[] = $identities;
+			}
+			else
+			{
+				// the summoner name
+				$names[] = $identities;
+			}
+		}
+		$summoners = [];
+		if (count($ids) > 0)
+		{
+			// it's the id
+			$ids = $this->infoById($ids);
+			if ( ! is_array($ids))
+			{
+				$ids = [$ids->name => $ids];
+			}
+		}
+		if (count($names) > 0)
+		{
 			// the summoner name
-			$summoner = $this->infoByName($identity);
+			$names = $this->infoByName($names);
+			if ( ! is_array($names))
+			{
+				$names = [$names->name => $names];
+			}
 		}
 
-		return $summoner;
+		$summoners = array_merge($ids, $names);
+
+		if (count($summoners) == 1)
+		{
+			return reset($summoners);
+		}
+		else
+		{
+			return $summoners;
+		}
+
 	}
 
 	/**
 	 * Attempts to get all information about this user. This method
 	 * will make 3 requests!
 	 *
-	 * @param mixed $identity
+	 * @param mixed $identities
 	 * @return Response\Summoner;
 	 */
-	public function allInfo($identity)
+	public function allInfo($identities)
 	{
-		$summoner = $this->info($identity);
-		$this->runePages($summoner);
-		$this->masteryPages($summoner);
+		$summoners = $this->info($identities);
+		$this->runePages($summoners);
+		$this->masteryPages($summoners);
 		
-		return $summoner;
+		return $summoners;
 	}
 
 	/**
@@ -131,17 +181,18 @@ class Summoner extends AbstractApi {
 	/**
 	 * Gets all rune pages of the given user object or id.
 	 *
-	 * @param mixed $identity
+	 * @param mixed $identities
 	 * @return array
 	 * @throws Exception
 	 */
-	public function runePages($identity)
+	public function runePages($identities)
 	{
-		$id = $this->extractId($identity);
+		$ids = $this->extractIds($identities);
+		$ids = implode(',', $ids);
 
-		$array     = $this->request('summoner/'.$id.'/runes');
+		$array     = $this->request('summoner/'.$ids.'/runes');
 		$summoners = [];
-		foreach ($array as $id => $data)
+		foreach ($array as $summonerId => $data)
 		{
 			$runePages = [];
 			foreach ($data['pages'] as $info)
@@ -160,13 +211,13 @@ class Summoner extends AbstractApi {
 				$runePage->runes = $runes;
 				$runePages[]     = $runePage;
 			}
-			$summoners[$id] = $runePages;
+			$summoners[$summonerId] = $runePages;
 		}
 
+		$this->attachResponses($identities, $summoners, 'runePages');
 		if (count($summoners) == 1)
 		{
 			$runePages = reset($summoners);
-			$this->attachResponse($identity, $runePages, 'runePages');
 			return $runePages;
 		}
 		else
@@ -178,21 +229,28 @@ class Summoner extends AbstractApi {
 	/**
 	 * Gets all the mastery pages of the given user object or id.
 	 *
-	 * @param mixed $identity
+	 * @param mixed $identities
 	 * @return array
 	 * @throws Exception
 	 */
-	public function masteryPages($identity)
+	public function masteryPages($identities)
 	{
-		$id = $this->extractId($identity);
+		$ids = $this->extractIds($identities);
+		$ids = implode(',', $ids);
 
-		$array     = $this->request('summoner/'.$id.'/masteries');
+		$array     = $this->request('summoner/'.$ids.'/masteries');
 		$summoners = [];
-		foreach ($array as $id => $data)
+		foreach ($array as $summonerId => $data)
 		{
 			$masteryPages = [];
 			foreach ($data['pages'] as $info)
 			{
+				if ( ! isset($info['talents']))
+				{
+					// seting the talents to an empty array
+					$info['talents'] = [];
+				}
+
 				$talentsInfo = $info['talents'];
 				unset($info['talents']);
 				$masteryPage = new MasteryPage($info);
@@ -207,17 +265,19 @@ class Summoner extends AbstractApi {
 				$masteryPage->talents = $talents;
 				$masteryPages[]       = $masteryPage;
 			}
-			$summoners[$id] = $masteryPages;
+			$summoners[$summonerId] = $masteryPages;
 		}
 
+		$this->attachResponses($identities, $summoners, 'masteryPages');
 		if (count($summoners) == 1)
 		{
 			$masteryPages = reset($summoners);
-			$this->attachResponse($identity, $masteryPages, 'masteryPages');
 			return $masteryPages;
 		}
-
-		return $masteryPages;
+		else
+		{
+			return $summoners;
+		}
 	}
 
 	/**
@@ -238,11 +298,12 @@ class Summoner extends AbstractApi {
 		}
 		$array     = $this->request('summoner/'.$ids);
 		$summoners = [];
-		foreach ($array as $name => $info)
+		foreach ($array as $id => $info)
 		{
-			$summoner = new Response\Summoner($info);
+			$summoner               = new Response\Summoner($info);
+			$name                   = $summoner->name;
 			$this->summoners[$name] = $summoner;
-			$summoners[$name] = $summoner;
+			$summoners[$name]       = $summoner;
 		}
 
 		if (count($summoners) == 1)
@@ -265,7 +326,7 @@ class Summoner extends AbstractApi {
 	{
 		if (is_array($names))
 		{
-			if (count($ids) > 40)
+			if (count($names) > 40)
 			{
 				throw new ListMaxException('this request can only support a list of 40 elements, '.count($ids).' given.');
 			}

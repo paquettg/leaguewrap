@@ -295,5 +295,41 @@ abstract class AbstractApi {
 		
 		return false;
 	}
+
+	/**
+	 * Attempts to attach all the responses to the correct summoner.
+	 *
+	 * @param mixed $identity
+	 * @param mixed $responses
+	 * @param string $key
+	 * @return bool
+	 */
+	protected function attachResponses($identities, $responses, $key)
+	{
+		if (is_array($identities))
+		{
+			foreach ($identities as $identity)
+			{
+				if ($identity instanceof Summoner)
+				{
+					$id       = $identity->id;
+					$response = $responses[$id];
+					$this->attachResponse($identity, $response, $key);
+				}
+			}
+		}
+		else
+		{
+			$identity = $identities;
+			if ($identity instanceof Summoner)
+			{
+				$id       = $identity->id;
+				$response = $responses[$id];
+				$this->attachResponse($identity, $response, $key);
+			}
+		}
+
+		return true;
+	}
 }
 
