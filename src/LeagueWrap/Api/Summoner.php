@@ -285,6 +285,7 @@ class Summoner extends AbstractApi {
 	 *
 	 * @param array $ids
 	 * @return Response\Summoner|Response\Summoner[];
+	 * @throws ListMaxException
 	 */
 	protected function infoById($ids)
 	{
@@ -321,6 +322,7 @@ class Summoner extends AbstractApi {
 	 *
 	 * @param mixed $name
 	 * @return Response\Summoner|Response\Summoner[];
+	 * @throws ListMaxException
 	 */
 	protected function infoByName($names)
 	{

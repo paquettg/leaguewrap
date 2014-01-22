@@ -180,7 +180,90 @@ $info = $summoner->info(76204);
 The above will do an info request by the summoner id 76204 and works the same as the above method.
 
 ```php
+$summoners = $summoner->info([
+	76204,
+	1234,
+	111111,
+	1337,
+]);
+```
+
+The above will do a simgle request and get the information for the summoner of all the ids given. It will then return an array of all the information about said summoners. You really should use this to get information from multiple summoners as it only costs you 1 request.
+
+```php
+$summoners = $summoner->info([
+	76204,
+	'C9 Hai',
+	'riot',
+	1234,
+]);
+```
+
+You can also mix up ids and names and it will return an array. This will take 2 requests though, so be careful with it. Another limitation is a limit of 40 ids and 40 names per request, this is impossed by the API so we throw a `LeagueWrap\Api\ListMaxException` if you attempt this.
+
+```php
 $summoner->getRequestCount()
 ```
 
 If you wish to know how many requests you have done so far with a single API object you can always request the request count. It will simply return the number of requests to the API it has performed so far.
+
+```php
+$names = $summoner->name(76204);
+```
+
+It also accepts an array of ids instead of a single id and will return an associate array where `id => summonername`.
+
+The remaining methods list is not complete and will be documented soon enough. Sorry about the delay.
+
+```php
+$runePages = $summoner->runePage($bakasan);
+```
+
+```php
+$runePage = $bakasan->runePage(0);
+```
+
+```php
+$masteryPages = $summoner->masteryPages($bakasan);
+```
+
+```php
+$masteryPage = $bakasan->masteryPage(0);
+```
+
+```php
+$bakasan = $summoner->allInfo(76204);
+```
+
+```php
+$champion = $api->champion();
+```
+
+```php
+$champions = $champion->all();
+```
+
+```php
+$freeChampions = $champion->free();
+```
+
+```php
+$game = $api->game();
+```
+
+```php
+$games = $game->recent(74602);
+```
+
+```php
+$games = $game->recent($bakasan);
+```
+
+```php
+$game = $bakasan->recentGame(0);
+```
+
+```php
+$league = $api->league();
+```
+
