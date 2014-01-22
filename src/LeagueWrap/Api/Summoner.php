@@ -23,7 +23,7 @@ class Summoner extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v1.2',
+		'v1.3',
 	];
 
 	/**
@@ -108,6 +108,27 @@ class Summoner extends AbstractApi {
 	}
 
 	/**
+	 * Gets the name of each summoner from a list of ids.
+	 *
+	 * @param mixed $identities
+	 * @return array
+	 */
+	public function name($identities)
+	{
+		$ids = $this->extractIds($identities);
+		$ids = implode(',', $ids);
+		
+		$array = $this->request('summoner/'.$ids.'/name');
+		$names = [];
+		foreach ($array as $id => $name)
+		{
+			$names[$id] = $name;
+		}
+
+		return $names;
+	}
+
+	/**
 	 * Gets all rune pages of the given user object or id.
 	 *
 	 * @param mixed $identity
@@ -119,27 +140,39 @@ class Summoner extends AbstractApi {
 		$id = $this->extractId($identity);
 
 		$array     = $this->request('summoner/'.$id.'/runes');
-		$runePages = [];
-		foreach ($array['pages'] as $info)
+		$summoners = [];
+		foreach ($array as $id => $data)
 		{
-			$slots = $info['slots'];
-			unset($info['slots']);
-			$runePage = new RunePage($info);
-			// set runes
-			$runes = [];
-			foreach ($slots as $slot)
+			$runePages = [];
+			foreach ($data['pages'] as $info)
 			{
-				$id         = $slot['runeSlotId'];
-				$rune       = new Rune($slot['rune']);
-				$runes[$id] = $rune;
+				$slots = $info['slots'];
+				unset($info['slots']);
+				$runePage = new RunePage($info);
+				// set runes
+				$runes = [];
+				foreach ($slots as $slot)
+				{
+					$id         = $slot['runeSlotId'];
+					$rune       = new Rune($slot['rune']);
+					$runes[$id] = $rune;
+				}
+				$runePage->runes = $runes;
+				$runePages[]     = $runePage;
 			}
-			$runePage->runes = $runes;
-			$runePages[]     = $runePage;
+			$summoners[$id] = $runePages;
 		}
 
-		$this->attachResponse($identity, $runePages, 'runePages');
-
-		return $runePages;
+		if (count($summoners) == 1)
+		{
+			$runePages = reset($summoners);
+			$this->attachResponse($identity, $runePages, 'runePages');
+			return $runePages;
+		}
+		else
+		{
+			return $summoners;
+		}
 	}
 
 	/**
@@ -153,26 +186,36 @@ class Summoner extends AbstractApi {
 	{
 		$id = $this->extractId($identity);
 
-		$array        = $this->request('summoner/'.$id.'/masteries');
-		$masteryPages = [];
-		foreach ($array['pages'] as $info)
+		$array     = $this->request('summoner/'.$id.'/masteries');
+		$summoners = [];
+		foreach ($array as $id => $data)
 		{
-			$talentsInfo = $info['talents'];
-			unset($info['talents']);
-			$masteryPage = new MasteryPage($info);
-			// set masterys
-			$talents = [];
-			foreach ($talentsInfo as $talent)
+			$masteryPages = [];
+			foreach ($data['pages'] as $info)
 			{
-				$id           = $talent['id'];
-				$talent       = new Talent($talent);
-				$talents[$id] = $talent;
+				$talentsInfo = $info['talents'];
+				unset($info['talents']);
+				$masteryPage = new MasteryPage($info);
+				// set masterys
+				$talents = [];
+				foreach ($talentsInfo as $talent)
+				{
+					$id           = $talent['id'];
+					$talent       = new Talent($talent);
+					$talents[$id] = $talent;
+				}
+				$masteryPage->talents = $talents;
+				$masteryPages[]       = $masteryPage;
 			}
-			$masteryPage->talents = $talents;
-			$masteryPages[]       = $masteryPage;
+			$summoners[$id] = $masteryPages;
 		}
 
-		$this->attachResponse($identity, $masteryPages, 'masteryPages');
+		if (count($summoners) == 1)
+		{
+			$masteryPages = reset($summoners);
+			$this->attachResponse($identity, $masteryPages, 'masteryPages');
+			return $masteryPages;
+		}
 
 		return $masteryPages;
 	}
@@ -180,34 +223,73 @@ class Summoner extends AbstractApi {
 	/**
 	 * Gets the information by the id of the summoner.
 	 *
-	 * @param int $id
-	 * @return Response\Summoner;
+	 * @param array $ids
+	 * @return Response\Summoner|Response\Summoner[];
 	 */
-	protected function infoById($id)
+	protected function infoById($ids)
 	{
-		$array    = $this->request('summoner/'.$id);
-		$summoner = new Response\Summoner($array);
-		$name     = strtolower($summoner->name);
+		if (is_array($ids))
+		{
+			if (count($ids) > 40)
+			{
+				throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
+			}
+			$ids = implode(',', $ids);
+		}
+		$array     = $this->request('summoner/'.$ids);
+		$summoners = [];
+		foreach ($array as $name => $info)
+		{
+			$summoner = new Response\Summoner($info);
+			$this->summoners[$name] = $summoner;
+			$summoners[$name] = $summoner;
+		}
 
-		$this->summoners[$name] = $summoner;
-		return $summoner;
+		if (count($summoners) == 1)
+		{
+			return reset($summoners);
+		}
+		else
+		{
+			return $summoners;
+		}
 	}
 
 	/**
 	 * Gets the information by the name of the summoner.
 	 *
-	 * @param string $name
-	 * @return Response\Summoner;
+	 * @param mixed $name
+	 * @return Response\Summoner|Response\Summoner[];
 	 */
-	protected function infoByName($name)
+	protected function infoByName($names)
 	{
-		// clean the name
-		$name     = htmlspecialchars($name);
-		$array    = $this->request('summoner/by-name/'.$name);
-		$summoner = new Response\Summoner($array);
-		$name     = strtolower($summoner->name);
+		if (is_array($names))
+		{
+			if (count($ids) > 40)
+			{
+				throw new ListMaxException('this request can only support a list of 40 elements, '.count($ids).' given.');
+			}
+			$names = implode(',', $names);
+		}
 
-		$this->summoners[$name] = $summoner;
-		return $summoner;
+		// clean the name
+		$names     = htmlspecialchars($names);
+		$array     = $this->request('summoner/by-name/'.$names);
+		$summoners = [];
+		foreach ($array as $name => $info)
+		{
+			$summoner = new Response\Summoner($info);
+			$this->summoners[$name] = $summoner;
+			$summoners[$name] = $summoner;
+		}
+		
+		if (count($summoners) == 1)
+		{
+			return reset($summoners);
+		}
+		else
+		{
+			return $summoners;
+		}
 	}
 }

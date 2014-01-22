@@ -253,6 +253,31 @@ abstract class AbstractApi {
 	}
 
 	/**
+	 * Attempts to extract an ID from the array given.
+	 *
+	 * @param mixed $identities
+	 * @return array
+	 * @uses extractId()
+	 */
+	protected function extractIds($identities)
+	{
+		$ids = [];
+		if (is_array($identities))
+		{
+			foreach ($identities as $identity)
+			{
+				$ids[] = $this->extractId($identity);
+			}
+		}
+		else
+		{
+			$ids[] = $this->extractId($identities);
+		}
+
+		return $ids;
+	}
+
+	/**
 	 * Attempts to attach the response to a summoner object.
 	 *
 	 * @param mixed $identity
