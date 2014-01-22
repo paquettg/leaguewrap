@@ -54,24 +54,24 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}', 'bbc4b6dc46d287ee7ca219dc988bca71', 10)
+		            ->with('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1390057239000}}', '8eed0f537fda2bfef50daf6dd53389e0', 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('bbc4b6dc46d287ee7ca219dc988bca71')
+		            ->with('8eed0f537fda2bfef50daf6dd53389e0')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('bbc4b6dc46d287ee7ca219dc988bca71')
-		            ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		            ->with('8eed0f537fda2bfef50daf6dd53389e0')
+		            ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1390057239000}}');
 
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/bakasan', [
+		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1390057239000}}');
 
 		LeagueWrap\StaticApi::mount();
 		Api::setKey('key', $this->client);

@@ -43,10 +43,10 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($this->response());
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/C9 Hai', [
+		             ->with('na/v1.3/summoner/by-name/C9 Hai', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":492066,"name":"C9 Hai","profileIconId":554,"summonerLevel":30,"revisionDate":1389835417000}');
+		             ->andReturn('{"c9hai":{"id":492066,"name":"C9 Hai","profileIconId":554,"summonerLevel":30,"revisionDate":1389835417000}}');
 		
 		$api = new Api('key', $this->client);
 		$hai = $api->summoner()->info('C9 Hai');
@@ -64,10 +64,10 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($this->response());
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/C9 Hai', [
+		             ->with('na/v1.3/summoner/by-name/C9 Hai', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":492066,"name":"C9 Hai","profileIconId":554,"summonerLevel":30,"revisionDate":1389835417000}');
+		             ->andReturn('{"c9hai":{"id":492066,"name":"C9 Hai","profileIconId":554,"summonerLevel":30,"revisionDate":1389835417000}}');
 		
 		$api  = new Api('key', $this->client);
 		$hai  = $api->summoner()->info('C9 Hai');

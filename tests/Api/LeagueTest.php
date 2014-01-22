@@ -43,10 +43,10 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($this->league());
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/bakasan', [
+		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
@@ -64,10 +64,10 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($this->league());
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/bakasan', [
+		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
@@ -86,10 +86,10 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($this->league());
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/bakasan', [
+		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');

@@ -43,10 +43,10 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn('{"summonerId":74602,"playerStatSummaries":[{"playerStatSummaryType":"AramUnranked5x5","wins":0,"modifyDate":1389321706000,"aggregatedStats":{"totalChampionKills":1,"totalTurretsKilled":0,"totalAssists":2}},{"playerStatSummaryType":"OdinUnranked","wins":1,"modifyDate":1335880273000,"aggregatedStats":{"totalChampionKills":22,"totalAssists":34,"maxChampionsKilled":9,"averageNodeCapture":5,"averageNodeNeutralize":3,"averageTeamObjective":1,"averageTotalPlayerScore":875,"averageCombatPlayerScore":305,"averageObjectivePlayerScore":570,"averageNodeCaptureAssist":1,"averageNodeNeutralizeAssist":1,"maxNodeCapture":9,"maxNodeNeutralize":7,"maxTeamObjective":1,"maxTotalPlayerScore":1508,"maxCombatPlayerScore":477,"maxObjectivePlayerScore":1031,"maxNodeCaptureAssist":2,"maxNodeNeutralizeAssist":1,"totalNodeNeutralize":14,"totalNodeCapture":19,"averageChampionsKilled":6,"averageNumDeaths":7,"averageAssists":9,"maxAssists":12}},{"playerStatSummaryType":"RankedPremade3x3","wins":0,"losses":0,"modifyDate":1347501723000,"aggregatedStats":{}},{"playerStatSummaryType":"RankedPremade5x5","wins":0,"losses":0,"modifyDate":1347501723000,"aggregatedStats":{}},{"playerStatSummaryType":"RankedSolo5x5","wins":27,"losses":30,"modifyDate":1389732101000,"aggregatedStats":{"totalChampionKills":67,"totalMinionKills":2396,"totalTurretsKilled":14,"totalNeutralMinionsKilled":86,"totalAssists":740}},{"playerStatSummaryType":"Unranked","wins":435,"modifyDate":1365061780000,"aggregatedStats":{"totalChampionKills":117,"totalMinionKills":3350,"totalTurretsKilled":26,"totalNeutralMinionsKilled":289,"totalAssists":442}},{"playerStatSummaryType":"Unranked3x3","wins":0,"modifyDate":1351133157000,"aggregatedStats":{}}]}');
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner/by-name/bakasan', [
+		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}');
+		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
