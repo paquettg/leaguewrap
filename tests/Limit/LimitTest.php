@@ -14,7 +14,7 @@ class LimitLimitTest extends PHPUnit_Framework_TestCase {
 	public function testHit()
 	{
 		$limit = new Limit;
-		$limit->setRate(10, 10);
+		$limit->setRate(10, 11);
 		$limit->hit();
 		$this->assertEquals(9, $limit->remaining());
 	}
@@ -22,7 +22,7 @@ class LimitLimitTest extends PHPUnit_Framework_TestCase {
 	public function testHitFour()
 	{
 		$limit = new Limit;
-		$limit->setRate(10, 10);
+		$limit->setRate(10, 12);
 		$limit->hit(4);
 		$this->assertEquals(6, $limit->remaining());
 	}
@@ -30,7 +30,6 @@ class LimitLimitTest extends PHPUnit_Framework_TestCase {
 	public function testSetRates()
 	{
 		$limit = new Limit;
-		$limit->setRate(10, 10);
 		$limit->setRate(5, 5);
 		$limit->hit();
 		$this->assertEquals(4, $limit->remaining());

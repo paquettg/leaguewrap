@@ -25,16 +25,6 @@ class Limit implements LimitInterface {
 		$this->key     = 'leagueWrap.hits.'.$hits.'x'.$seconds;
 		$this->hits    = $hits;
 		$this->seconds = $seconds;
-		$deleted       = $this->memcached->delete($this->key);
-		if ( ! $deleted)
-		{
-			if ($this->memcached->getResultCode() == Memcached::RES_NOTFOUND)
-			{
-				return true;
-			}
-
-			return false;
-		}
 		return true;
 	}
 
@@ -48,7 +38,7 @@ class Limit implements LimitInterface {
 			$this->memcached->set($this->key, $this->hits, time() + $this->seconds);
 		}
 
-		if ($hitsLeft < $this->hits)
+		if ($hitsLeft < $count)
 		{
 			return false;
 		}
