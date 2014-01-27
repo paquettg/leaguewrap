@@ -26,6 +26,13 @@ class Game extends AbstractApi {
 		'eune',
 	];
 
+	/**
+	 * The amount of time we intend to remember the response for.
+	 *
+	 * @var int
+	 */
+	protected $defaultRemember = 1800;
+
 	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;

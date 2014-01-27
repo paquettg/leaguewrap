@@ -119,7 +119,7 @@ $game = Summoner::get('bakasan')->recentGame(0); // get the most recent game
 
 All normal API methods and API requests can be done using the facades and you no longer need to have an instance of `LeagueWrap\Api`. You must always set the key at least once before you can call any API requests but after it is set it will be used everywhere. The same can be applied to the cache reminder.
 
-```
+```php
 LeagueWrap\StaticApi::mount(); // Mount all the static facades
 
 Api::setKey('my-key');                // set the key for the API

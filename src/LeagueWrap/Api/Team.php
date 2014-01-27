@@ -35,6 +35,13 @@ class Team extends AbstractApi {
 		'tr',
 	];
 
+	/**
+	 * The amount of time we intend to remember the response for.
+	 *
+	 * @var int
+	 */
+	protected $defaultRemember = 43200;
+
 	public function __construct(ClientInterface $client)
 	{
 		$this->client = $client;
