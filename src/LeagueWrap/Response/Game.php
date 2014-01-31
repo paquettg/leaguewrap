@@ -10,6 +10,11 @@ class Game extends Dto {
 	 */
 	public function __construct($info)
 	{
+		if ( ! isset($info['fellowPlayers']))
+		{
+			// solo game
+			$info['fellowPlayers'] = [];
+		}
 		$fellowPlayers = $info['fellowPlayers'];
 		$players       = [];
 		$teams         = [];
