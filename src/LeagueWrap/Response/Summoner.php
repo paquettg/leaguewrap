@@ -90,7 +90,7 @@ class Summoner extends Dto {
 			}
 
 			// try the name
-			if ($league->playerOrTeam->playerOrTeamName == $identity)
+			if (strtolower($league->playerOrTeam->playerOrTeamName) == strtolower($identity))
 			{
 				return $league;
 			}

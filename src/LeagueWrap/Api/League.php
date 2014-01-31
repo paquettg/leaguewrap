@@ -12,7 +12,7 @@ class League extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v2.2',
+		'v2.3',
 	];
 
 	/**
@@ -52,10 +52,15 @@ class League extends AbstractApi {
 
 		$array   = $this->request('league/by-summoner/'.$id);
 		$leagues = [];
-		foreach ($array as $key => $info)
+		foreach ($array as $info)
 		{
+			$key           = $info['participantId'];
 			$info['id']    = $key;
 			$league        = new Response\League($info);
+			if ( ! is_null($league->playerOrTeam))
+			{
+				$key = $league->playerOrTeam->playerOrTeamName;
+			}
 			$leagues[$key] = $league;
 		}
 
