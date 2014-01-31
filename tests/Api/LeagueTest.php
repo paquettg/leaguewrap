@@ -46,7 +46,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
+		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
@@ -67,7 +67,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
+		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
@@ -89,7 +89,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ->with('na/v1.3/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn('{"bakasan":{"id":74602,"name":"bakasan","profileIconId":24,"summonerLevel":30,"revisionDate":1389732101000}}');
+		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');

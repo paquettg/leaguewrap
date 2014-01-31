@@ -204,9 +204,17 @@ class Summoner extends AbstractApi {
 			$runePages = [];
 			foreach ($data['pages'] as $info)
 			{
+				if ( ! isset($info['slots']))
+				{
+					// no runes in this page
+					$info['slots'] = [];
+				}
+
 				$slots = $info['slots'];
 				unset($info['slots']);
+
 				$runePage = new RunePage($info);
+
 				// set runes
 				$runes = [];
 				foreach ($slots as $slot)
