@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 
 class Game extends AbstractApi {
@@ -32,11 +31,6 @@ class Game extends AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 1800;
-
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
 
 	/**
 	 * Get the recent games by summoner id.

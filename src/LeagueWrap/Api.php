@@ -4,6 +4,9 @@ namespace LeagueWrap;
 use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\Api\AbstractApi;
+use LeagueWrap\LimitInterface;
+use LeagueWrap\Limit\Limit;
+use LeagueWrap\Limit\Collection;
 
 class Api {
 
@@ -43,6 +46,13 @@ class Api {
 	protected $remember = null;
 
 	/**
+	 * The collection of limits to be used for all requests in this api.
+	 *
+	 * @var Collection
+	 */
+	protected $limits = null;
+
+	/**
 	 * This is the api key, very important.
 	 *
 	 * @var string
@@ -71,6 +81,9 @@ class Api {
 
 		// add the key
 		$this->key = $key;
+
+		// set up the limit collection
+		$this->collection = new Collection;
 	}
 
 	/**
@@ -85,7 +98,7 @@ class Api {
 	public function __call($method, $arguments)
 	{
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
-		$api       = new $className($this->client);
+		$api       = new $className($this->client, $this->collection);
 		if ( ! $api instanceof AbstractApi)
 		{
 			// This is not an api class.
@@ -145,6 +158,28 @@ class Api {
 		}
 		$this->cache    = $cache;
 		$this->remember = $seconds;
+		return $this;
+	}
+
+	/**
+	 * Sets a limit to be added to the collection.
+	 *
+	 * @param int $hits
+	 * @param int $seconds
+	 * @param Limit $limit
+	 * @chainable
+	 */
+	public function limit($hits, $seconds, LimitInterface $limit = null)
+	{
+		if (is_null($limit))
+		{
+			// use the built in limit interface
+			$limit = new Limit;
+		}
+
+		$limit->setRate($hits, $seconds);
+
+		$this->collection->addLimit($limit);
 		return $this;
 	}
 }

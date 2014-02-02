@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 use LeagueWrap\Response\PlayerStats;
 
@@ -41,11 +40,6 @@ class Stats extends AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 600;
-
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
 
 	/**
 	 * Sets the season param to the given input.

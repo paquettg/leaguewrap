@@ -9,7 +9,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
-		$this->cache  = m::mock('LeagueWrap\Cache');
+		$this->cache  = m::mock('LeagueWrap\CacheInterface');
 		$this->client = m::mock('LeagueWrap\Client');
 	}
 

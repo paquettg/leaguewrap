@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 use LeagueWrap\Response\RunePage;
 use LeagueWrap\Response\Rune;
@@ -43,11 +42,6 @@ class Summoner extends AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 600;
-
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
 
 	/**
 	 * Attempt to get a summoner by key.

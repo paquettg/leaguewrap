@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\ClientInterface;
 use LeagueWrap\Response\Champion as Champ;
 
 class Champion extends AbstractApi {
@@ -46,11 +45,6 @@ class Champion extends AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 86400;
-
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
 
 	/**
 	 * Attempt to get a champion by key.

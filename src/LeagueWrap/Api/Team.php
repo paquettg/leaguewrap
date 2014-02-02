@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\ClientInterface;
 use LeagueWrap\Response;
 
 class Team extends AbstractApi {
@@ -41,11 +40,6 @@ class Team extends AbstractApi {
 	 * @var int
 	 */
 	protected $defaultRemember = 43200;
-
-	public function __construct(ClientInterface $client)
-	{
-		$this->client = $client;
-	}
 
 	/**
 	 * Gets the team information by summoner id.

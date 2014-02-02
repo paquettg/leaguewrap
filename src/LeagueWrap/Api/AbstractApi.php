@@ -5,15 +5,25 @@ use LeagueWrap\Response\Summoner;
 use LeagueWrap\Region;
 use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
+use LeagueWrap\ClientInterface;
+use LeagueWrap\Limit\Collection;
+use LeagueWrap\Limit\LimitReachedException;
 
 abstract class AbstractApi {
 	
 	/**
-	 * The client used to communicate with the api
+	 * The client used to communicate with the api.
 	 *
-	 * @var object
+	 * @var ClientInterface
 	 */
 	protected $client;
+
+	/**
+	 * The collection of limits to be used on this api.
+	 *
+	 * @var Collection
+	 */
+	protected $collection;
 
 	/**
 	 * The key to be used by the api.
@@ -73,6 +83,18 @@ abstract class AbstractApi {
 	 * @var int
 	 */
 	protected $seconds = 0;
+
+	/**
+	 * Default DI constructor.
+	 *
+	 * @param ClientInterface $client
+	 * @param Collection $collection
+	 */
+	public function __construct(ClientInterface $client, Collection $collection)
+	{
+		$this->client     = $client;
+		$this->collection = $collection;
+	}
 
 	/**
 	 * Returns the amount of requests this object has done
@@ -165,6 +187,7 @@ abstract class AbstractApi {
 	 * @param array $params
 	 * @return array
 	 * @throws RegionException
+	 * @throws LimitReachedException
 	 */
 	protected function Request($path, $params = [])
 	{
@@ -192,6 +215,11 @@ abstract class AbstractApi {
 			}
 			else
 			{
+				// check if we have hit the limit
+				if ( ! $this->collection->hitLimits())
+				{
+					throw new LimitReachedException('You have hit the request limit in your collection.');
+				}
 				$content = $this->client->request($uri, $params);
 
 				// request was succesful
@@ -203,6 +231,11 @@ abstract class AbstractApi {
 		}
 		else
 		{
+			// check if we have hit the limit
+			if ( ! $this->collection->hitLimits())
+			{
+				throw new LimitReachedException('You have hit the request limit in your collection.');
+			}
 			$content = $this->client->request($uri, $params);
 
 			// request was succesful
