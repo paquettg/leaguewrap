@@ -58,7 +58,7 @@ The `LeagueWrap\Api\RegionException` in the above example will contain the strin
 Cache
 -----
 
-Caching is very important, we all know that and given the query limit impossed on every application this part of the package is very important to every developer. Given this, by default, the cache requiers `memcached` to be installed and operation on default port and localhost. This can easily be changed by implementing your own version of the cacheInterface. Lets start with an example of how to use the cache.
+Caching is very important, we all know that and given the query limit impossed on every application this part of the package is very important to every developer. Given this, by default, the cache requires `memcached` to be installed and operating on default port and localhost. This can easily be changed by implementing your own version of the `LeagueWrap\CacheInterface`. Lets start with an example of how to use the cache.
 
 ```php
 use LeagueWrap\Api;
@@ -94,7 +94,32 @@ $api->remember(60, $myCache); // Set the cache to use your own cache implementat
 $api->remember(null, $myCache); // Set the cache implementation but keep the default cache times
 ```
 
-It's even easyer to do using Facades, which you will see in the next second.
+It's even easyer to do using Facades, which you will see after the Rate Limiting section.
+
+Rate Limiting
+-------------
+
+Even with caching you must also take into consideration the rate limits impossed on your api key. With this in mind we added support, similar to the support for caching, for limiting your request rate to the API. The rate limiting method requires `memcached` to be installed and operating on default port and localhost. As with the cache implementation you can always use your own version of the `LeagueWrap\LimitInterface`. Lets start with a basic example.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey); // Load up the API
+$api->limit(10, 10);    // Set a limit of 10 requests per 10 seconds
+$api->limit(500, 600);  // Set a limit of 500 requests per 600 (10 minutes) seconds
+```
+
+The above will set the 2 limits that you will use for the average developer key at the time of writting. You can add as many limits to the collection as you wish and each one will be tracked in the memcached memory. If you go over the limit the application will throw a `LeagueWrap\Limit\LimitReachedException` exception. As with the Cache, it's just as easy to implement this using the DI of a proper `LeagueWrap\LimitInterface`, you may even use multiple Limit interfaces... not that I see a point to it.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey);             // Load up the API
+$api->limit(10, 10, $myLimiter);    // Set a limit using your own limit implementation
+$api->limit(500, 600, $myLimiter); 
+```
+
+And this is fully supporting of the Facades described next.
 
 Facade
 ------
@@ -128,6 +153,18 @@ $bakasan = Summoner::info('bakasan'); // cached for 60 seconds
 // or
 Api::remember(60, $myCache);          // cache all request using my own 
 $bakasan = Summoner::info('bakasan'); // cached for 60 seconds using $myCache
+```
+
+And with limits.
+
+```php
+LeagueWrap\StaticApi::mount(); // Mount all the static facades
+
+Api::setKey('my-key');                // set the key for the API
+Api::remember();                      // cache all request for 60 seconds
+Api::limit(10, 10);                   // Limit of 10 request per 10 seconds
+Api::limit(500, 600);                 // Limit of 500 request per 10 minutes
+$bakasan = Summoner::info('bakasan'); // cached for 60 seconds
 ```
 
 Quick Reference
