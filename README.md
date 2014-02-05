@@ -304,3 +304,9 @@ $game = $bakasan->recentGame(0);
 $league = $api->league();
 ```
 
+Disclaimer
+----------
+
+It is the responsibility of the User to evaluate the content and I will not be liable for any damage or loss caused by the use of this open source software. We do not provide any guarantee that the software will do as expeccted and it is the responsiblity of the User to ensure that the interaction with the software is correct.
+
+This product is not endorsed, certified or otherwise approved in any way by Riot Games, Inc. or any of its affiliates.
