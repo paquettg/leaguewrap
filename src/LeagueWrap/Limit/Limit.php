@@ -54,7 +54,6 @@ class Limit implements LimitInterface {
 		if ($this->memcached->getResultCode() == Memcached::RES_NOTFOUND)
 		{
 			// this is the first hit
-			var_dump('first hit');
 			$hitsLeft = $this->hits;
 		}
 
