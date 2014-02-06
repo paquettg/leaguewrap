@@ -30,6 +30,6 @@ abstract class AbstractFacade {
 	 *
 	 * @return void
 	 */
-	abstract public static function fresh();
+	public static function fresh() {}
 
 }
