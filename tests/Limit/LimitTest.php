@@ -4,6 +4,14 @@ use LeagueWrap\Limit\Limit;
 
 class LimitLimitTest extends PHPUnit_Framework_TestCase {
 
+	public function setUp()
+	{
+		if ( ! extension_loaded('memcached')) 
+		{
+		    $this->markTestSkipped('The memcached extension is not available.');
+		}
+	}
+
 	public function testSetRate()
 	{
 		$limit  = new Limit;

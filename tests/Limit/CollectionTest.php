@@ -5,6 +5,14 @@ use LeagueWrap\Limit\Collection;
 
 class LimitCollectionTest extends PHPUnit_Framework_TestCase {
 
+	public function setUp()
+	{
+		if ( ! extension_loaded('memcached')) 
+		{
+		    $this->markTestSkipped('The memcached extension is not available.');
+		}
+	}
+
 	public function testHitLimits()
 	{
 		$limit = new Limit;
