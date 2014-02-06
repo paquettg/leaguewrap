@@ -23,8 +23,8 @@ class Limit implements LimitInterface {
 	public function setRate($hits, $seconds)
 	{
 		$this->key     = 'leagueWrap.hits.'.$hits.'x'.$seconds;
-		$this->hits    = $hits;
-		$this->seconds = $seconds;
+		$this->hits    = (int) $hits;
+		$this->seconds = (int) $seconds;
 		return true;
 	}
 

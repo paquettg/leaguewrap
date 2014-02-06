@@ -8,6 +8,7 @@ install:
   - composer install
 
 before_script:
+  - composer self-update
   - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
