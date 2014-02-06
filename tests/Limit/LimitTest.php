@@ -30,16 +30,16 @@ class LimitLimitTest extends PHPUnit_Framework_TestCase {
 	public function testHitFour()
 	{
 		$limit = new Limit;
+		$limit->setRate(11, 12);
+		$status = $limit->hit(4);
+		$this->assertTrue($status);
+	}
+
+	public function testHitFourRemaining()
+	{
+		$limit = new Limit;
 		$limit->setRate(10, 12);
 		$limit->hit(4);
 		$this->assertEquals(6, $limit->remaining());
-	}
-
-	public function testSetRates()
-	{
-		$limit = new Limit;
-		$limit->setRate(5, 5);
-		$limit->hit();
-		$this->assertEquals(4, $limit->remaining());
 	}
 }

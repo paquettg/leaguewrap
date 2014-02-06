@@ -43,7 +43,11 @@ class Limit implements LimitInterface {
 			return false;
 		}
 
-		$this->memcached->decrement($this->key, $count);
+		if ($this->memcached->decrement($this->key, $count) === FALSE)
+		{
+			// it failed to decrement
+			return false;
+		}
 
 		return true;
 	}
