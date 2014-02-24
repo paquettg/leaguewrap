@@ -20,11 +20,11 @@ class League extends AbstractApi {
 	 * @param array
 	 */
 	protected $permittedRegions = [
-		'eune',
 		'br',
-		'tr',
-		'na',
+		'eune',
 		'euw',
+		'na',
+		'tr',
 	];
 
 	/**

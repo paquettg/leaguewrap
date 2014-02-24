@@ -31,8 +31,11 @@ class Summoner extends AbstractApi {
 	 * @param array
 	 */
 	protected $permittedRegions = [
-		'euw',
+		'br',
 		'eune',
+		'euw',
+		'lan',
+		'las',
 		'na',
 	];
 

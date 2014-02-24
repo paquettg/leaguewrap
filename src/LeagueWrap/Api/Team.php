@@ -28,8 +28,8 @@ class Team extends AbstractApi {
 	 */
 	protected $permittedRegions = [
 		'br',
-		'euw',
 		'eune',
+		'euw',
 		'na',
 		'tr',
 	];

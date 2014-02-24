@@ -34,9 +34,12 @@ class Champion extends AbstractApi {
 	 * @param array
 	 */
 	protected $permittedRegions = [
-		'na',
+		'br',
 		'eune',
 		'euw',
+		'lan',
+		'las',
+		'na',
 	];
 
 	/**

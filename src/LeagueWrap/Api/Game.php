@@ -20,9 +20,12 @@ class Game extends AbstractApi {
 	 * @param array
 	 */
 	protected $permittedRegions = [
-		'na',
-		'euw',
+		'br',
 		'eune',
+		'euw',
+		'lan',
+		'las',
+		'na',
 	];
 
 	/**
