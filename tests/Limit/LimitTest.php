@@ -10,6 +10,16 @@ class LimitLimitTest extends PHPUnit_Framework_TestCase {
 		{
 		    $this->markTestSkipped('The memcached extension is not available.');
 		}
+		$memcached = new Memcached;
+		if ( ! $memcached->addServer('localhost', 11211, 100))
+		{
+			$this->markTestSkipped('Could not connect to localhost server 11211.');
+		}
+		if ( ! $memcached->flush())
+		{
+			$code = $memcached->getResultCode();
+			$this->markTestSkipped('Could not flush memcached (code #'.$code.')');
+		}
 	}
 
 	public function testSetRate()
