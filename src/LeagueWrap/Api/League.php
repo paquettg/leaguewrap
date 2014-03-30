@@ -23,7 +23,11 @@ class League extends AbstractApi {
 		'br',
 		'eune',
 		'euw',
+		'lan',
+		'las',
 		'na',
+		'oce',
+		'ru',
 		'tr',
 	];
 
