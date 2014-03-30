@@ -26,6 +26,7 @@ class Game extends AbstractApi {
 		'lan',
 		'las',
 		'na',
+		'oce',
 	];
 
 	/**
