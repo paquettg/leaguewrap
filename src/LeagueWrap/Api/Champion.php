@@ -40,6 +40,7 @@ class Champion extends AbstractApi {
 		'lan',
 		'las',
 		'na',
+		'oce',
 	];
 
 	/**
