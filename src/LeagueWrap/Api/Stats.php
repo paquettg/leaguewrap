@@ -34,7 +34,8 @@ class Stats extends AbstractApi {
 		'euw',
 		'lan',
 		'las',
-		'na'
+		'na',
+		'oce'
 	];
 
 	/**
