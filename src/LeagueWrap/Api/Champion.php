@@ -25,7 +25,7 @@ class Champion extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v1.1',
+		'v1.2',
 	];
 
 	/**
@@ -93,12 +93,27 @@ class Champion extends AbstractApi {
 		// set up the champions
 		foreach ($array['champions'] as $info)
 		{
-			$name                   = strtolower($info['name']);
-			$champion               = new Champ($info);
-			$this->champions[$name] = $champion;
+			$id                   = intval($info['id']);
+			$champion             = new Champ($info);
+			$this->champions[$id] = $champion;
 		}
 
 		return $this->champions;
+	}
+
+	/**
+	 * Gets the information for a single champion
+	 *
+	 * @param int $id
+	 * @return Champ
+	 */
+	public function championById($id)
+	{
+		$info     = $this->request('champion/'.$id);
+		$champion = new Champ($info);
+		$this->champions[$champion->id] = $champion;
+
+		return $champion;
 	}
 
 	/**

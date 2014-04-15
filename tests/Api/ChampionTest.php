@@ -23,7 +23,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.1/champion', [
+		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -32,7 +32,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$api = new Api('key', $this->client);
 		$champion = $api->champion();
 		$champion->all();
-		$this->assertTrue($champion->blitzcrank instanceof LeagueWrap\Response\Champion);
+		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Response\Champion);
 	}
 
 	public function testFree()
@@ -40,7 +40,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.1/champion', [
+		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -49,6 +49,21 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$api  = new Api('key', $this->client);
 		$free = $api->champion()->free();
 		$this->assertEquals(10, count($free));
+	}
+
+	public function testChampionById()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion/10', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/champion.10.json'));
+
+		$api   = new Api('key', $this->client);
+		$kayle = $api->champion()->championById(10);
+		$this->assertEquals(true, $kayle->rankedPlayEnabled);
 	}
 }
 
