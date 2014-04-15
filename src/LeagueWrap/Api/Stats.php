@@ -12,7 +12,7 @@ class Stats extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v1.2',
+		'v1.3',
 	];
 
 	/**
