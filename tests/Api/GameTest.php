@@ -43,7 +43,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/bakasan', [
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -64,7 +64,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/bakasan', [
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));

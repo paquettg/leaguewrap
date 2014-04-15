@@ -23,21 +23,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$champions = file_get_contents('tests/Json/champion.free.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with($champions, '56e2f3462cbfb9c90eb2450e746da71d', 60)
+		            ->with($champions, '4be3fe5c15c888d40a1793190d77166b', 60)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('56e2f3462cbfb9c90eb2450e746da71d')
+		            ->with('4be3fe5c15c888d40a1793190d77166b')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('56e2f3462cbfb9c90eb2450e746da71d')
+		            ->with('4be3fe5c15c888d40a1793190d77166b')
 		            ->andReturn($champions);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.1/champion', [
+		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -56,21 +56,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with($bakasan, '8eed0f537fda2bfef50daf6dd53389e0', 10)
+		            ->with($bakasan, '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('8eed0f537fda2bfef50daf6dd53389e0')
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('8eed0f537fda2bfef50daf6dd53389e0')
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
 		            ->andReturn($bakasan);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/bakasan', [
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn($bakasan);

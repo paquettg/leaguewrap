@@ -4,22 +4,22 @@ namespace LeagueWrap\Response;
 class MasteryPage extends Dto {
 
 	/**
-	 * Attempts to get a talent by its id.
+	 * Attempts to get a mastery by its id.
 	 *
 	 * @param int $id
-	 * @return Talent|null
+	 * @return Mastery|null
 	 */
-	public function talent($id)
+	public function mastery($id)
 	{
-		if ( ! isset($this->info['talents']))
+		if ( ! isset($this->info['masteries']))
 		{
-			// no talents
+			// no masteries
 			return null;
 		}
-		$talents = $this->info['talents'];
-		if (isset($talents[$id]))
+		$masteries = $this->info['masteries'];
+		if (isset($masteries[$id]))
 		{
-			return $talents[$id];
+			return $masteries[$id];
 		}
 		return null;
 		

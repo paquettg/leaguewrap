@@ -43,7 +43,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/GamerXz', [
+		             ->with('na/v1.4/summoner/by-name/GamerXz', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.gamerxz.json'));
@@ -64,7 +64,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/GamerXz', [
+		             ->with('na/v1.4/summoner/by-name/GamerXz', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.gamerxz.json'));
@@ -86,7 +86,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/GamerXz', [
+		             ->with('na/v1.4/summoner/by-name/GamerXz', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.gamerxz.json'));

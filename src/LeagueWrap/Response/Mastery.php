@@ -1,4 +1,4 @@
 <?php
 namespace LeagueWrap\Response;
 
-class Talent extends Dto {}
+class Mastery extends Dto {}

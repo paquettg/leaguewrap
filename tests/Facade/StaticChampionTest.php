@@ -22,7 +22,7 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.1/champion', [
+		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -30,7 +30,7 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 
 		Api::setKey('key', $this->client);
 		Champion::all();
-		$this->assertTrue(Champion::get('blitzcrank') instanceof LeagueWrap\Response\Champion);
+		$this->assertTrue(Champion::get(55) instanceof LeagueWrap\Response\Champion);
 	}
 
 	public function testFree()
@@ -38,7 +38,7 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.1/champion', [
+		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()

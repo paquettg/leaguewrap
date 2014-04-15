@@ -5,7 +5,7 @@ use LeagueWrap\Response;
 use LeagueWrap\Response\RunePage;
 use LeagueWrap\Response\Rune;
 use LeagueWrap\Response\MasteryPage;
-use LeagueWrap\Response\Talent;
+use LeagueWrap\Response\Mastery;
 
 class Summoner extends AbstractApi {
 
@@ -22,7 +22,7 @@ class Summoner extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v1.3',
+		'v1.4',
 	];
 
 	/**
@@ -218,7 +218,7 @@ class Summoner extends AbstractApi {
 				foreach ($slots as $slot)
 				{
 					$id         = $slot['runeSlotId'];
-					$rune       = new Rune($slot['rune']);
+					$rune       = new Rune($slot);
 					$runes[$id] = $rune;
 				}
 				$runePage->runes = $runes;
@@ -258,25 +258,25 @@ class Summoner extends AbstractApi {
 			$masteryPages = [];
 			foreach ($data['pages'] as $info)
 			{
-				if ( ! isset($info['talents']))
+				if ( ! isset($info['masteries']))
 				{
 					// seting the talents to an empty array
-					$info['talents'] = [];
+					$info['masteries'] = [];
 				}
 
-				$talentsInfo = $info['talents'];
-				unset($info['talents']);
+				$masteriesInfo = $info['masteries'];
+				unset($info['masteries']);
 				$masteryPage = new MasteryPage($info);
 				// set masterys
-				$talents = [];
-				foreach ($talentsInfo as $talent)
+				$masteries = [];
+				foreach ($masteriesInfo as $mastery)
 				{
-					$id           = $talent['id'];
-					$talent       = new Talent($talent);
-					$talents[$id] = $talent;
+					$id             = $mastery['id'];
+					$mastery        = new Mastery($mastery);
+					$masteries[$id] = $mastery;
 				}
-				$masteryPage->talents = $talents;
-				$masteryPages[]       = $masteryPage;
+				$masteryPage->masteries = $masteries;
+				$masteryPages[]         = $masteryPage;
 			}
 			$summoners[$summonerId] = $masteryPages;
 		}

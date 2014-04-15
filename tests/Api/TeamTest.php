@@ -43,7 +43,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/C9 Hai', [
+		             ->with('na/v1.4/summoner/by-name/C9 Hai', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.c9hai.json'));
@@ -64,7 +64,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/summoner/by-name/C9 Hai', [
+		             ->with('na/v1.4/summoner/by-name/C9 Hai', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.c9hai.json'));
