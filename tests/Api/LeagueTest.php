@@ -30,7 +30,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$leagues = $api->league()->league(272354);
-		$this->assertTrue($leagues['GamerXz'] instanceof LeagueWrap\Response\League);
+		$this->assertTrue($leagues['GamerXz'] instanceof LeagueWrap\Dto\League);
 	}
 
 	public function testLeagueSummoner()
@@ -51,7 +51,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$api = new Api('key', $this->client);
 		$gamerxz = $api->summoner()->info('GamerXz');
 		$api->league()->league($gamerxz);
-		$this->assertTrue($gamerxz->league('GamerXz') instanceof LeagueWrap\Response\League);
+		$this->assertTrue($gamerxz->league('GamerXz') instanceof LeagueWrap\Dto\League);
 	}
 
 	public function testLeagueSummonerEntry()

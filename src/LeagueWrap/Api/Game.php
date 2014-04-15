@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response;
+use LeagueWrap\Dto;
 
 class Game extends AbstractApi {
 
@@ -50,7 +50,7 @@ class Game extends AbstractApi {
 		$games = [];
 		foreach ($array['games'] as $info)
 		{
-			$game    = new Response\Game($info);
+			$game    = new Dto\Game($info);
 			$games[] = $game;
 		}
 

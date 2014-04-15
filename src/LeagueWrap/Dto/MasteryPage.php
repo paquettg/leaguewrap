@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class MasteryPage extends Dto {
+class MasteryPage extends AbstractDto {
 
 	/**
 	 * Attempts to get a mastery by its id.

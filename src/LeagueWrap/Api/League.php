@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response;
+use LeagueWrap\Dto;
 
 class League extends AbstractApi {
 
@@ -54,7 +54,7 @@ class League extends AbstractApi {
 		{
 			$key           = $info['participantId'];
 			$info['id']    = $key;
-			$league        = new Response\League($info);
+			$league        = new Dto\League($info);
 			if ( ! is_null($league->playerOrTeam))
 			{
 				$key = $league->playerOrTeam->playerOrTeamName;

@@ -30,7 +30,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$stats = $api->stats()->summary(74602);
-		$this->assertTrue($stats[0] instanceof LeagueWrap\Response\PlayerStats);
+		$this->assertTrue($stats[0] instanceof LeagueWrap\Dto\PlayerStats);
 	}
 
 	public function testSummarySummoner()
@@ -51,7 +51,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$api = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
 		$api->stats()->summary($bakasan);
-		$this->assertTrue($bakasan->stats[0] instanceof LeagueWrap\Response\PlayerStats);
+		$this->assertTrue($bakasan->stats[0] instanceof LeagueWrap\Dto\PlayerStats);
 	}
 
 	public function testRanked()
@@ -66,7 +66,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$stats = $api->stats()->ranked(74602);
-		$this->assertTrue($stats[0] instanceof LeagueWrap\Response\Champion);
+		$this->assertTrue($stats[0] instanceof LeagueWrap\Dto\Champion);
 	}
 }
 

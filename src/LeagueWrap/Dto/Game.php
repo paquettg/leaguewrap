@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class Game extends Dto {
+class Game extends AbstractDto {
 
 	/**
 	 * Set up the information about this game.

@@ -118,7 +118,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$runes = $api->summoner()->runePages(74602);
-		$this->assertTrue($runes[0] instanceof LeagueWrap\Response\RunePage);
+		$this->assertTrue($runes[0] instanceof LeagueWrap\Dto\RunePage);
 	}
 
 	public function testRunesSummoner()
@@ -178,7 +178,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$runes = $api->summoner()->masteryPages(74602);
-		$this->assertTrue($runes[0] instanceof LeagueWrap\Response\MasteryPage);
+		$this->assertTrue($runes[0] instanceof LeagueWrap\Dto\MasteryPage);
 	}
 
 	public function testMasteriesSummoner()

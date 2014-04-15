@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response\Summoner;
+use LeagueWrap\Dto\Summoner;
 use LeagueWrap\Region;
 use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;

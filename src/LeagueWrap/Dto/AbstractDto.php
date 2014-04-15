@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class Dto {
+Abstract class AbstractDto {
 	
 	protected $info;
 
@@ -83,7 +83,7 @@ class Dto {
 				$info = $this->unpack($info);
 			}
 			// check if it's just a single object
-			if ($info instanceof Dto)
+			if ($info instanceof AbstractDto)
 			{
 				$info = $info->raw();
 			}
@@ -104,7 +104,7 @@ class Dto {
 		$return = [];
 		foreach ($info as $key => $value)
 		{
-			if ($value instanceof Dto)
+			if ($value instanceof AbstractDto)
 			{
 				$value = $value->raw();
 			}

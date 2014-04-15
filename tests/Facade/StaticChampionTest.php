@@ -30,7 +30,7 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 
 		Api::setKey('key', $this->client);
 		Champion::all();
-		$this->assertTrue(Champion::get(55) instanceof LeagueWrap\Response\Champion);
+		$this->assertTrue(Champion::get(55) instanceof LeagueWrap\Dto\Champion);
 	}
 
 	public function testFree()

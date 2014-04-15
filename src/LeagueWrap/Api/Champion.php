@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response\Champion as Champ;
+use LeagueWrap\Dto\Champion as Champ;
 
 class Champion extends AbstractApi {
 	

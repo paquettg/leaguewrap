@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class Summoner extends Dto {
+class Summoner extends AbstractDto {
 
 	/**
 	 * Attempts to get a rune page by the id.

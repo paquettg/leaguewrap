@@ -1,10 +1,9 @@
 <?php
-namespace LeagueWrap\Response\Team;
+namespace LeagueWrap\Dto\Team;
 
-use LeagueWrap\Response;
-use LeagueWrap\Response\Dto;
+use LeagueWrap\Dto\AbstractDto;
 
-class Roster extends Dto {
+class Roster extends AbstractDto {
 
 	public function __construct(array $info)
 	{

@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class RunePage extends Dto {
+class RunePage extends AbstractDto {
 
 	/**
 	 * Attempts to get a rune by slot id.

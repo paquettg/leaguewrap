@@ -32,7 +32,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$api = new Api('key', $this->client);
 		$champion = $api->champion();
 		$champion->all();
-		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Response\Champion);
+		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Dto\Champion);
 	}
 
 	public function testFree()

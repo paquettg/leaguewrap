@@ -1,11 +1,11 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response;
-use LeagueWrap\Response\RunePage;
-use LeagueWrap\Response\Rune;
-use LeagueWrap\Response\MasteryPage;
-use LeagueWrap\Response\Mastery;
+use LeagueWrap\Dto;
+use LeagueWrap\Dto\RunePage;
+use LeagueWrap\Dto\Rune;
+use LeagueWrap\Dto\MasteryPage;
+use LeagueWrap\Dto\Mastery;
 
 class Summoner extends AbstractApi {
 
@@ -78,7 +78,7 @@ class Summoner extends AbstractApi {
 	 * Gets the information about the user by the given identification.
      *
      * @param mixed $identities
-     * @return Response\Summoner
+     * @return Dto\Summoner
 	 */
 	public function info($identities)
 	{
@@ -151,7 +151,7 @@ class Summoner extends AbstractApi {
 	 * will make 3 requests!
 	 *
 	 * @param mixed $identities
-	 * @return Response\Summoner;
+	 * @return Dto\Summoner;
 	 */
 	public function allInfo($identities)
 	{
@@ -297,7 +297,7 @@ class Summoner extends AbstractApi {
 	 * Gets the information by the id of the summoner.
 	 *
 	 * @param array $ids
-	 * @return Response\Summoner|Response\Summoner[];
+	 * @return Dto\Summoner|Dto\Summoner[];
 	 * @throws ListMaxException
 	 */
 	protected function infoById($ids)
@@ -314,7 +314,7 @@ class Summoner extends AbstractApi {
 		$summoners = [];
 		foreach ($array as $id => $info)
 		{
-			$summoner               = new Response\Summoner($info);
+			$summoner               = new Dto\Summoner($info);
 			$name                   = $summoner->name;
 			$this->summoners[$name] = $summoner;
 			$summoners[$name]       = $summoner;
@@ -334,7 +334,7 @@ class Summoner extends AbstractApi {
 	 * Gets the information by the name of the summoner.
 	 *
 	 * @param mixed $name
-	 * @return Response\Summoner|Response\Summoner[];
+	 * @return Dto\Summoner|Dto\Summoner[];
 	 * @throws ListMaxException
 	 */
 	protected function infoByName($names)
@@ -354,7 +354,7 @@ class Summoner extends AbstractApi {
 		$summoners = [];
 		foreach ($array as $name => $info)
 		{
-			$summoner = new Response\Summoner($info);
+			$summoner = new Dto\Summoner($info);
 			$this->summoners[$name] = $summoner;
 			$summoners[$name] = $summoner;
 		}

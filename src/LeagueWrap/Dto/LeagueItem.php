@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class LeagueItem extends Dto {
+class LeagueItem extends AbstractDto {
 
 	public function __construct($info)
 	{

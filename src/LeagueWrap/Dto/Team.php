@@ -1,7 +1,7 @@
 <?php
-namespace LeagueWrap\Response;
+namespace LeagueWrap\Dto;
 
-class Team extends Dto {
+class Team extends AbstractDto {
 
 	public function __construct(array $info)
 	{

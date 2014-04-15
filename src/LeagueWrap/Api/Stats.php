@@ -1,8 +1,8 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response;
-use LeagueWrap\Response\PlayerStats;
+use LeagueWrap\Dto;
+use LeagueWrap\Dto\PlayerStats;
 
 class Stats extends AbstractApi {
 
@@ -104,8 +104,8 @@ class Stats extends AbstractApi {
 		$stats = [];
 		foreach ($array['champions'] as $key => $info)
 		{
-			$info['stats'] = new Response\Stats($info['stats']);
-			$championStats = new Response\Champion($info);
+			$info['stats'] = new Dto\Stats($info['stats']);
+			$championStats = new Dto\Champion($info);
 			$stats[$key]   = $championStats;
 		}
 

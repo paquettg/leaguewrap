@@ -1,10 +1,10 @@
 <?php
-namespace LeagueWrap\Response\Team;
+namespace LeagueWrap\Dto\Team;
 
-use LeagueWrap\Response;
-use LeagueWrap\Response\Dto;
+use LeagueWrap\Dto;
+use LeagueWrap\Dto\AbstractDto;
 
-class Stats extends Dto {
+class Stats extends AbstractDto {
 
 	public function __construct(array $info)
 	{
@@ -12,7 +12,7 @@ class Stats extends Dto {
 		$details         = [];
 		foreach ($teamStatDetails as $key => $detail)
 		{
-			$details[] = new Response\Stats($detail);
+			$details[] = new Dto\Stats($detail);
 		}
 		$info['teamStatDetails'] = $details;
 

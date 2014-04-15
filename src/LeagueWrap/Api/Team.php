@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Response;
+use LeagueWrap\Dto;
 
 class Team extends AbstractApi {
 
@@ -60,7 +60,7 @@ class Team extends AbstractApi {
 		foreach ($array as $info)
 		{
 			$id   = $info['fullId'];
-			$team = new Response\Team($info);
+			$team = new Dto\Team($info);
 			$teams[$id] = $team;
 		}
 

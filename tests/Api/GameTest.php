@@ -30,7 +30,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 		$api   = new Api('key', $this->client);
 		$games = $api->game()->recent(74602);
-		$this->assertTrue($games[0] instanceof LeagueWrap\Response\Game);
+		$this->assertTrue($games[0] instanceof LeagueWrap\Dto\Game);
 	}
 
 	public function testRecentSummoner()
@@ -51,7 +51,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$api     = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
 		$games   = $api->game()->recent($bakasan);
-		$this->assertTrue($bakasan->recentGame(0) instanceof LeagueWrap\Response\Game);
+		$this->assertTrue($bakasan->recentGame(0) instanceof LeagueWrap\Dto\Game);
 	}
 
 	public function testRecentStatsSummoner()

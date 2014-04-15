@@ -51,7 +51,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$api = new Api('key', $this->client);
 		$hai = $api->summoner()->info('C9 Hai');
 		$api->team()->team($hai);
-		$this->assertTrue($hai->teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa'] instanceof LeagueWrap\Response\Team);
+		$this->assertTrue($hai->teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa'] instanceof LeagueWrap\Dto\Team);
 	}
 
 	public function testTeamSummonerMember()
