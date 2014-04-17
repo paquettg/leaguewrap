@@ -51,7 +51,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testInfoMixed()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
@@ -124,7 +124,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testRunesSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/74602/runes', [
 						'api_key' => 'key',
@@ -145,7 +145,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testRunesSummonerArray()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/97235,7024/runes', [
 						'api_key' => 'key',
@@ -184,7 +184,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testMasteriesSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/74602/masteries', [
 						'api_key' => 'key',
@@ -205,7 +205,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testMasteriesSummonerArray()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->times(2);
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/97235,7024/masteries', [
 						'api_key' => 'key',

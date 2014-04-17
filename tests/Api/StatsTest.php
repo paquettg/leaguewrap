@@ -36,7 +36,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 	public function testSummarySummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',

@@ -11,13 +11,6 @@ use LeagueWrap\Limit\Collection;
 class Api {
 
 	/**
-	 * Default api url.
-	 *
-	 * @var string
-	 */
-	protected $url = 'https://prod.api.pvp.net/api/lol/';
-
-	/**
 	 * The region to be used. Defaults to 'na'.
 	 *
 	 * @var string
@@ -77,7 +70,6 @@ class Api {
 			$client = new Client;
 		}
 		$this->client = $client;
-		$this->client->baseUrl($this->url);
 
 		// add the key
 		$this->key = $key;
@@ -114,18 +106,6 @@ class Api {
 		}
 
 		return $api;
-	}
-
-	/**
-	 * Change the url for the client.
-	 *
-	 * @param string $url
-	 * @chainable
-	 */
-	public function resetUrl($url)
-	{
-		$this->client->baseUrl($url);
-		return $this;
 	}
 
 	/**

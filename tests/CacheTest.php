@@ -35,7 +35,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		            ->andReturn($champions);
 
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.2/champion', [
 						'freeToPlay' => 'true',
@@ -68,7 +68,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		            ->andReturn($bakasan);
 
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',

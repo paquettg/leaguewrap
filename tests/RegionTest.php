@@ -6,21 +6,23 @@ class RegionTest extends PHPUnit_Framework_TestCase {
 	
 	public function testIsLocked()
 	{
-		$region = new Region([
-			'na',
-		]);
-
-		$this->assertTrue($region->isLocked('euw'));
+		$region = new Region('euw');
+		$this->assertTrue($region->isLocked(['na']));
 	}
 
 	public function testIsLockedFalse()
 	{
-		$region = new Region([
+		$region = new Region('euw');
+		$this->assertFalse($region->isLocked([
 			'na',
 			'euw',
 			'eune',
-		]);
+		]));
+	}
 
-		$this->assertFalse($region->isLocked('euw'));
+	public function testGetDomainDefault()
+	{
+		$region = new Region('rawr');
+		$this->assertEquals('https://prod.api.pvp.net/api/lol/', $region->getDomain());
 	}
 }

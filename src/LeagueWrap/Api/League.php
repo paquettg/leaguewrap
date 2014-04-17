@@ -29,6 +29,7 @@ class League extends AbstractApi {
 		'oce',
 		'ru',
 		'tr',
+		'kr',
 	];
 
 	/**

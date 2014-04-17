@@ -35,7 +35,10 @@ class Stats extends AbstractApi {
 		'lan',
 		'las',
 		'na',
-		'oce'
+		'oce',
+		'ru',
+		'tr',
+		'kr',
 	];
 
 	/**

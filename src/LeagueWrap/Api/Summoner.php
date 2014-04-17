@@ -38,6 +38,9 @@ class Summoner extends AbstractApi {
 		'las',
 		'na',
 		'oce',
+		'ru',
+		'tr',
+		'kr',
 	];
 
 	/**

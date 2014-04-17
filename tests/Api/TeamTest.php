@@ -36,7 +36,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 	public function testTeamSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v2.2/team/by-summoner/492066', [
 						'api_key' => 'key',
@@ -57,7 +57,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 	public function testTeamSummonerMember()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v2.2/team/by-summoner/492066', [
 						'api_key' => 'key',

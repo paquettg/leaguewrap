@@ -36,7 +36,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 	public function testRecentSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
@@ -57,7 +57,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 	public function testRecentStatsSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',

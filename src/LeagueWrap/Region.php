@@ -4,37 +4,86 @@ namespace LeagueWrap;
 class Region {
 
 	/**
-	 * This contains all permitted regions. Leave empty to pass any region.
+	 * The region that this object represents.
 	 *
-	 * @var array
+	 * @param string
 	 */
-	protected $regions = [];
+	protected $region;
 
-	public function __construct(array $regions)
+	/**
+	 * An array of region dependant domains.
+	 *
+	 * @param array
+	 */
+	protected $domains = [
+		'ru' => 'https://eu.api.pvp.net/api/lol/', 
+		'tr' => 'https://eu.api.pvp.net/api/lol/',
+		'kr' => 'https://asia.api.pvp.net/api/lol/',
+	];
+
+	/**
+	 * The default domain to attempt to query if the region is not
+	 * in the $domains array.
+	 *
+	 * @param string
+	 */
+	protected $defaultDomain = 'https://prod.api.pvp.net/api/lol/';
+
+	public function __construct($region)
 	{
-		foreach ($regions as $region)
+		$this->region = strtolower($region);
+	}
+
+	/**
+	 * Returns the region that was passed in the constructor.
+	 *
+	 * @return string
+	 */
+	public function getRegion()
+	{
+		return $this->region;
+	}
+
+
+	/**
+	 * Returns the domain that this region needs to make its request.
+	 *
+	 * @return string
+	 */
+	public function getDomain()
+	{
+		if (isset($this->domains[$this->region]))
 		{
-			$this->regions[] = strtolower($region);
+			return $this->domains[$this->region];
 		}
+
+		return $this->defaultDomain;
 	}
 
 	/**
 	 * Determines wether the given region is locked out.
 	 *
-	 * @param string $region
+	 * @param array $region
 	 * @return bool
 	 */
-	public function isLocked($region)
+	public function isLocked(array $regions)
 	{
-		if (count($this->regions) == 0)
+		if (count($regions) == 0)
 		{
 			// no regions are locked from this call.
 			return true;
 		}
 
-		// controlle the case
-		$region = strtolower($region);
+		foreach ($regions as $region)
+		{
+			if ($this->region == strtolower($region))
+			{
+				// the region is fine
+				return false;
+			}
+		}
 
-		return ! in_array($region, $this->regions);
+		// the region was not found
+		return true;
 	}
 }

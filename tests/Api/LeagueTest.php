@@ -36,7 +36,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 	public function testLeagueSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v2.3/league/by-summoner/272354', [
 						'api_key' => 'key',
@@ -57,7 +57,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 	public function testLeagueSummonerEntry()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v2.3/league/by-summoner/272354', [
 						'api_key' => 'key',
@@ -79,7 +79,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 	public function testLeagueSummonerPlayerOrTeam()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->once();
+		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('na/v2.3/league/by-summoner/272354', [
 						'api_key' => 'key',

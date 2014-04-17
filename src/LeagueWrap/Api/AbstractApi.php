@@ -127,7 +127,7 @@ abstract class AbstractApi {
 	 */
 	public function setRegion($region)
 	{
-		$this->region = strtolower($region);
+		$this->region = new Region($region);
 		return $this;
 	}
 
@@ -195,16 +195,18 @@ abstract class AbstractApi {
 		$version = $this->getVersion();
 
 		// get and validate the region
-		$region = new Region($this->permittedRegions);
-		if ($region->isLocked($this->region))
+		if ($this->region->isLocked($this->permittedRegions))
 		{
-			throw new RegionException('The region "'.$this->region.'" is not permited to query this API.');
+			throw new RegionException('The region "'.$this->getRegion().'" is not permited to query this API.');
 		}
+
+		// set the region based domain
+		$this->client->baseUrl($this->region->getDomain());
 
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri = $this->region.'/'.$version.'/'.$path;
+		$uri = $this->region->getRegion().'/'.$version.'/'.$path;
 		// check cache
 		if ($this->cache instanceof CacheInterface)
 		{
