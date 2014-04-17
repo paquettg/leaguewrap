@@ -185,11 +185,12 @@ abstract class AbstractApi {
 	 *
 	 * @param string $path
 	 * @param array $params
+	 * @param bool $static
 	 * @return array
 	 * @throws RegionException
 	 * @throws LimitReachedException
 	 */
-	protected function Request($path, $params = [])
+	protected function request($path, $params = [], $static = false)
 	{
 		// get version
 		$version = $this->getVersion();
@@ -201,12 +202,13 @@ abstract class AbstractApi {
 		}
 
 		// set the region based domain
-		$this->client->baseUrl($this->region->getDomain());
+		$this->client->baseUrl($this->region->getDomain($static));
 
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
 		$uri = $this->region->getRegion().'/'.$version.'/'.$path;
+
 		// check cache
 		if ($this->cache instanceof CacheInterface)
 		{
