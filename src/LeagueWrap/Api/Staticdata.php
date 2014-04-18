@@ -70,11 +70,23 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
+	 * Gets all static champion data with the given $data option.
+	 *
+	 * @param string #data
+	 * @retrn ChampionList
+	 */
+	public function getChampions($data = null)
+	{
+		return $this->getChampion(null, $data);
+	}
+
+	/**
 	 * Gets the static champion data of all champions if $id is null.
 	 * If $id is set it will attempt to get info for that champion only.
 	 *
 	 * @param int $id
-	 * @return ChampionList
+	 * @param string $data
+	 * @return ChampionList|Champion
 	 */
 	public function getChampion($id = null, $data = null)
 	{

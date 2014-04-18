@@ -30,7 +30,7 @@ class SummonerTest extends PHPUnit_Framework_TestCase {
 		             ->andReturn(file_get_contents('tests/Json/Static/champion.json'));
 
 		$api       = new Api('key', $this->client);
-		$champions = $api->staticData()->getChampion();
+		$champions = $api->staticData()->getChampions();
 		$champion  = $champions->getChampion(53);
 		$this->assertEquals('Blitzcrank', $champion->name);
 	}
@@ -49,7 +49,7 @@ class SummonerTest extends PHPUnit_Framework_TestCase {
 
 		$api       = new Api('key', $this->client);
 		$champions = $api->staticData()->setLocale('fr_FR')
-		                               ->getChampion();
+		                               ->getChampions();
 		$champion  = $champions->getChampion(69);
 		$this->assertEquals('Étreinte du serpent', $champion->title);
 	}
@@ -104,7 +104,7 @@ class SummonerTest extends PHPUnit_Framework_TestCase {
 		             ->andReturn(file_get_contents('tests/Json/Static/champion.all.json'));
 
 		$api       = new Api('key', $this->client);
-		$champions = $api->staticData()->getChampion('all', 'all');
+		$champions = $api->staticData()->getChampions('all');
 		$champion  = $champions->getChampion(412);
 		$this->assertEquals('beginner_Starter', $champion->recommended[0]->blocks[0]->type);
 	}

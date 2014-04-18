@@ -220,7 +220,8 @@ abstract class AbstractApi {
 			else
 			{
 				// check if we have hit the limit
-				if ( ! $this->collection->hitLimits())
+				if ( ! $static AND
+				     ! $this->collection->hitLimits())
 				{
 					throw new LimitReachedException('You have hit the request limit in your collection.');
 				}
@@ -236,7 +237,8 @@ abstract class AbstractApi {
 		else
 		{
 			// check if we have hit the limit
-			if ( ! $this->collection->hitLimits())
+			if ( ! $static AND
+			     ! $this->collection->hitLimits())
 			{
 				throw new LimitReachedException('You have hit the request limit in your collection.');
 			}
