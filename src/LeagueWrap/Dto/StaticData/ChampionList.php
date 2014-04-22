@@ -8,7 +8,7 @@ class ChampionList extends AbstractDto {
 	/**
 	 * Set up the information about the ChampionList Dto.
 	 *
-	 * @param array $into
+	 * @param array $info
 	 */
 	public function __construct(array $info)
 	{

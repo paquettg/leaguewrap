@@ -3,6 +3,8 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\StaticData\Champion as staticChampion;
 use LeagueWrap\Dto\StaticData\ChampionList;
+use LeagueWrap\Dto\StaticData\Item as staticItem;
+use LeagueWrap\Dto\StaticData\ItemList;
 
 class Staticdata extends AbstractApi {
 	
@@ -88,25 +90,16 @@ class Staticdata extends AbstractApi {
 	 * @param string $data
 	 * @return ChampionList|Champion
 	 */
-	public function getChampion($id = null, $data = null)
+	public function getChampion($id, $data = null)
 	{
-		$params = [];
-		if ( ! is_null($this->locale))
-		{
-			$params['locale'] = $this->locale;
-		}
-		if ( ! is_null($this->DDversion))
-		{
-			$params['version'] = $this->DDversion;
-		}
+		$params = $this->setUpParams();
 		if ( ! is_null($data))
 		{
 			$params['champData'] = $data;
 		}
 
 		$path = 'champion';
-		if ( ! is_null($id) and
-		     $id != 'all')
+		if ($this->appendId($id))
 		{
 			$path .= "/$id";
 		}
@@ -127,5 +120,81 @@ class Staticdata extends AbstractApi {
 		{
 			return new ChampionList($array);
 		}
+	}
+
+	/**
+	 * Gets static data on all items.
+	 *
+	 * @param string $data
+	 * @return ItemList
+	 */
+	public function getItems($data = null)
+	{
+		return $this->getItem(null, $data);
+	}
+
+	/**
+	 * Gets the static item data of all items if $id is null.
+	 * If $id is set it will attempt to get info for that item only.
+	 *
+	 * @param int $id
+	 * @param string $data
+	 * @return ItemList|Item
+	 */
+	public function getItem($id, $data = null)
+	{
+		$params = $this->setUpParams();
+		if ( ! is_null($data))
+		{
+			$params['itemListData'] = $data;
+		}
+		
+		$path = 'item';
+		if ($this->appendId($id))
+		{
+			$path .= "/$id";
+		}
+		
+		$array = $this->request($path, $params, true);
+		
+		if ($this->appendId($id))
+		{
+			return new staticItem($array);
+		}
+		else
+		{
+			return new ItemList($array);
+		}
+	}
+
+	/**
+	 * Set up the boiler plat for the param array for any 
+	 * static data call.
+	 *
+	 * @return array
+	 */
+	protected function setUpParams()
+	{
+		$params = [];
+		if ( ! is_null($this->locale))
+		{
+			$params['locale'] = $this->locale;
+		}
+		if ( ! is_null($this->DDversion))
+		{
+			$params['version'] = $this->DDversion;
+		}
+		return $params;
+	}
+
+	protected function appendId($id)
+	{
+		if ( ! is_null($id) AND
+		     $id != 'all')
+		{
+			return true;
+		}
+
+		return false;
 	}
 }
