@@ -1,4 +1,4 @@
 <?php
 namespace LeagueWrap\Api;
 
-class RegionException extends Exception {}
+final class RegionException extends Exception {}

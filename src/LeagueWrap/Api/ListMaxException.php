@@ -1,5 +1,4 @@
 <?php
 namespace LeagueWrap\Api;
 
-class ListMaxException extends Exception {}
-
+final class ListMaxException extends Exception {}
