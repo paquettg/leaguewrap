@@ -5,6 +5,8 @@ use LeagueWrap\Dto\StaticData\Champion as staticChampion;
 use LeagueWrap\Dto\StaticData\ChampionList;
 use LeagueWrap\Dto\StaticData\Item as staticItem;
 use LeagueWrap\Dto\StaticData\ItemList;
+use LeagueWrap\Dto\StaticData\Mastery as staticMastery;
+use LeagueWrap\Dto\StaticData\MasteryList;
 
 class Staticdata extends AbstractApi {
 	
@@ -164,6 +166,51 @@ class Staticdata extends AbstractApi {
 		else
 		{
 			return new ItemList($array);
+		}
+	}
+
+	/**
+	 * Gets static data on all masteries.
+	 *
+	 * @param string $data
+	 * @return MasteryList
+	 */
+	public function getMasteries($data = null)
+	{
+		return $this->getMastery(null, $data);
+	}
+
+	/**
+	 * Gets the mastery data of all masteries if $id is null.
+	 * If $id is a set it will attempt to get info for that mastery only.
+	 *
+	 * @param int $id
+	 * @param string $data
+	 * @return MasteryList|Mastery
+	 */
+	public function getMastery($id, $data = null)
+	{
+		$params = $this->setUpParams();
+		if ( ! is_null($data))
+		{
+			$params['masteryListData'] = $data;
+		}
+
+		$path = 'mastery';
+		if ($this->appendId($id))
+		{
+			$path .= "/$id";
+		}
+
+		$array = $this->request($path, $params, true);
+		
+		if ($this->appendId($id))
+		{
+			return new staticMastery($array);
+		}
+		else
+		{
+			return new MasteryList($array);
 		}
 	}
 
