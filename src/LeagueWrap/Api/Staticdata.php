@@ -7,6 +7,7 @@ use LeagueWrap\Dto\StaticData\Item as staticItem;
 use LeagueWrap\Dto\StaticData\ItemList;
 use LeagueWrap\Dto\StaticData\Mastery as staticMastery;
 use LeagueWrap\Dto\StaticData\MasteryList;
+use LeagueWrap\Dto\StaticData\Realm as staticRealm;
 
 class Staticdata extends AbstractApi {
 	
@@ -44,6 +45,7 @@ class Staticdata extends AbstractApi {
 		'br',
 		'eune',
 		'euw',
+		'kr',
 		'lan',
 		'las',
 		'na',
@@ -151,13 +153,7 @@ class Staticdata extends AbstractApi {
 			$params['itemListData'] = $data;
 		}
 		
-		$path = 'item';
-		if ($this->appendId($id))
-		{
-			$path .= "/$id";
-		}
-		
-		$array = $this->request($path, $params, true);
+		$array = $this->makeRequest('item', $id, $params);
 		
 		if ($this->appendId($id))
 		{
@@ -196,13 +192,7 @@ class Staticdata extends AbstractApi {
 			$params['masteryListData'] = $data;
 		}
 
-		$path = 'mastery';
-		if ($this->appendId($id))
-		{
-			$path .= "/$id";
-		}
-
-		$array = $this->request($path, $params, true);
+		$array = $this->makeRequest('mastery', $id, $params);
 		
 		if ($this->appendId($id))
 		{
@@ -212,6 +202,37 @@ class Staticdata extends AbstractApi {
 		{
 			return new MasteryList($array);
 		}
+	}
+
+	/**
+	 * Get realm information for the current region.
+	 *
+	 * @return Realm
+	 */
+	public function getRealm()
+	{
+		$params = $this->setUpParams();
+		$array  = $this->makeRequest('realm', null, $params);
+			
+		return new staticRealm($array);
+	}
+
+	/**
+	 * Make the request given the proper information.
+	 *
+	 * @param string $path
+	 * @param mixed $id
+	 * @param array $params
+	 * @return array
+	 */
+	protected function makeRequest($path, $id, array $params)
+	{
+		if ($this->appendId($id))
+		{
+			$path .= "/$id";
+		}
+
+		return $this->request($path, $params, true);
 	}
 
 	/**
@@ -234,6 +255,13 @@ class Staticdata extends AbstractApi {
 		return $params;
 	}
 
+	/**
+	 * Check if we should append the id to the end of the 
+	 * url or not.
+	 *
+	 * @param mixed $id
+	 * @return bool
+	 */
 	protected function appendId($id)
 	{
 		if ( ! is_null($id) AND

@@ -198,7 +198,7 @@ abstract class AbstractApi {
 		// get and validate the region
 		if ($this->region->isLocked($this->permittedRegions))
 		{
-			throw new RegionException('The region "'.$this->getRegion().'" is not permited to query this API.');
+			throw new RegionException('The region "'.$this->region->getRegion().'" is not permited to query this API.');
 		}
 
 		// set the region based domain
