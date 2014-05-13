@@ -7,6 +7,10 @@ use LeagueWrap\Dto\StaticData\Item as staticItem;
 use LeagueWrap\Dto\StaticData\ItemList;
 use LeagueWrap\Dto\StaticData\Mastery as staticMastery;
 use LeagueWrap\Dto\StaticData\MasteryList;
+use LeagueWrap\Dto\StaticData\Rune as staticRune;
+use LeagueWrap\Dto\StaticData\RuneList;
+use LeagueWrap\Dto\StaticData\SummonerSpell as staticSummonerSpell;
+use LeagueWrap\Dto\StaticData\SummonerSpellList;
 use LeagueWrap\Dto\StaticData\Realm as staticRealm;
 
 class Staticdata extends AbstractApi {
@@ -96,27 +100,17 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getChampion($id, $data = null)
 	{
-		$params = $this->setUpParams();
-		if ( ! is_null($data))
-		{
-			$params['champData'] = $data;
-		}
+		$params = $this->setUpParams($data, 'champData');
 
-		$path = 'champion';
-		if ($this->appendId($id))
-		{
-			$path .= "/$id";
-		}
-		else
+		if ( ! $this->appendId($id))
 		{
 			// add the dataById argument
 			$params['dataById'] = 'true';
 		}
 
-		$array = $this->request($path, $params, true);
+		$array = $this->makeRequest('champion', $id, $params);
 
-		if ( ! is_null($id) and
-		     $id != 'all')
+		if ($this->appendId($id))
 		{
 			return new staticChampion($array);
 		}
@@ -147,13 +141,8 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getItem($id, $data = null)
 	{
-		$params = $this->setUpParams();
-		if ( ! is_null($data))
-		{
-			$params['itemListData'] = $data;
-		}
-		
-		$array = $this->makeRequest('item', $id, $params);
+		$params = $this->setUpParams($data, 'itemListData');
+		$array  = $this->makeRequest('item', $id, $params);
 		
 		if ($this->appendId($id))
 		{
@@ -186,13 +175,8 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getMastery($id, $data = null)
 	{
-		$params = $this->setUpParams();
-		if ( ! is_null($data))
-		{
-			$params['masteryListData'] = $data;
-		}
-
-		$array = $this->makeRequest('mastery', $id, $params);
+		$params = $this->setUpParams($data, 'masteryListData');
+		$array  = $this->makeRequest('mastery', $id, $params);
 		
 		if ($this->appendId($id))
 		{
@@ -205,7 +189,82 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Get realm information for the current region.
+	 * Gets static data on all runes.
+	 *
+	 * @param string $data
+	 * @return RuneList
+	 */
+	public function getRunes($data = null)
+	{
+		return $this->getRune('all', $data);
+	}
+
+	/**
+	 * Gets the rune data of all runes if $id is null.
+	 * If $id is set it will attempt to get info for that rune only.
+	 *
+	 * $param int $id
+	 * @param string $data
+	 * @return RuneList|Rune
+	 */
+	public function getRune($id, $data = null)
+	{
+		$params = $this->setUpParams($data, 'runeListData');
+		$array  = $this->makeRequest('rune', $id, $params);
+		
+		if ($this->appendId($id))
+		{
+			return new staticRune($array);
+		}
+		else
+		{
+			return new RuneList($array);
+		}
+	}
+
+	/**
+	 * Gets static data on all summoner spells.
+	 *
+	 * @param string $data
+	 * @return SummonerSpellList
+	 */
+	public function getSummonerSpells($data = null)
+	{
+		return $this->getSummonerSpell('all', $data);
+	}
+
+	/**
+	 * Gets the summoner spell data of all spells if $id is null
+	 * If $id is set it will attept to get info for that spell only.
+	 * 
+	 * @param int $id
+	 * @param string $data
+	 * @return SummonerSpell|SummonerSpellList
+	 */
+	public function getSummonerSpell($id, $data = null)
+	{
+		$params = $this->setUpParams($data, 'spellData');
+
+		if ( ! $this->appendId($id))
+		{
+			// add the dataById argument
+			$params['dataById'] = 'true';
+		}
+
+		$array = $this->makeRequest('summoner-spell', $id, $params);
+
+		if ($this->appendId($id))
+		{
+			return new staticSummonerSpell($array);
+		}
+		else
+		{
+			return new SummonerSpellList($array);
+		}
+	}
+
+	/**
+	 * Get the realm information for the current region.
 	 *
 	 * @return Realm
 	 */
@@ -215,6 +274,17 @@ class Staticdata extends AbstractApi {
 		$array  = $this->makeRequest('realm', null, $params);
 			
 		return new staticRealm($array);
+	}
+
+	/**
+	 * Get the version information for the current region.
+	 *
+	 * @return Array
+	 */
+	public function version()
+	{
+		$params = $this->setUpParams();
+		return $this->makeRequest('versions', null, $params);
 	}
 
 	/**
@@ -239,9 +309,10 @@ class Staticdata extends AbstractApi {
 	 * Set up the boiler plat for the param array for any 
 	 * static data call.
 	 *
+	 * @param string $data
 	 * @return array
 	 */
-	protected function setUpParams()
+	protected function setUpParams($data = null, $listData = '')
 	{
 		$params = [];
 		if ( ! is_null($this->locale))
@@ -251,6 +322,10 @@ class Staticdata extends AbstractApi {
 		if ( ! is_null($this->DDversion))
 		{
 			$params['version'] = $this->DDversion;
+		}
+		if ( ! is_null($data))
+		{
+			$params[$listData] = $data;
 		}
 		return $params;
 	}
