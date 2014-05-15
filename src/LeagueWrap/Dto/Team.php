@@ -5,7 +5,6 @@ class Team extends AbstractDto {
 
 	public function __construct(array $info)
 	{
-		$info['teamStatSummary'] = new Team\Stats($info['teamStatSummary']);
 		$info['roster']          = new Team\Roster($info['roster']);
 		$matchHistory = $info['matchHistory'];
 		$matches      = [];
@@ -15,6 +14,15 @@ class Team extends AbstractDto {
 			$matches[$id] = $match;
 		}
 		$info['matchHistory'] = $matches;
+
+		$teamStatDetails = $info['teamStatDetails'];
+		$details         = [];
+		foreach ($teamStatDetails as $key => $detail)
+		{
+			$details[] = new Stats($detail);
+		}
+		$info['teamStatDetails'] = $details;
+
 
 		$this->info = $info;
 	}

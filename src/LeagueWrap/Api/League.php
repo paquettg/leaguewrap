@@ -11,7 +11,7 @@ class League extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v2.3',
+		'v2.4',
 	];
 
 	/**
@@ -40,32 +40,49 @@ class League extends AbstractApi {
 	protected $defaultRemember = 43200;
 
 	/**
-	 * Gets the league information by summoner id.
+	 * Gets the league information by summoner id or list of summoner ids.
 	 *
 	 * @param mixed $identity
 	 * @return array
 	 */
-	public function league($identity)
+	public function league($identities)
 	{
-		$id = $this->extractId($identity);
-
-		$array   = $this->request('league/by-summoner/'.$id);
-		$leagues = [];
-		foreach ($array as $info)
+		if (is_array($identities))
 		{
-			$key           = $info['participantId'];
-			$info['id']    = $key;
-			$league        = new Dto\League($info);
-			if ( ! is_null($league->playerOrTeam))
+			if (count($identities) > 40)
 			{
-				$key = $league->playerOrTeam->playerOrTeamName;
+				throw new ListMaxException('This request can only support a list of 40 elements, '.count($identities).' given.');
 			}
-			$leagues[$key] = $league;
 		}
 
-		$this->attachResponse($identity, $leagues, 'leagues');
+		$ids = $this->extractIds($identities);
+		$ids = implode(',', $ids);
+		$array   = $this->request('league/by-summoner/'.$ids);
+		
+		$summoners = [];
+		foreach($array as $id => $summonerLeagues)
+		{
+			$leagues = [];
+			foreach ($summonerLeagues as $info)
+			{
+				$key           = $info['participantId'];
+				$info['id']    = $key;
+				$league        = new Dto\League($info);
+				if ( ! is_null($league->playerOrTeam))
+				{
+					$key = $league->playerOrTeam->playerOrTeamName;
+				}
+				$leagues[$key] = $league;
+			}
+			$summoners[$id] = $leagues;
+		}
 
-		return $leagues;
+		$this->attachResponses($identities, $summoners, 'leagues');
+
+		if(count($summoners) == 1)
+			return reset($summoners);
+		else
+			return $summoners;
 	}
 
 }

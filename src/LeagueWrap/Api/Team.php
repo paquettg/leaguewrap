@@ -18,7 +18,7 @@ class Team extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v2.2',
+		'v2.3',
 	];
 
 	/**
@@ -47,31 +47,49 @@ class Team extends AbstractApi {
 	protected $defaultRemember = 43200;
 
 	/**
-	 * Gets the team information by summoner id.
+	 * Gets the team information by summoner id or list of summoner ids.
 	 *
 	 * @param mixed $identity
 	 * @return array
 	 */
-	public function team($identity)
+	public function team($identities)
 	{
-		$id = $this->extractId($identity);
-
-		$array = $this->request('team/by-summoner/'.$id);
-		$teams = [];
-		foreach ($array as $info)
+		if (is_array($identities))
 		{
-			$id   = $info['fullId'];
-			$team = new Dto\Team($info);
-			$teams[$id] = $team;
+			if (count($identities) > 40)
+			{
+				throw new ListMaxException('This request can only support a list of 40 elements, '.count($identities).' given.');
+			}
 		}
 
-		$this->attachResponse($identity, $teams, 'teams');
+		$ids = $this->extractIds($identities);
+		$ids = implode(',', $ids);
 
-		foreach ($teams as $id => $team)
+		$array = $this->request('team/by-summoner/'.$ids);
+
+		$summoners = [];
+		foreach($array as $summonerId => $summonerTeams)
 		{
-			$this->teams[$id] = $team;
+			$teams = [];
+			foreach ($summonerTeams as $info)
+			{
+				$id   = $info['fullId'];
+				$team = new Dto\Team($info);
+				$teams[$id] = $team;
+			}
+			$summoners[$summonerId] = $teams;
+
+			foreach ($teams as $id => $team)
+			{
+				$this->teams[$id] = $team;
+			}
 		}
 
-		return $teams;
+		$this->attachResponses($identities, $summoners, 'teams');
+
+		if(count($summoners) == 1)
+			return reset($summoners);
+		else
+			return $summoners;
 	}
 }
