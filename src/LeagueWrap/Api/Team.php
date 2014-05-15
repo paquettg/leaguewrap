@@ -87,9 +87,13 @@ class Team extends AbstractApi {
 
 		$this->attachResponses($identities, $summoners, 'teams');
 
-		if(count($summoners) == 1)
-			return reset($summoners);
-		else
+		if (is_array($identities))
+		{
 			return $summoners;
+		}
+		else
+		{
+			return reset($summoners);
+		}
 	}
 }
