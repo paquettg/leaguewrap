@@ -40,12 +40,15 @@ class League extends AbstractApi {
 	protected $defaultRemember = 43200;
 
 	/**
-	 * Gets the league information by summoner id or list of summoner ids.
+	 * Gets the league information by summoner id or list of summoner ids. To only
+	 * get the single entry information for the summoner(s) ensure that $entry
+	 * is set to true.
 	 *
 	 * @param mixed $identity
+	 * @param bool $entry
 	 * @return array
 	 */
-	public function league($identities)
+	public function league($identities, $entry = false)
 	{
 		if (is_array($identities))
 		{
@@ -57,17 +60,28 @@ class League extends AbstractApi {
 
 		$ids = $this->extractIds($identities);
 		$ids = implode(',', $ids);
-		$array   = $this->request('league/by-summoner/'.$ids);
+		if ($entry)
+		{
+			$ids .= '/entry';
+		}
+		$array = $this->request('league/by-summoner/'.$ids);
 		
 		$summoners = [];
-		foreach($array as $id => $summonerLeagues)
+		foreach ($array as $id => $summonerLeagues)
 		{
 			$leagues = [];
 			foreach ($summonerLeagues as $info)
 			{
-				$key           = $info['participantId'];
-				$info['id']    = $key;
-				$league        = new Dto\League($info);
+				if (isset($info['participantId']))
+				{
+					$key        = $info['participantId'];
+					$info['id'] = $key;
+				}
+				else
+				{
+					$info['id'] = $id;
+				}
+				$league = new Dto\League($info);
 				if ( ! is_null($league->playerOrTeam))
 				{
 					$key = $league->playerOrTeam->playerOrTeamName;
@@ -79,10 +93,26 @@ class League extends AbstractApi {
 
 		$this->attachResponses($identities, $summoners, 'leagues');
 
-		if(count($summoners) == 1)
-			return reset($summoners);
-		else
+		if(is_array($identities))
+		{
 			return $summoners;
+		}
+		else
+		{
+			return reset($summoners);
+		}
 	}
 
+	/**
+	 * Gets the league information for the challenger teams.
+	 *
+	 * @param string $type
+	 * @return array
+	 */
+	public function challenger($type = 'RANKED_SOLO_5x5')
+	{
+		$info       = $this->request('league/challenger', ['type' => $type]);
+		$info['id'] = null;
+		return new Dto\League($info);
+	}
 }

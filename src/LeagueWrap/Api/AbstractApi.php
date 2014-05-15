@@ -351,9 +351,17 @@ abstract class AbstractApi {
 			{
 				if ($identity instanceof Summoner)
 				{
-					$id       = $identity->id;
-					$response = $responses[$id];
-					$this->attachResponse($identity, $response, $key);
+					$id = $identity->id;
+					if (isset($responses[$id]))
+					{
+						$response = $responses[$id];
+						$this->attachResponse($identity, $response, $key);
+					}
+					else
+					{
+						// we did not get a response for this id, attach null
+						$this->attachResponse($identity, null, $key);
+					}
 				}
 			}
 		}
@@ -362,9 +370,17 @@ abstract class AbstractApi {
 			$identity = $identities;
 			if ($identity instanceof Summoner)
 			{
-				$id       = $identity->id;
-				$response = $responses[$id];
-				$this->attachResponse($identity, $response, $key);
+				$id = $identity->id;
+				if (isset($responses[$id]))
+				{
+					$response = $responses[$id];
+					$this->attachResponse($identity, $response, $key);
+				}
+				else
+				{
+					// we did not get a response for this id, attach null
+					$this->attachResponse($identity, null, $key);
+				}
 			}
 		}
 
