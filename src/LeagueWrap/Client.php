@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap;
 
-use Guzzle\Http\Client as Guzzle;
+use GuzzleHttp\Client as Guzzle;
 
 class Client implements ClientInterface {
 
@@ -15,7 +15,7 @@ class Client implements ClientInterface {
 	 */
 	public function baseUrl($url)
 	{
-		$this->guzzle = new Guzzle($url);
+		$this->guzzle = new Guzzle(['base_url' => $url]);
 	}
 
 	/**
@@ -35,8 +35,7 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri)
-		                 ->send();
+		                 ->get($uri);
 		
 		$body = $response->getBody();
 		$body->seek(0);
