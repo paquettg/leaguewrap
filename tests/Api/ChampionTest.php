@@ -70,7 +70,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->client->shouldReceive('baseUrl')
 		             ->once()
-		             ->with('https://asia.api.pvp.net/api/lol/');
+		             ->with('https://kr.api.pvp.net/api/lol/');
 		$this->client->shouldReceive('request')
 		             ->with('kr/v1.2/champion', [
 						'freeToPlay' => 'false',
