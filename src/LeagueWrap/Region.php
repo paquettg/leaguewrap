@@ -18,7 +18,7 @@ class Region {
 	protected $domains = [
 		'ru' => 'https://eu.api.pvp.net/api/lol/', 
 		'tr' => 'https://eu.api.pvp.net/api/lol/',
-		'kr' => 'https://asia.api.pvp.net/api/lol/',
+		'kr' => 'https://kr.api.pvp.net/api/lol/',
 	];
 
 	/**
