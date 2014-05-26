@@ -2,6 +2,7 @@
 namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\Summoner;
+use LeagueWrap\Api;
 use LeagueWrap\Region;
 use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
@@ -38,6 +39,12 @@ abstract class AbstractApi {
 	 * @param string
 	 */
 	protected $region;
+
+	/**
+	 * Provides access to the api object to perform requests on
+	 * different api endpoints.
+	 */
+	protected $api;
 
 	/**
 	 * A list of all permitted regions for this API call. Leave
@@ -89,11 +96,13 @@ abstract class AbstractApi {
 	 *
 	 * @param ClientInterface $client
 	 * @param Collection $collection
+	 * @param Api $api
 	 */
-	public function __construct(ClientInterface $client, Collection $collection)
+	public function __construct(ClientInterface $client, Collection $collection, Api $api)
 	{
 		$this->client     = $client;
 		$this->collection = $collection;
+		$this->api        = $api;
 	}
 
 	/**
@@ -287,7 +296,7 @@ abstract class AbstractApi {
 		}
 		else
 		{
-			throw new Exception('The identity given was not valid.');
+			throw new InvalidIdentityException("The identity '$identity' is not valid.");
 		}
 	}
 

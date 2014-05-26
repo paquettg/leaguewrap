@@ -24,13 +24,13 @@ class Client implements ClientInterface {
 	 * @param string $path
 	 * @param array $params
 	 * @return string
-	 * @throws Exception
+	 * @throws BaseUrlException
 	 */
 	public function request($path, array $params = [])
 	{
 		if ( ! $this->guzzle instanceof Guzzle)
 		{
-			throw new Exception('BaseUrl was never set. Please call baseUrl($url).');
+			throw new BaseUrlException('BaseUrl was never set. Please call baseUrl($url).');
 		}
 
 		$uri      = $path.'?'.http_build_query($params);

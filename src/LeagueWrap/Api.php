@@ -90,7 +90,7 @@ class Api {
 	public function __call($method, $arguments)
 	{
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
-		$api       = new $className($this->client, $this->collection);
+		$api       = new $className($this->client, $this->collection, $this);
 		if ( ! $api instanceof AbstractApi)
 		{
 			// This is not an api class.

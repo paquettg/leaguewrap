@@ -21,7 +21,7 @@ final class StaticApi extends AbstractFacade {
 		}
 		else
 		{
-			throw new Exception('The api is not loaded. Please set the key using the setKey() static method.');
+			throw new ApiNotLoadedException('The api is not loaded. Please set the key using the setKey() static method.');
 		}
 	}
 

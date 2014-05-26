@@ -197,14 +197,6 @@ To get an instance of the `LeagueWrap\Api\Summoner` object which is used to requ
 $summoner = $api->summoner();
 ```
 
-An alternative method of loading a summoner object with out having to use the Api instance. This is not recommended but it is possible if you find yourself in a situation where you can't live with out it.
-
-```php
-$summoner = new \LeagueWrap\Api\Summoner($myClient);
-$summoner->setKey($myKey);
-$summoner->setRegion('na');
-```
-
 Selecting a valid version to be used by the summoner API. These version can be found in the object class file and we have a goal of only support at most 2 minor version of any major versions. Therefore you should not expect to be able to use v1.1 if v1.2 has been released for over a month.
 
 ```php
