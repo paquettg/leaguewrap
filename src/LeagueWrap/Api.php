@@ -61,7 +61,7 @@ class Api {
 	{
 		if (is_null($key))
 		{
-			throw new Exception('We need a key... it\'s very important!');
+			throw new NoKeyException('We need a key... it\'s very important!');
 		}
 
 		if (is_null($client))
@@ -94,7 +94,7 @@ class Api {
 		if ( ! $api instanceof AbstractApi)
 		{
 			// This is not an api class.
-			throw new Exception('The api class "'.$className.'" was not found.');
+			throw new ApiClassNotFoundException('The api class "'.$className.'" was not found.');
 		}
 
 		$api->setKey($this->key)

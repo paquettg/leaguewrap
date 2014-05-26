@@ -57,6 +57,8 @@ $champions = $api->champion()->free(); // will throw a LeagueWrap\Api\RegionExce
 
 The `LeagueWrap\Api\RegionException` in the above example will contain the string `'The region "br" is not permited to query this API.'`.
 
+It is also important to note that some regions, such as kr, require a certain url to be used and do not work on `prod.api.pvp.net`. This is taken care of automaticly and as long as you have the most recent version of the wrapper you do not need to worry about this.
+
 Cache
 -----
 
@@ -121,7 +123,7 @@ $api->limit(10, 10, $myLimiter);    // Set a limit using your own limit implemen
 $api->limit(500, 600, $myLimiter); 
 ```
 
-And this is fully supporting of the Facades described next.
+Also note that the limit functionality fully supports the Facades described next.
 
 Facade
 ------
@@ -163,34 +165,39 @@ And with limits.
 LeagueWrap\StaticApi::mount(); // Mount all the static facades
 
 Api::setKey('my-key');                // set the key for the API
-Api::remember();                      // cache all request for 60 seconds
+Api::remember();                      // cache all request for the default number of seconds
 Api::limit(10, 10);                   // Limit of 10 request per 10 seconds
 Api::limit(500, 600);                 // Limit of 500 request per 10 minutes
 $bakasan = Summoner::info('bakasan'); // cached for 60 seconds
 ```
 
 Quick Reference
----------------
+===============
 
 LeagueWrap implements a very strict interface for the API where everything is within your control and easy to test. Here's a sampling of the possible startup methods.
+
+Creates a new Api instance with the key. The key is mandatory and will throw a `LeagueWrap\NoKeyException` if not given. This instance will be used to orginize future calls to the API with out having to re-enter the key. 
 
 ```php
 $api = new \LeagueWrap\Api($myKey);
 ```
 
-Creates a new Api instance with the key. The key is mandatory and will throw an exception if not given. This instance will be used to orginize future calls to the API with out having to re-enter the key. 
+Using the DI principle we allow you to inject your own client object that implements `LeagueWrap\ClientInterface`. This allows you to use your own REST client if you wish to instead of Guzzle (which is what comes with the package).
 
 ```php
 $api = new \LeagueWrap\Api($myKey, $myClient);
 ```
 
-Using the DI principle we allow you to inject your own client object that implements `LeagueWrap\ClientInterface`. This allows you to use your own REST client if you wish to instead of Guzzle (which is what comes with the package).
+Summoner
+--------
+
+To get an instance of the `LeagueWrap\Api\Summoner` object which is used to request information of the summoner API. This is the primary way you should be getting this object.
 
 ```php
 $summoner = $api->summoner();
 ```
 
-This gets you an instance of the `LeagueWrap\Api\Summoner` object which is used to request information of the summoner API. This is the primary way you should be getting this object.
+An alternative method of loading a summoner object with out having to use the Api instance. This is not recommended but it is possible if you find yourself in a situation where you can't live with out it.
 
 ```php
 $summoner = new \LeagueWrap\Api\Summoner($myClient);
@@ -198,25 +205,25 @@ $summoner->setKey($myKey);
 $summoner->setRegion('na');
 ```
 
-This is an alternative method of loading a summoner object with out having to use the Api instance. This is not recommended but it is possible if you find yourself in a situation where you can't live with out it.
+Selecting a valid version to be used by the summoner API. These version can be found in the object class file and we have a goal of only support at most 2 minor version of any major versions. Therefore you should not expect to be able to use v1.1 if v1.2 has been released for over a month.
 
 ```php
 $summoner->selectVersion('v1.2')
 ```
 
-Selecting a valid version to be used by the summoner API. These version can be found in the object class file and we have a goal of only support at most 2 minor version of any major versions. Therefore you should not expect to be able to use v1.1 if v1.2 has been released for over a month.
+Doing a summoner info request by the summoner name 'bakasan' will return a `LeagueWrap\Dto\Summoner` DTO that contains the information for this summoner.
 
 ```php
 $bakasan = $summoner->info('bakasan');
 ```
 
-Doing a summoner info request by the summoner name 'bakasan' will return a `LeagueWrap\Response\Summoner` DTO that contains the information for this summoner.
+You may also do an info request by the summoner id 76204. It works in the same way as the above method.
 
 ```php
 $info = $summoner->info(76204);
 ```
 
-The above will do an info request by the summoner id 76204 and works the same as the above method.
+To do a single request and get the information for multiple summoner ids you can pass in an array. It will then return an array of all the information about said summoners. You really should use this to get information from multiple summoners as it only costs you 1 request.
 
 ```php
 $summoners = $summoner->info([
@@ -227,7 +234,7 @@ $summoners = $summoner->info([
 ]);
 ```
 
-The above will do a simgle request and get the information for the summoner of all the ids given. It will then return an array of all the information about said summoners. You really should use this to get information from multiple summoners as it only costs you 1 request.
+You can also mix up ids and names and it will return an array. This will take 2 requests though, so be careful with it. Another limitation is a limit of 40 ids and 40 names per request, this is impossed by the API so we throw a `LeagueWrap\Api\ListMaxException` if you attempt this.
 
 ```php
 $summoners = $summoner->info([
@@ -238,13 +245,13 @@ $summoners = $summoner->info([
 ]);
 ```
 
-You can also mix up ids and names and it will return an array. This will take 2 requests though, so be careful with it. Another limitation is a limit of 40 ids and 40 names per request, this is impossed by the API so we throw a `LeagueWrap\Api\ListMaxException` if you attempt this.
+If you wish to know how many requests you have done so far with a single API object you can always request the request count. It will simply return the number of requests to the API it has performed so far.
 
 ```php
 $summoner->getRequestCount()
 ```
 
-If you wish to know how many requests you have done so far with a single API object you can always request the request count. It will simply return the number of requests to the API it has performed so far.
+To get the only the name of a summoner but no other information (saves on data transfer and speed) you can us the name() method in the summoner object.
 
 ```php
 $names = $summoner->name(76204);
@@ -252,58 +259,130 @@ $names = $summoner->name(76204);
 
 It also accepts an array of ids instead of a single id and will return an associate array where `id => summonername`.
 
-The remaining methods list is not complete and will be documented soon enough. Sorry about the delay.
+```php
+$names = $summoner->name([
+	76204,
+	1234,
+	1337,
+	123456789
+]);
+```
+
+To get the runePage of a summoner you have multiple options. First using the summoner request object and the summoner id. This will return an array of `LeagueWrap\Dto\RunePage` objects. The runePages() method also accepts an array of ids instead of a single id.
 
 ```php
-$runePages = $summoner->runePage($bakasan);
+$runePages = $summoner->runePages(76204);
 ```
+
+And, lastly, you can use a summoner dto object that you received from info() or an array of such objects.
+
+```php
+$summoner->runePages($bakasan);
+```
+
+To get the first rune page of a summoner when you use the above method, passing in a summoner dto object, you can call the `runePage()` method of the object. The index of the runepage is what is expected as the first argument of the method call.
 
 ```php
 $runePage = $bakasan->runePage(0);
 ```
 
-```php
-$masteryPages = $summoner->masteryPages($bakasan);
-```
+The same applies to the mastery pages but using the `masteryPages()` method instead of the `runePages()` method on the summoner request object. We also have a short cut method `allInfo` which will get all the information for each summoner passed in. It works in the same way as `info` but does an extra 2 request for the rune pages and mastery pages information
 
 ```php
-$masteryPage = $bakasan->masteryPage(0);
+$bakasan = $summoner->allInfo(76204); // 3 requests
+// or
+$summoners = $summoner->allInfo([
+	76204,
+	'C9 Hai',
+	'riot',
+	1234,
+]); // this will take 4 requests
 ```
 
-```php
-$bakasan = $summoner->allInfo(76204);
-```
+Champion
+--------
+
+The champion api is very bare as most of the information in this api is static information so you are best to get that information from the static api. To get the champion request object you can call the `champion()` method on the api instance.
 
 ```php
 $champion = $api->champion();
 ```
 
+To get all champion information in a single request you only have to call the `all()` method. It will return an array of `LeagueWrap\Dto\Champion` objects. It will also store the result in a local array that you get access using the `get()` method.
+
 ```php
 $champions = $champion->all();
+$kayle     = $champions[10];
+// or
+$champion->all();
+$kay = $champion->get(10);
 ```
+
+You can also get the information about a single champion by id.
+
+```php
+$aatrox = $champion->championById(266);
+```
+
+Lastly, you can get a list of all free champions for the given region. this will return an array of `LeagueWrap\Dto\Champion` objects, each being free for the given region and week.
 
 ```php
 $freeChampions = $champion->free();
 ```
 
+Game
+----
+
+The game api is very simple but returns a lot of information about the given summoner. To get this request object you only need to call `game()` on the api object.
+
 ```php
 $game = $api->game();
 ```
 
+We have 2 ways of getting the information about a summoners recent games. You can either pass in the summoner id or the summoner object `LeagueWrap\Dto\Summoner` which has been loaded by a previous call to info. 
+
 ```php
 $games = $game->recent(74602);
-```
-
-```php
-$games = $game->recent($bakasan);
-```
-
-```php
+$game  = $games[0];
+// or
+$game->recent($bakasan);
 $game = $bakasan->recentGame(0);
 ```
 
+League
+------
+
+The documentation for the League Api is not complete but it is fully functional.
+
 ```php
 $league = $api->league();
+```
+
+Stat
+----
+
+The documentation for the Stat Api is not complete but it is fully functional.
+
+```php
+$stat = $api->stat();
+```
+
+Team
+----
+
+The documentation for the Team Api is not complete but it is fully functional.
+
+```php
+$team = $api->team();
+```
+
+Static Data
+-----------
+
+The documentation for the Static Data Api is not complete but it is fully functional.
+
+```php
+$staticData = $api->staticData();
 ```
 
 Disclaimer
