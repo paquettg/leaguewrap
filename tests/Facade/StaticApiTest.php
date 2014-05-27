@@ -55,6 +55,13 @@ class FacadeStaticApiTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($team instanceof LeagueWrap\Api\Team);
 	}
 
+	public function testStaticData()
+	{
+		Api::setKey('key');
+		$staticData = Api::staticData();
+		$this->assertTrue($staticData instanceof LeagueWrap\Api\Staticdata);
+	}
+
 	public function testFresh()
 	{
 		$api1 = Api::setKey('key');

@@ -16,7 +16,7 @@ abstract class AbstractFacade {
 			$class      = get_called_class();
 			$namespaces = explode('\\', $class);
 			$staticName = end($namespaces);
-			$className  = str_replace('Static', '', $staticName);
+			$className  = preg_replace('/^Static/', '', $staticName);
 		}
 		if (class_exists($className))
 		{

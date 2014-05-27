@@ -16,6 +16,7 @@ final class StaticApi {
 		'Stats',
 		'Summoner',
 		'Team',
+		'StaticData',
 	];
 
 	/**

@@ -54,5 +54,12 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$team = $api->team();
 		$this->assertTrue($team instanceof LeagueWrap\Api\Team);
 	}
+
+	public function testStaticData()
+	{
+		$api = new Api('key');
+		$staticData = $api->staticData();
+		$this->assertTrue($staticData instanceof LeagueWrap\Api\Staticdata);
+	}
 }
 
