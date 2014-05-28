@@ -2,7 +2,7 @@
     "name": "paquettg/leaguewrap",
     "type": "library",
     "description": "A wrapper for the League of Legends API.",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "keywords": ["League", "legends", "wrap", "api", "facade"],
     "homepage": "https://github.com/paquettg/leaguewrap",
     "license": "MIT",
