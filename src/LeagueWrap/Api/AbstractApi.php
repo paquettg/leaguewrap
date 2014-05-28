@@ -92,6 +92,13 @@ abstract class AbstractApi {
 	protected $seconds = 0;
 
 	/**
+	 * Should we attach static data to the requests done by this object?
+	 *
+	 * @var bool
+	 */
+	protected $attachStaticData = false;
+
+	/**
 	 * Default DI constructor.
 	 *
 	 * @param ClientInterface $client
@@ -139,6 +146,19 @@ abstract class AbstractApi {
 		$this->region = new Region($region);
 		return $this;
 	}
+
+	/**
+	 * Set wether to attach static data to the response.
+	 *
+	 * @param bool $attach
+	 * @chainable
+	 */
+	public function attachStaticData($attach = true)
+	{
+		$this->attachStaticData = $attach;
+		return $this;
+	}
+
 
 	/**
 	 * Select the version of the api you wish to

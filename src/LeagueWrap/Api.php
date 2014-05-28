@@ -46,6 +46,13 @@ class Api {
 	protected $limits = null;
 
 	/**
+	 * Whould we attach static data to all requests done on the api?
+	 *
+	 * @var bool
+	 */
+	protected $attachStaticData = false;
+
+	/**
 	 * This is the api key, very important.
 	 *
 	 * @var string
@@ -98,7 +105,8 @@ class Api {
 		}
 
 		$api->setKey($this->key)
-		    ->setRegion($this->region);
+		    ->setRegion($this->region)
+		    ->attachStaticData($this->attachStaticData);
 
 		if ($this->cache instanceof CacheInterface)
 		{
@@ -160,6 +168,19 @@ class Api {
 		$limit->setRate($hits, $seconds);
 
 		$this->collection->addLimit($limit);
+		return $this;
+	}
+
+	/**
+	 * Set wether or not to attach static data to all requests done on this
+	 * api.
+	 *
+	 * @param bool $attach
+	 * @chainable
+	 */
+	public function attachStaticData($attach = true)
+	{
+		$this->attachStaticData = $attach;
 		return $this;
 	}
 }
