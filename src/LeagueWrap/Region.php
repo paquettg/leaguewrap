@@ -11,38 +11,9 @@ class Region {
 	protected $region;
 
 	/**
-	 * An array of region dependant domains.
-	 *
-	 * @param array
+	 * The default domain to attempt to query
 	 */
-	protected $domains = [
-		'ru' => 'https://eu.api.pvp.net/api/lol/', 
-		'tr' => 'https://eu.api.pvp.net/api/lol/',
-		'kr' => 'https://kr.api.pvp.net/api/lol/',
-	];
-
-	/**
-	 * The default domain to attempt to query if the region is not
-	 * in the $domains array.
-	 *
-	 * @param string
-	 */
-	protected $defaultDomain = 'https://prod.api.pvp.net/api/lol/';
-
-	/**
-	 * An array of region dependant static data domains.
-	 *
-	 * @param array
-	 */
-	protected $staticDataDomains = [];
-
-	/**
-	 * The default domain to attempt to query if the region is not
-	 * in the $staticDataDomains array.
-	 *
-	 * @param string
-	 */
-	protected $defaultStaticDataDomain = 'https://prod.api.pvp.net/api/lol/static-data/';
+	protected $defaultDomain = 'https://%s.api.pvp.net/api/lol/';
 
 	public function __construct($region)
 	{
@@ -73,12 +44,7 @@ class Region {
 			return $this->getStaticDataDomain();
 		}
 
-		if (isset($this->domains[$this->region]))
-		{
-			return $this->domains[$this->region];
-		}
-
-		return $this->defaultDomain;
+		return sprintf($this->defaultDomain, $this->getRegion());
 	}
 
 	/**
@@ -88,12 +54,7 @@ class Region {
 	 */
 	public function getStaticDataDomain()
 	{
-		if (isset($this->staticDataDomains[$this->region]))
-		{
-			return $this->staticDataDomains[$this->region];
-		}
-
-		return $this->defaultStaticDataDomain;
+		return sprintf($this->defaultDomain . 'static-data/', $this->getRegion());
 	}
 
 	/**
