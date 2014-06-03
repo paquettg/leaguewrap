@@ -74,19 +74,14 @@ class League extends AbstractApi {
 			{
 				if (isset($info['participantId']))
 				{
-					$key        = $info['participantId'];
-					$info['id'] = $key;
+					$info['id'] = $info['participantId'];
 				}
 				else
 				{
 					$info['id'] = $id;
 				}
 				$league = new Dto\League($info);
-				if ( ! is_null($league->playerOrTeam))
-				{
-					$key = $league->playerOrTeam->playerOrTeamName;
-				}
-				$leagues[$key] = $league;
+				$leagues[] = $league;
 			}
 			$summoners[$id] = $leagues;
 		}
