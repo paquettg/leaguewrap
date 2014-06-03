@@ -310,7 +310,7 @@ abstract class AbstractApi {
 		{
 			return $identity->id;
 		}
-		elseif (is_int($identity))
+		elseif (filter_var($identity, FILTER_VALIDATE_INT) !== FALSE)
 		{
 			return $identity;
 		}
