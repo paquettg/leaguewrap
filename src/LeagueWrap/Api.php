@@ -101,7 +101,12 @@ class Api {
 	public function __call($method, $arguments)
 	{
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
-		$api       = new $className($this->client, $this->collection, $this);
+		if ( ! class_exists($className))
+		{
+			// This class does not exist
+			throw new ApiClassNotFoundException('The api class "'.$className.'" was not found.');
+		}
+		$api = new $className($this->client, $this->collection, $this);
 		if ( ! $api instanceof AbstractApi)
 		{
 			// This is not an api class.

@@ -20,6 +20,9 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		m::close();
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\LimitReachedException
+	 */
 	public function testSingleLimit()
 	{
 		$this->limit1->shouldReceive('setRate')
@@ -43,16 +46,13 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$api->limit(1, 10, $this->limit1);
 		$champion = $api->champion();
 		$champion->free();
-		$e = null;
-		try
-		{
-			$champion->free();
-		}
-		catch(LeagueWrap\Limit\LimitReachedException $e) {}
+		$champion->free();
 
-		$this->assertTrue($e instanceof LeagueWrap\Limit\LimitReachedException);
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\LimitReachedException
+	 */
 	public function testSingleLimitFacade()
 	{
 		$this->limit1->shouldReceive('setRate')
@@ -75,15 +75,12 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		Api::setKey('key', $this->client);
 		Api::limit(1, 10, $this->limit1);
 		Summoner::info('bakasan');
-		try
-		{
-			Summoner::info('bakasan');
-		}
-		catch(LeagueWrap\Limit\LimitReachedException $e) {}
-
-		$this->assertTrue($e instanceof LeagueWrap\Limit\LimitReachedException);
+		Summoner::info('bakasan');
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\LimitReachedException
+	 */
 	public function testDoubleLimit()
 	{
 		$this->limit1->shouldReceive('setRate')
@@ -117,13 +114,6 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$champion = $api->champion();
 		$champion->free();
 		$champion->free();
-		$e = null;
-		try
-		{
-			$champion->free();
-		}
-		catch(LeagueWrap\Limit\LimitReachedException $e) {}
-
-		$this->assertTrue($e instanceof LeagueWrap\Limit\LimitReachedException);
+		$champion->free();
 	}
 }
