@@ -2,6 +2,7 @@
 namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto;
+use LeagueWrap\Exception\ListMaxException;
 
 class Team extends AbstractApi {
 
@@ -51,6 +52,7 @@ class Team extends AbstractApi {
 	 *
 	 * @param mixed $identity
 	 * @return array
+	 * @throws ListMaxException
 	 */
 	public function team($identities)
 	{

@@ -7,6 +7,8 @@ use LeagueWrap\Api\AbstractApi;
 use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
+use LeagueWrap\Exception\NoKeyException;
+use LeagueWrap\Exception\ApiClassNotFoundException;
 
 class Api {
 
@@ -63,6 +65,7 @@ class Api {
 	 * Initiat the default client and key.
 	 *
 	 * @param string $key
+	 * @throws NoKeyException
 	 */
 	public function __construct($key = null, ClientInterface $client = null)
 	{
@@ -93,6 +96,7 @@ class Api {
 	 * @param string $method
 	 * @param array $arguments
 	 * @return AbstractApi
+	 * @throws ApiClassNotFoundException
 	 */
 	public function __call($method, $arguments)
 	{

@@ -8,7 +8,9 @@ use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Limit\Collection;
-use LeagueWrap\Limit\LimitReachedException;
+use LeagueWrap\Exception\RegionException;
+use LeagueWrap\Exception\LimitReachedException;
+use LeagueWrap\Exception\InvalidIdentityException;
 
 abstract class AbstractApi {
 	
@@ -302,7 +304,7 @@ abstract class AbstractApi {
 	 *
 	 * @param mixed $identity
 	 * @return int
-	 * @throws Exception
+	 * @throws InvalidIdentityException
 	 */
 	protected function extractId($identity)
 	{

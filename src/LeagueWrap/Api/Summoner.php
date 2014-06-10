@@ -6,6 +6,7 @@ use LeagueWrap\Dto\RunePage;
 use LeagueWrap\Dto\Rune;
 use LeagueWrap\Dto\MasteryPage;
 use LeagueWrap\Dto\Mastery;
+use LeagueWrap\Exception\ListMaxException;
 
 class Summoner extends AbstractApi {
 
@@ -191,7 +192,6 @@ class Summoner extends AbstractApi {
 	 *
 	 * @param mixed $identities
 	 * @return array
-	 * @throws Exception
 	 */
 	public function runePages($identities)
 	{
@@ -247,7 +247,6 @@ class Summoner extends AbstractApi {
 	 *
 	 * @param mixed $identities
 	 * @return array
-	 * @throws Exception
 	 */
 	public function masteryPages($identities)
 	{

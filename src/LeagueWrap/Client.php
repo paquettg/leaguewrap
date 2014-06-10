@@ -2,6 +2,7 @@
 namespace LeagueWrap;
 
 use GuzzleHttp\Client as Guzzle;
+use LeagueWrap\Exception\BaseUrlException;
 
 class Client implements ClientInterface {
 
