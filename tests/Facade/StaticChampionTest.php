@@ -29,8 +29,8 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 		             ->andReturn(file_get_contents('tests/Json/champion.json'));
 
 		Api::setKey('key', $this->client);
-		Champion::all();
-		$this->assertTrue(Champion::get(55) instanceof LeagueWrap\Dto\Champion);
+		$champions = Champion::all();
+		$this->assertTrue($champions->getChampion(55) instanceof LeagueWrap\Dto\Champion);
 	}
 
 	public function testFree()
@@ -46,6 +46,6 @@ class FacadeStaticChampionTest extends PHPUnit_Framework_TestCase {
 
 		Api::setKey('key', $this->client);
 		$free = Champion::free();
-		$this->assertEquals(10, count($free));
+		$this->assertEquals(10, count($free->champions));
 	}
 }

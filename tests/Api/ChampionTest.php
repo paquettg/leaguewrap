@@ -29,10 +29,10 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/champion.json'));
 
-		$api = new Api('key', $this->client);
-		$champion = $api->champion();
-		$champion->all();
-		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Dto\Champion);
+		$api       = new Api('key', $this->client);
+		$champion  = $api->champion();
+		$champions = $champion->all();
+		$this->assertTrue($champions->getChampion(53) instanceof LeagueWrap\Dto\Champion);
 	}
 
 	public function testFree()
@@ -48,7 +48,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 		$api  = new Api('key', $this->client);
 		$free = $api->champion()->free();
-		$this->assertEquals(10, count($free));
+		$this->assertEquals(10, count($free->champions));
 	}
 
 	public function testChampionById()
@@ -80,9 +80,9 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('kr');
-		$champion = $api->champion();
-		$champion->all();
-		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Dto\Champion);
+		$champion  = $api->champion();
+		$champions = $champion->all();
+		$this->assertTrue($champions->getChampion(53) instanceof LeagueWrap\Dto\Champion);
 	}
 
 	public function testAllRegionRU()
@@ -99,9 +99,9 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('RU');
-		$champion = $api->champion();
-		$champion->all();
-		$this->assertTrue($champion->get(53) instanceof LeagueWrap\Dto\Champion);
+		$champion  = $api->champion();
+		$champions = $champion->all();
+		$this->assertTrue($champions->getChampion(53) instanceof LeagueWrap\Dto\Champion);
 	}
 }
 

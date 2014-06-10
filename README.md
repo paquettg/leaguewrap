@@ -300,14 +300,13 @@ The champion api is very bare as most of the information in this api is static i
 $champion = $api->champion();
 ```
 
-To get all champion information in a single request you only have to call the `all()` method. It will return an array of `LeagueWrap\Dto\Champion` objects. It will also store the result in a local array that you get access using the `get()` method.
+To get all champion information in a single request you only have to call the `all()` method. It will return a `LeagueWrap\Dto\ChampionList` object.
 
 ```php
 $champions = $champion->all();
-$kayle     = $champions[10];
+$kayle     = $champions->getChampion(10);
 // or
-$champion->all();
-$kay = $champion->get(10);
+$kayle     = $champions->champions[10];
 ```
 
 You can also get the information about a single champion by id.
@@ -316,7 +315,7 @@ You can also get the information about a single champion by id.
 $aatrox = $champion->championById(266);
 ```
 
-Lastly, you can get a list of all free champions for the given region. this will return an array of `LeagueWrap\Dto\Champion` objects, each being free for the given region and week.
+Lastly, you can get a list of all free champions for the given region. This will return a `LeagueWrap\Dto\ChampionList` object, containing each free champion for the given region and week.
 
 ```php
 $freeChampions = $champion->free();
