@@ -334,7 +334,9 @@ We have 2 ways of getting the information about a summoners recent games. You ca
 
 ```php
 $games = $game->recent(74602);
-$game  = $games[0];
+$game  = $games->recentGame(0);
+// or
+$game  = $games->games[0];
 // or
 $game->recent($bakasan);
 $game = $bakasan->recentGame(0);
