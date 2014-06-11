@@ -82,7 +82,7 @@ class League extends AbstractApi {
 				{
 					$info['id'] = $id;
 				}
-				$league = new Dto\League($info);
+				$league    = new Dto\League($info);
 				$leagues[] = $league;
 			}
 			$summoners[$id] = $leagues;
