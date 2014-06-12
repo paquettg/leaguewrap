@@ -8,6 +8,15 @@ use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
 
+/**
+ * @method \LeagueWrap\Api\Champion champion()
+ * @method \LeagueWrap\Api\Game game()
+ * @method \LeagueWrap\Api\League league()
+ * @method \LeagueWrap\Api\Staticdata staticData()
+ * @method \LeagueWrap\Api\Stats stats()
+ * @method \LeagueWrap\Api\Summoner summoner()
+ * @method \LeagueWrap\Api\Team team()
+ */
 class Api {
 
 	/**
