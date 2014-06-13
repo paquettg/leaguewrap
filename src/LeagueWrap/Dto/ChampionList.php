@@ -1,7 +1,9 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class ChampionList extends AbstractDto {
+class ChampionList extends AbstractListDto {
+
+	protected $listKey = 'champions';
 
 	public function __construct(array $info)
 	{
