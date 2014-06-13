@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class LeagueItem extends AbstractDto {
+class LeagueEntry extends AbstractDto {
 
 	public function __construct($info)
 	{

@@ -92,6 +92,22 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Waraight', $first->playerOrTeamName);
 	}
 
+	public function testLeagueEntryArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v2.4/league/by-summoner/272354', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
+
+		$api     = new Api('key', $this->client);
+		$leagues = $api->league()->league(272354);
+		$first   = $leagues[0][0];
+		$this->assertEquals('Midget1', $first->playerOrTeamName);
+	}
+
 	public function testLeagueSummonerPlayerOrTeam()
 	{
 		$this->client->shouldReceive('baseUrl')

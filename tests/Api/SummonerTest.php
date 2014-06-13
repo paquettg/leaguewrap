@@ -116,9 +116,24 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
 
-		$api = new Api('key', $this->client);
+		$api   = new Api('key', $this->client);
 		$runes = $api->summoner()->runePages(74602);
 		$this->assertTrue($runes[0] instanceof LeagueWrap\Dto\RunePage);
+	}
+
+	public function testRuneArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602/runes', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
+
+		$api   = new Api('key', $this->client);
+		$runes = $api->summoner()->runePages(74602);
+		$this->assertTrue($runes[0][30] instanceof LeagueWrap\Dto\Rune);
 	}
 
 	public function testRunesSummoner()
@@ -176,9 +191,24 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
 
-		$api = new Api('key', $this->client);
-		$runes = $api->summoner()->masteryPages(74602);
-		$this->assertTrue($runes[0] instanceof LeagueWrap\Dto\MasteryPage);
+		$api       = new Api('key', $this->client);
+		$masteries = $api->summoner()->masteryPages(74602);
+		$this->assertTrue($masteries[0] instanceof LeagueWrap\Dto\MasteryPage);
+	}
+
+	public function testMasteriesArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602/masteries', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
+
+		$api       = new Api('key', $this->client);
+		$masteries = $api->summoner()->masteryPages(74602);
+		$this->assertTrue($masteries[0][4342] instanceof LeagueWrap\Dto\Mastery);
 	}
 
 	public function testMasteriesSummoner()

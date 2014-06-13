@@ -1,7 +1,9 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class RecentGames extends AbstractDto {
+class RecentGames extends AbstractListDto {
+
+	protected $listKey = 'games';
 
 	public function __construct(array $info)
 	{

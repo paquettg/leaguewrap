@@ -1,21 +1,26 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class League extends AbstractDto {
+class League extends AbstractListDto {
+
+	protected $listKey = 'entries';
 
 	public function __construct(array $info)
 	{
-		$entries = $info['entries'];
-		$items   = [];
-		foreach ($entries as $key => $item)
+		if (isset($info['entries']))
 		{
-			$leagueItem  = new LeagueItem($item);
-			$items[$key] = $leagueItem;
+			$entries = [];
+			foreach ($info['entries'] as $key => $entry)
+			{
+				$leagueEntry = new LeagueEntry($entry);
+				$entries[$key] = $leagueEntry;
+			}
+			$info['entries'] = $entries;
 		}
-		$info['entries']          = $items;
+
 		$info['playerOrTeamName'] = null;
 
-		$this->info = $info;
+		parent::__construct($info);
 
 		// get the current team
 		$current = $this->entry($this->info['id']);

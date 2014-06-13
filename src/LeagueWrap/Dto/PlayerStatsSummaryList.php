@@ -1,7 +1,9 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class PlayerStatsSummaryList extends AbstractDto {
+class PlayerStatsSummaryList extends AbstractListDto {
+
+	protected $listKey = 'playerStatSummaries';
 
 	public function __construct(array $info)
 	{
@@ -13,7 +15,7 @@ class PlayerStatsSummaryList extends AbstractDto {
 				$playerStats = new PlayerStatsSummary($playerStat);
 				$stats[$key] = $playerStats;
 			}
-			$info['playerStatsSummaries'] = $stats;
+			$info['playerStatSummaries'] = $stats;
 		}
 
 		parent::__construct($info);
@@ -27,11 +29,11 @@ class PlayerStatsSummaryList extends AbstractDto {
 	 */
 	public function playerStat($id)
 	{
-		if ( ! isset($this->info['playerStatsSummaries'][$id]))
+		if ( ! isset($this->info['playerStatSummaries'][$id]))
 		{
 			return null;
 		}
 
-		return $this->info['playerStatsSummaries'][$id];
+		return $this->info['playerStatSummaries'][$id];
 	}
 }

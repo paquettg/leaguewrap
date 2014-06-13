@@ -1,7 +1,9 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class RunePage extends AbstractDto {
+class RunePage extends AbstractListDto {
+
+	protected $listKey = 'runes';
 
 	/**
 	 * Attempts to get a rune by slot id.
