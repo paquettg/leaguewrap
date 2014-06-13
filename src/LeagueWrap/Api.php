@@ -10,6 +10,15 @@ use LeagueWrap\Limit\Collection;
 use LeagueWrap\Exception\NoKeyException;
 use LeagueWrap\Exception\ApiClassNotFoundException;
 
+/**
+ * @method \LeagueWrap\Api\Champion champion()
+ * @method \LeagueWrap\Api\Game game()
+ * @method \LeagueWrap\Api\League league()
+ * @method \LeagueWrap\Api\Staticdata staticData()
+ * @method \LeagueWrap\Api\Stats stats()
+ * @method \LeagueWrap\Api\Summoner summoner()
+ * @method \LeagueWrap\Api\Team team()
+ */
 class Api {
 
 	/**
