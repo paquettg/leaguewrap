@@ -13,7 +13,7 @@ class StaticLeague extends AbstractFacade {
 	 */
 	protected static $league = null;
 
-	public static function __classStatic($method, $arguments)
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$league instanceof League)
 		{
