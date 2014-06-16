@@ -18,7 +18,7 @@ class Region {
 	/**
 	 * The default domain for static queries
 	 */
-	protected $defaultStaticDomain = 'https://prod.api.pvp.net/api/lol/static-data/';
+	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/';
 
 	public function __construct($region)
 	{
