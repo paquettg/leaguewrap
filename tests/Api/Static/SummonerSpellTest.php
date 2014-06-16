@@ -35,6 +35,22 @@ class SummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Teleport', $spell->name);
 	}
 
+	public function testArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/summoner-spell', [
+						'api_key'  => 'key',
+						'dataById' => 'true',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/summonerspell.json'));
+		             
+		$api    = new Api('key', $this->client);
+		$spells = $api->staticData()->getSummonerSpells();
+		$this->assertEquals('Teleport', $spells[12]->name);
+	}
+
 	public function testGetSummonerSpellRegionTR()
 	{
 		$this->client->shouldReceive('baseUrl')

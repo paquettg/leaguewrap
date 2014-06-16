@@ -1,9 +1,11 @@
 <?php
 namespace LeagueWrap\Dto\StaticData;
 
-use LeagueWrap\Dto\AbstractDto;
+use LeagueWrap\Dto\AbstractListDto;
 
-class MasteryTreeList extends AbstractDto {
+class MasteryTreeList extends AbstractListDto {
+
+	protected $listKey = 'masteryTreeItems';
 
 	public function __construct(array $info)
 	{

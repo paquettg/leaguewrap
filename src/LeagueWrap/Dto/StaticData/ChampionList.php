@@ -1,9 +1,11 @@
 <?php
 namespace LeagueWrap\Dto\StaticData;
 
-use LeagueWrap\Dto\AbstractDto;
+use LeagueWrap\Dto\AbstractListDto;
 
-class ChampionList extends AbstractDto {
+class ChampionList extends AbstractListDto {
+
+	protected $listKey = 'data';
 
 	/**
 	 * Set up the information about the ChampionList Dto.

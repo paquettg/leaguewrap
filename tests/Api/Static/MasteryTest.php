@@ -34,6 +34,21 @@ class MasteryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Oppression', $mastery->name);
 	}
 
+	public function testArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/mastery', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/mastery.json'));
+
+		$api       = new Api('key', $this->client);
+		$masteries = $api->staticData()->getMasteries();
+		$this->assertEquals('Oppression', $masteries[4231]->name);
+	}
+
 	public function testGetMasteryRegionKR()
 	{
 		$this->client->shouldReceive('baseUrl')

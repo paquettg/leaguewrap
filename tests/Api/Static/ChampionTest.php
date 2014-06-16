@@ -35,6 +35,22 @@ class ChampionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Blitzcrank', $champion->name);
 	}
 
+	public function testArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion', [
+						'api_key'  => 'key',
+						'dataById' => 'true',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/champion.json'));
+
+		$api       = new Api('key', $this->client);
+		$champions = $api->staticData()->getChampions();
+		$this->assertEquals('Blitzcrank', $champions[53]->name);
+	}
+
 	public function testGetChampionRegionFR()
 	{
 		$this->client->shouldReceive('baseUrl')

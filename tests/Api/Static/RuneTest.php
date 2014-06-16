@@ -34,6 +34,21 @@ class RuneTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Mark of Critical Chance', $rune->name);
 	}
 
+	public function testArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/rune', [
+						'api_key'  => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/rune.json'));
+
+		$api   = new Api('key', $this->client);
+		$runes = $api->staticData()->getRunes();
+		$this->assertEquals('Mark of Critical Chance', $runes[5129]->name);
+	}
+
 	public function testGetRuneRegionKR()
 	{
 		$this->client->shouldReceive('baseUrl')
