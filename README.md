@@ -188,6 +188,28 @@ Using the DI principle we allow you to inject your own client object that implem
 $api = new \LeagueWrap\Api($myKey, $myClient);
 ```
 
+Array Access
+------------
+
+A good number of the DTO response will extend `LeagueWrap\Dto\AbstractListDto` instead of `LeagueWrap\Dto\AbstractDto`. The DTO that extends the abstract list gain the ability to be used as an array for access, traversing (using `foreach()`), and counting (using `count()`).
+
+```php
+$game       = $api->game();
+$games      = $game->recent(74602);
+$mostRecent = $games->game(0);
+// instead to access
+$mostRecent = $games[0]; 
+
+// traversing
+foreach ($games as $game)
+{
+	// do some stuff to each recent game
+}
+
+// counting
+$recentGameCount = count($games);
+```
+
 Summoner
 --------
 
