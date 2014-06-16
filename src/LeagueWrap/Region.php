@@ -14,6 +14,11 @@ class Region {
 	 * The default domain to attempt to query
 	 */
 	protected $defaultDomain = 'https://%s.api.pvp.net/api/lol/';
+	
+	/**
+	 * The default domain for static queries
+	 */
+	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/';
 
 	public function __construct($region)
 	{
@@ -54,7 +59,7 @@ class Region {
 	 */
 	public function getStaticDataDomain()
 	{
-		return sprintf($this->defaultDomain . 'static-data/', $this->getRegion());
+		return $this->defaultStaticDomain;
 	}
 
 	/**
