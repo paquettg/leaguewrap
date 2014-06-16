@@ -1,22 +1,26 @@
 <?php
 namespace LeagueWrap\Dto\Team;
 
-use LeagueWrap\Dto\AbstractDto;
+use LeagueWrap\Dto\AbstractListDto;
 
-class Roster extends AbstractDto {
+class Roster extends AbstractListDto {
+
+	protected $listKey = 'memberList';
 
 	public function __construct(array $info)
 	{
-		$memberList = $info['memberList'];
-		$members    = [];
-		foreach ($memberList as $member)
+		if (isset($info['memberList']))
 		{
-			$member                     = new Member($member);
-			$members[$member->playerId] = $member;
+			$members = [];
+			foreach ($info['memberList'] as $member)
+			{
+				$member                     = new Member($member);
+				$members[$member->playerId] = $member;
+			}
+			$info['memberList'] = $members;
 		}
-		$info['memberList'] = $members;
 
-		$this->info = $info;
+		parent::__construct($info);
 	}
 
 	/**

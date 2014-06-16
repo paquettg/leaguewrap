@@ -1,29 +1,36 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class Team extends AbstractDto {
+class Team extends AbstractListDto {
+
+	protected $listKey = 'matchHistory';
 
 	public function __construct(array $info)
 	{
-		$info['roster']          = new Team\Roster($info['roster']);
-		$matchHistory = $info['matchHistory'];
-		$matches      = [];
-		foreach ($matchHistory as $id => $match)
+		if (isset($info['roster']))
 		{
-			$match        = new Team\Match($match);
-			$matches[$id] = $match;
+			$info['roster'] = new Team\Roster($info['roster']);
 		}
-		$info['matchHistory'] = $matches;
-
-		$teamStatDetails = $info['teamStatDetails'];
-		$details         = [];
-		foreach ($teamStatDetails as $key => $detail)
+		if (isset($info['matchHistory']))
 		{
-			$details[] = new Stats($detail);
+			$matches = [];
+			foreach ($info['matchHistory'] as $id => $match)
+			{
+				$match        = new Team\Match($match);
+				$matches[$id] = $match;
+			}
+			$info['matchHistory'] = $matches;
 		}
-		$info['teamStatDetails'] = $details;
+		if (isset($info['teamStatDetails']))
+		{
+			$details = [];
+			foreach ($info['teamStatDetails'] as $key => $detail)
+			{
+				$details[] = new Stats($detail);
+			}
+			$info['teamStatDetails'] = $details;
+		}
 
-
-		$this->info = $info;
+		parent::__construct($info);
 	}
 }

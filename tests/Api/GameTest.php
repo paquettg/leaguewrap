@@ -30,6 +30,21 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 		$api   = new Api('key', $this->client);
 		$games = $api->game()->recent(74602);
+		$this->assertTrue($games instanceof LeagueWrap\Dto\RecentGames);
+	}
+
+	public function testRecentArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
+
+		$api   = new Api('key', $this->client);
+		$games = $api->game()->recent(74602);
 		$this->assertTrue($games[0] instanceof LeagueWrap\Dto\Game);
 	}
 

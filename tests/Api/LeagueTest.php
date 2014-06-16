@@ -30,7 +30,23 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 		$api     = new Api('key', $this->client);
 		$leagues = $api->league()->league(272354);
-		$this->assertTrue($leagues['GamerXz'] instanceof LeagueWrap\Dto\League);
+		$this->assertTrue($leagues[0] instanceof LeagueWrap\Dto\League);
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Exception\ListMaxException
+	 */
+	public function testLeagueListMaxException()
+	{
+		$api     = new Api('key', $this->client);
+		$leagues = $api->league()->league([
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+			10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+			20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+			30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+			40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+			50, 51, 52, 53, 54
+		]);
 	}
 
 	public function testLeagueSummoner()
@@ -76,6 +92,22 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Waraight', $first->playerOrTeamName);
 	}
 
+	public function testLeagueEntryArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v2.4/league/by-summoner/272354', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
+
+		$api     = new Api('key', $this->client);
+		$leagues = $api->league()->league(272354);
+		$first   = $leagues[0][0];
+		$this->assertEquals('Midget1', $first->playerOrTeamName);
+	}
+
 	public function testLeagueSummonerPlayerOrTeam()
 	{
 		$this->client->shouldReceive('baseUrl')
@@ -113,7 +145,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 			74602,
 			272354,
 		]);
-		$this->assertTrue($summoners[272354]['GamerXz'] instanceof LeagueWrap\Dto\League);
+		$this->assertTrue($summoners[272354][0] instanceof LeagueWrap\Dto\League);
 	}
 
 	public function testLeagueMultipleSummoners()
@@ -138,7 +170,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 			7024,
 		]);
 		$api->league()->league($summoners);
-		$this->assertTrue($summoners['bakasan']->leagues['bakasan'] instanceof LeagueWrap\Dto\League);
+		$this->assertTrue($summoners['bakasan']->leagues[0] instanceof LeagueWrap\Dto\League);
 	}
 
 	public function testEntry()
@@ -153,7 +185,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 		$api    = new Api('key', $this->client);
 		$league = $api->league()->league(74602, true);
-		$this->assertEquals(10, $league['bakasan']->playerOrTeam->leaguePoints);
+		$this->assertEquals(10, $league[0]->playerOrTeam->leaguePoints);
 	}
 
 	public function testEntrySummoners()
@@ -178,7 +210,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 			7024,
 		]);
 		$api->league()->league($summoners, true);
-		$this->assertTrue($summoners['GamerXz']->leagues['GamerXz'] instanceof LeagueWrap\Dto\League);
+		$this->assertTrue($summoners['GamerXz']->leagues[0] instanceof LeagueWrap\Dto\League);
 	}
 
 	public function testChallenger()

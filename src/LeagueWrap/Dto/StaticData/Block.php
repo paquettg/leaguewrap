@@ -1,9 +1,11 @@
 <?php
 namespace LeagueWrap\Dto\StaticData;
 
-use LeagueWrap\Dto\AbstractDto;
+use LeagueWrap\Dto\AbstractListDto;
 
-class Block extends AbstractDto {
+class Block extends AbstractListDto {
+
+	protected $listKey = 'items';
 
 	public function __construct(array $info)
 	{
@@ -17,6 +19,16 @@ class Block extends AbstractDto {
 			$info['items'] = $items;
 		}
 		parent::__construct($info);
+	}
+
+	public function item($key)
+	{
+		if ( ! isset($this->info['items'][$key]))
+		{
+			return null;
+		}
+
+		return $this->info['items'][$key];
 	}
 }
 

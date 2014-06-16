@@ -8,7 +8,7 @@ class Game extends AbstractDto {
 	 *
 	 * @param array $info
 	 */
-	public function __construct($info)
+	public function __construct(array $info)
 	{
 		if ( ! isset($info['fellowPlayers']))
 		{
@@ -17,7 +17,6 @@ class Game extends AbstractDto {
 		}
 		$fellowPlayers = $info['fellowPlayers'];
 		$players       = [];
-		$teams         = [];
 		foreach ($fellowPlayers as $key => $value)
 		{
 			$player        = new Player($value);
@@ -29,7 +28,7 @@ class Game extends AbstractDto {
 		$stats = new Stats($info['stats']);
 		$info['stats'] = $stats;
 
-		$this->info = $info;
+		parent::__construct($info);
 	}
 
 	/**

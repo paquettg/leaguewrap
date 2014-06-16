@@ -1,8 +1,8 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Dto;
-use LeagueWrap\Dto\PlayerStats;
+use LeagueWrap\Dto\RankedStats;
+use LeagueWrap\Dto\PlayerStatsSummaryList;
 
 class Stats extends AbstractApi {
 
@@ -76,12 +76,7 @@ class Stats extends AbstractApi {
 			$params['season'] = $this->season;
 		}
 		$array = $this->request('stats/by-summoner/'.$id.'/summary', $params);
-		$stats = [];
-		foreach ($array['playerStatSummaries'] as $key => $info)
-		{
-			$playerStats = new PlayerStats($info);
-			$stats[$key] = $playerStats;
-		}
+		$stats = new PlayerStatsSummaryList($array);
 
 		$this->attachResponse($identity, $stats, 'stats');
 
@@ -104,13 +99,7 @@ class Stats extends AbstractApi {
 			$params['season'] = $this->season;
 		}
 		$array = $this->request('stats/by-summoner/'.$id.'/ranked', $params);
-		$stats = [];
-		foreach ($array['champions'] as $key => $info)
-		{
-			$info['stats'] = new Dto\Stats($info['stats']);
-			$championStats = new Dto\Champion($info);
-			$stats[$key]   = $championStats;
-		}
+		$stats = new RankedStats($array);
 
 		$this->attachResponse($identity, $stats, 'rankedStats');
 

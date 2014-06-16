@@ -7,6 +7,8 @@ use LeagueWrap\Api\AbstractApi;
 use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
+use LeagueWrap\Exception\NoKeyException;
+use LeagueWrap\Exception\ApiClassNotFoundException;
 
 /**
  * @method \LeagueWrap\Api\Champion champion()
@@ -72,6 +74,7 @@ class Api {
 	 * Initiat the default client and key.
 	 *
 	 * @param string $key
+	 * @throws NoKeyException
 	 */
 	public function __construct($key = null, ClientInterface $client = null)
 	{
@@ -102,11 +105,17 @@ class Api {
 	 * @param string $method
 	 * @param array $arguments
 	 * @return AbstractApi
+	 * @throws ApiClassNotFoundException
 	 */
 	public function __call($method, $arguments)
 	{
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
-		$api       = new $className($this->client, $this->collection, $this);
+		if ( ! class_exists($className))
+		{
+			// This class does not exist
+			throw new ApiClassNotFoundException('The api class "'.$className.'" was not found.');
+		}
+		$api = new $className($this->client, $this->collection, $this);
 		if ( ! $api instanceof AbstractApi)
 		{
 			// This is not an api class.

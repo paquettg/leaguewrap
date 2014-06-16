@@ -7,6 +7,14 @@ class FacadeStaticApiTest extends PHPUnit_Framework_TestCase {
 		LeagueWrap\StaticApi::mount();
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\ApiNotLoadedException
+	 */
+	public function testApiNotLoadedException()
+	{
+		Api::champion();
+	}
+
 	public function testSetKey()
 	{
 		$api = Api::setKey('key');

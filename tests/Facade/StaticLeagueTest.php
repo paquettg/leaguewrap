@@ -29,6 +29,6 @@ class FacadeStaticLeagueTest extends PHPUnit_Framework_TestCase {
 
 		Api::setKey('key', $this->client);
 		$leagues = League::league(272354);
-		$this->assertTrue($leagues['GamerXz'] instanceof LeagueWrap\Dto\League);
+		$this->assertTrue($leagues[0] instanceof LeagueWrap\Dto\League);
 	}
 }

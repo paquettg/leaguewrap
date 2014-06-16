@@ -188,6 +188,28 @@ Using the DI principle we allow you to inject your own client object that implem
 $api = new \LeagueWrap\Api($myKey, $myClient);
 ```
 
+Array Access
+------------
+
+A good number of the DTO response will extend `LeagueWrap\Dto\AbstractListDto` instead of `LeagueWrap\Dto\AbstractDto`. The DTO that extends the abstract list gain the ability to be used as an array for access, traversing (using `foreach()`), and counting (using `count()`).
+
+```php
+$game       = $api->game();
+$games      = $game->recent(74602);
+$mostRecent = $games->game(0);
+// instead to access
+$mostRecent = $games[0]; 
+
+// traversing
+foreach ($games as $game)
+{
+	// do some stuff to each recent game
+}
+
+// counting
+$recentGameCount = count($games);
+```
+
 Summoner
 --------
 
@@ -300,14 +322,13 @@ The champion api is very bare as most of the information in this api is static i
 $champion = $api->champion();
 ```
 
-To get all champion information in a single request you only have to call the `all()` method. It will return an array of `LeagueWrap\Dto\Champion` objects. It will also store the result in a local array that you get access using the `get()` method.
+To get all champion information in a single request you only have to call the `all()` method. It will return a `LeagueWrap\Dto\ChampionList` object.
 
 ```php
 $champions = $champion->all();
-$kayle     = $champions[10];
+$kayle     = $champions->getChampion(10);
 // or
-$champion->all();
-$kay = $champion->get(10);
+$kayle     = $champions->champions[10];
 ```
 
 You can also get the information about a single champion by id.
@@ -316,7 +337,7 @@ You can also get the information about a single champion by id.
 $aatrox = $champion->championById(266);
 ```
 
-Lastly, you can get a list of all free champions for the given region. this will return an array of `LeagueWrap\Dto\Champion` objects, each being free for the given region and week.
+Lastly, you can get a list of all free champions for the given region. This will return a `LeagueWrap\Dto\ChampionList` object, containing each free champion for the given region and week.
 
 ```php
 $freeChampions = $champion->free();
@@ -335,7 +356,9 @@ We have 2 ways of getting the information about a summoners recent games. You ca
 
 ```php
 $games = $game->recent(74602);
-$game  = $games[0];
+$game  = $games->recentGame(0);
+// or
+$game  = $games->games[0];
 // or
 $game->recent($bakasan);
 $game = $bakasan->recentGame(0);

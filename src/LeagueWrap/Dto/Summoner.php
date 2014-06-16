@@ -58,12 +58,8 @@ class Summoner extends AbstractDto {
 			// no rune pages
 			return null;
 		}
-		$masteryPages = $this->info['recentGames'];
-		if (isset($masteryPages[$id]))
-		{
-			return $masteryPages[$id];
-		}
-		return null;
+		$recentGames = $this->info['recentGames'];
+		return $recentGames->game($id);
 	}
 
 	/**

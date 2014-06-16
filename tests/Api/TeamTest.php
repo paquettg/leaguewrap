@@ -33,6 +33,38 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('C9', $teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa']->tag);
 	}
 
+	public function testTeamArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v2.3/team/by-summoner/492066', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
+
+		$api   = new Api('key', $this->client);
+		$teams = $api->team()->team(492066);
+		$c9    = $teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa'];
+		$this->assertTrue($c9[0] instanceof LeagueWrap\Dto\Team\Match);
+	}
+
+	public function testTeamRosterArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v2.3/team/by-summoner/492066', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
+
+		$api   = new Api('key', $this->client);
+		$teams = $api->team()->team(492066);
+		$c9    = $teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa'];
+		$this->assertTrue($c9->roster[19302712] instanceof LeagueWrap\Dto\Team\Member);
+	}
+
 	public function testTeamSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')

@@ -2,6 +2,7 @@
 namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto;
+use LeagueWrap\Exception\ListMaxException;
 
 class League extends AbstractApi {
 
@@ -47,6 +48,7 @@ class League extends AbstractApi {
 	 * @param mixed $identity
 	 * @param bool $entry
 	 * @return array
+	 * @throws ListMaxException
 	 */
 	public function league($identities, $entry = false)
 	{
@@ -74,19 +76,14 @@ class League extends AbstractApi {
 			{
 				if (isset($info['participantId']))
 				{
-					$key        = $info['participantId'];
-					$info['id'] = $key;
+					$info['id'] = $info['participantId'];
 				}
 				else
 				{
 					$info['id'] = $id;
 				}
-				$league = new Dto\League($info);
-				if ( ! is_null($league->playerOrTeam))
-				{
-					$key = $league->playerOrTeam->playerOrTeamName;
-				}
-				$leagues[$key] = $league;
+				$league    = new Dto\League($info);
+				$leagues[] = $league;
 			}
 			$summoners[$id] = $leagues;
 		}

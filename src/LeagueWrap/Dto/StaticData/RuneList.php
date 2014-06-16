@@ -1,9 +1,11 @@
 <?php
 namespace LeagueWrap\Dto\StaticData;
 
-use LeagueWrap\Dto\AbstractDto;
+use LeagueWrap\Dto\AbstractListDto;
 
-class RuneList extends AbstractDto {
+class RuneList extends AbstractListDto {
+
+	protected $listKey = 'data';
 
 	public function __construct(array $info)
 	{

@@ -20,14 +20,6 @@ class RegionTest extends PHPUnit_Framework_TestCase {
 		]));
 	}
 
-	public function testGetDomainDefault()
-	{
-        $this->markTestIncomplete("There is no default domain anymore.");
-
-		$region = new Region('rawr');
-		$this->assertEquals('https://prod.api.pvp.net/api/lol/', $region->getDomain());
-	}
-
     public function testGetDomain()
     {
         $region = new Region('euw');

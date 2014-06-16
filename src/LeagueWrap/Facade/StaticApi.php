@@ -3,6 +3,7 @@ namespace LeagueWrap\Facade;
 
 use LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
+use LeagueWrap\Exception\ApiNotLoadedException;
 
 final class StaticApi extends AbstractFacade {
 
@@ -13,6 +14,13 @@ final class StaticApi extends AbstractFacade {
 	 */
 	protected static $api = null;
 
+	/**
+	 * Calls the static method on the current api instance.
+	 *
+	 * @param string $method
+	 * @param array $arguments
+	 * @throws ApiNotLoadedException
+	 */
 	public static function __callStatic($method, $arguments)
 	{
 		if (self::$api instanceof Api)

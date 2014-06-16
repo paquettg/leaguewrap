@@ -1,7 +1,9 @@
 <?php
 namespace LeagueWrap\Dto;
 
-class MasteryPage extends AbstractDto {
+class MasteryPage extends AbstractListDto {
+
+	protected $listKey = 'masteries';
 
 	/**
 	 * Attempts to get a mastery by its id.

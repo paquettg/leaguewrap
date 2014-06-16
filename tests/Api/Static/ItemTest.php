@@ -34,6 +34,21 @@ class ItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Boots of Speed', $item->name);
 	}
 
+	public function testArrayAccess()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/item', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/items.json'));
+
+		$api   = new Api('key', $this->client);
+		$items = $api->staticData()->getItems();
+		$this->assertEquals('Boots of Speed', $items[1001]->name);
+	}
+
 	public function testGetItemRegionKR()
 	{
 		$this->client->shouldReceive('baseUrl')

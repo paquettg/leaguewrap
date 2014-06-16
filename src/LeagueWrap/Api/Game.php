@@ -1,7 +1,7 @@
 <?php
 namespace LeagueWrap\Api;
 
-use LeagueWrap\Dto;
+use LeagueWrap\Dto\RecentGames;
 
 class Game extends AbstractApi {
 
@@ -50,16 +50,10 @@ class Game extends AbstractApi {
 		$id = $this->extractId($identity);
 
 		$array = $this->request('game/by-summoner/'.$id.'/recent');
-		$games = [];
-		foreach ($array['games'] as $info)
-		{
-			$game    = new Dto\Game($info);
-			$games[] = $game;
-		}
+		$games = new RecentGames($array);
 
 		$this->attachResponse($identity, $games, 'recentGames');
 
 		return $games;
 	}
-
 }
