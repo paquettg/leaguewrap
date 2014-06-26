@@ -189,6 +189,11 @@ class Api {
 		return $this;
 	}
 
+	public function getLimits()
+	{
+		return $this->limits->getLimits();
+	}
+
 	/**
 	 * Set wether or not to attach static data to all requests done on this
 	 * api.
