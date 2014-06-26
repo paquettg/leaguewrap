@@ -93,6 +93,6 @@ class LimitCollectionTest extends PHPUnit_Framework_TestCase {
 		$collection->addLimit($limit2);
 
 		$limits = $collection->getLimits();
-		$this->assertInstanceOf('Array', $limits);
+		$this->assertEquals(2, sizeof($limits));
 	}
 }

@@ -75,7 +75,6 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 	{
 		$api = new Api('key');
 		$api->limit(5,5);
-		$this->assertInstanceOf('Array', $api->getLimits());
 		$this->assertEquals(1, sizeof($api->getLimits()));
 	}
 }
