@@ -189,9 +189,12 @@ class Api {
 		return $this;
 	}
 
+	/**
+	* @return array of Limit
+	*/
 	public function getLimits()
 	{
-		return $this->limits->getLimits();
+		return $this->collection->getLimits();
 	}
 
 	/**
