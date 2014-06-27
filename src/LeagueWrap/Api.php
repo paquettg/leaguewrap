@@ -190,6 +190,14 @@ class Api {
 	}
 
 	/**
+	* @return array of Limit
+	*/
+	public function getLimits()
+	{
+		return $this->collection->getLimits();
+	}
+
+	/**
 	 * Set wether or not to attach static data to all requests done on this
 	 * api.
 	 *

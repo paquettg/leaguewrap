@@ -70,5 +70,12 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$api  = new Api('key');
 		$nope = $api->nope();
 	}
+
+	public function testGetLimits()
+	{
+		$api = new Api('key');
+		$api->limit(5,5);
+		$this->assertEquals(1, sizeof($api->getLimits()));
+	}
 }
 

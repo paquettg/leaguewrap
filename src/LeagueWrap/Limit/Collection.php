@@ -40,4 +40,12 @@ class Collection {
 
 		return $remaining;
 	}
+
+	/**
+	* @return array of all limits in this collection
+	**/
+	public function getLimits()
+	{
+		return $this->limits;
+	}
 }

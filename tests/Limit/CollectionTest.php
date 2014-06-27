@@ -81,4 +81,18 @@ class LimitCollectionTest extends PHPUnit_Framework_TestCase {
 		$collection->hitLimits(1);
 		$this->assertEquals(1, $collection->remainingHits());
 	}
+
+	public function testGetLimits()
+	{
+		$limit1 = new Limit;
+		$limit1->setRate(25, 10);
+		$limit2 = new Limit;
+		$limit2->setRate(2, 5);
+		$collection = new Collection;
+		$collection->addLimit($limit1);
+		$collection->addLimit($limit2);
+
+		$limits = $collection->getLimits();
+		$this->assertEquals(2, sizeof($limits));
+	}
 }
