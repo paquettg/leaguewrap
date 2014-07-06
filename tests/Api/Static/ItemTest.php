@@ -77,9 +77,24 @@ class ItemTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/item.1051.json'));
 
-		$api   = new Api('key', $this->client);
+		$api  = new Api('key', $this->client);
 		$item = $api->staticData()->getItem(1051);
 		$this->assertEquals('Brawler\'s Gloves', $item->name);
+	}
+
+	public function testGetItemGold()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/item/1051', [
+						'api_key'  => 'key',
+						'itemData' => 'gold',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/item.1051.gold.json'));
+		$api  = new Api('key', $this->client);
+		$item = $api->staticData()->getItem(1051, 'gold');
+		$this->assertEquals(400, $item->gold->base);
 	}
 
 	public function testGetItemAll()

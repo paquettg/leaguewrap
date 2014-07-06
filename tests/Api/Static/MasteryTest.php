@@ -82,6 +82,22 @@ class MasteryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Double-Edged Sword', $mastery->name);
 	}
 
+	public function testGetMasteryRank()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/mastery/4322', [
+						'api_key'     => 'key',
+						'masteryData' => 'ranks',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/mastery.4322.ranks.json'));
+
+		$api     = new Api('key', $this->client);
+		$mastery = $api->staticData()->getMastery(4322, 'ranks');
+		$this->assertEquals(3, $mastery->ranks);
+	}
+
 	public function testGetMasteryAll()
 	{
 		$this->client->shouldReceive('baseUrl')

@@ -81,6 +81,22 @@ class RuneTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('3', $rune->rune->tier);
 	}
 
+	public function testGetRuneImage()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/rune/5001', [
+						'api_key'  => 'key',
+						'runeData' => 'image',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/rune.5001.image.json'));
+
+		$api  = new Api('key', $this->client);
+		$rune = $api->staticData()->getRune(5001, 'image');
+		$this->assertEquals('r_1_1.png', $rune->image->full);
+	}
+
 	public function testGetRuneAll()
 	{
 		$this->client->shouldReceive('baseUrl')
@@ -98,4 +114,3 @@ class RuneTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('0.525', $rune->stats->FlatPhysicalDamageMod);
 	}
 }
-
