@@ -100,15 +100,8 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getChampion($id, $data = null)
 	{
-		$params = $this->setUpParams($data, 'champData');
-
-		if ( ! $this->appendId($id))
-		{
-			// add the dataById argument
-			$params['dataById'] = 'true';
-		}
-
-		$array = $this->makeRequest('champion', $id, $params);
+		$params = $this->setUpParams($id, $data, 'champData');
+		$array  = $this->makeRequest('champion', $id, $params);
 
 		if ($this->appendId($id))
 		{
@@ -141,7 +134,7 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getItem($id, $data = null)
 	{
-		$params = $this->setUpParams($data, 'itemListData');
+		$params = $this->setUpParams($id, $data, 'itemListData', 'itemData');
 		$array  = $this->makeRequest('item', $id, $params);
 		
 		if ($this->appendId($id))
@@ -175,7 +168,7 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getMastery($id, $data = null)
 	{
-		$params = $this->setUpParams($data, 'masteryListData');
+		$params = $this->setUpParams($id, $data, 'masteryListData', 'masteryData');
 		$array  = $this->makeRequest('mastery', $id, $params);
 		
 		if ($this->appendId($id))
@@ -209,7 +202,7 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getRune($id, $data = null)
 	{
-		$params = $this->setUpParams($data, 'runeListData');
+		$params = $this->setUpParams($id, $data, 'runeListData', 'runeData');
 		$array  = $this->makeRequest('rune', $id, $params);
 		
 		if ($this->appendId($id))
@@ -243,15 +236,8 @@ class Staticdata extends AbstractApi {
 	 */
 	public function getSummonerSpell($id, $data = null)
 	{
-		$params = $this->setUpParams($data, 'spellData');
-
-		if ( ! $this->appendId($id))
-		{
-			// add the dataById argument
-			$params['dataById'] = 'true';
-		}
-
-		$array = $this->makeRequest('summoner-spell', $id, $params);
+		$params = $this->setUpParams($id, $data, 'spellData');
+		$array  = $this->makeRequest('summoner-spell', $id, $params);
 
 		if ($this->appendId($id))
 		{
@@ -309,10 +295,13 @@ class Staticdata extends AbstractApi {
 	 * Set up the boiler plat for the param array for any 
 	 * static data call.
 	 *
-	 * @param string $data
+	 * @param mixed $id
+	 * @param mixed $data
+	 * @param string $listData
+	 * @param string $itemData
 	 * @return array
 	 */
-	protected function setUpParams($data = null, $listData = '')
+	protected function setUpParams($id = null, $data = null, $listData = '', $itemData = '')
 	{
 		$params = [];
 		if ( ! is_null($this->locale))
@@ -323,9 +312,23 @@ class Staticdata extends AbstractApi {
 		{
 			$params['version'] = $this->DDversion;
 		}
+		if ( ! $this->appendId($id) and
+		    $itemData == '' and
+		    $listData != '')
+		{
+			// add the dataById argument
+			$params['dataById'] = 'true';
+		}
 		if ( ! is_null($data))
 		{
-			$params[$listData] = $data;
+			if ($this->appendId($id))
+			{
+				$params[$itemData] = $data;
+			}
+			else
+			{
+				$params[$listData] = $data;
+			}
 		}
 		return $params;
 	}
