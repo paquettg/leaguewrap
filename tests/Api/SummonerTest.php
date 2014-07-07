@@ -72,6 +72,30 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(isset($summoners['IS1c2d27157a9df3f5aef47']));
 	}
 
+	public function testInfoStrict()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/1337', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.1337.json'));
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
+
+		$api = new Api('key', $this->client);
+		$summoners = $api->summoner()->info([
+			'1337',
+			74602
+		], true);
+		$this->assertTrue(isset($summoners['bakasan']));
+		$this->assertTrue(isset($summoners['1337']));
+	}
+
 	public function testName()
 	{
 		$this->client->shouldReceive('baseUrl')

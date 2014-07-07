@@ -82,9 +82,10 @@ class Summoner extends AbstractApi {
 	 * Gets the information about the user by the given identification.
      *
      * @param mixed $identities
+     * @param bool $strict (Optional) True to require IDs to be of type int, false to allow string IDs. Default false.
      * @return Dto\Summoner
 	 */
-	public function info($identities)
+	public function info($identities, $strict = false)
 	{
 		$ids   = [];
 		$names = [];
@@ -92,7 +93,8 @@ class Summoner extends AbstractApi {
 		{
 			foreach ($identities as $identity)
 			{
-				if (filter_var($identity, FILTER_VALIDATE_INT) !== FALSE)
+				if (filter_var($identity, FILTER_VALIDATE_INT) !== FALSE &&
+					(!$strict || gettype($identity) === 'integer'))
 				{
 					// it's the id
 					$ids[] = $identity;
@@ -106,7 +108,8 @@ class Summoner extends AbstractApi {
 		}
 		else
 		{
-			if (filter_var($identities, FILTER_VALIDATE_INT) !== FALSE)
+			if (filter_var($identities, FILTER_VALIDATE_INT) !== FALSE &&
+				(!$strict || gettype($identities) === 'integer'))
 			{
 				// it's the id
 				$ids[] = $identities;
@@ -137,7 +140,7 @@ class Summoner extends AbstractApi {
 			}
 		}
 
-		$summoners = array_merge($ids, $names);
+		$summoners = $ids + $names;
 
 		if (count($summoners) == 1)
 		{
