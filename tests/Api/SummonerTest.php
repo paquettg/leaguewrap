@@ -72,7 +72,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(isset($summoners['IS1c2d27157a9df3f5aef47']));
 	}
 
-	public function testInfoStrict()
+	public function testInfoDistinguishesBetweenIntegerIdsAndNumericNames()
 	{
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
@@ -91,7 +91,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$summoners = $api->summoner()->info([
 			'1337',
 			74602
-		], true);
+		]);
 		$this->assertTrue(isset($summoners['bakasan']));
 		$this->assertTrue(isset($summoners['1337']));
 	}
