@@ -5,6 +5,7 @@ use Countable;
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
+use LeagueWrap\Exception\ListKeyNotSetException;
 
 Abstract class AbstractListDto extends AbstractDto implements ArrayAccess, IteratorAggregate, Countable {
 
