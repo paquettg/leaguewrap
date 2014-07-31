@@ -80,6 +80,20 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
+	 * Sets the DDversion to be used in the query. Null will return
+	 * the most recent version.
+	 *
+	 * @param string $DDversion
+	 * @chainable
+	 */
+	public function setDDversion($DDversion = null)
+	{
+		$this->DDversion = $DDversion;
+
+		return $this;
+	}
+
+	/**
 	 * Gets all static champion data with the given $data option.
 	 *
 	 * @param string #data
