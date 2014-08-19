@@ -23,4 +23,20 @@ class MatchHistory extends AbstractListDto {
 
         parent::__construct($info);
     }
+
+    /**
+     * Get a match by the id.
+     *
+     * @param int $id
+     * @return Match|null
+     */
+    public function match($id)
+    {
+        if ( ! isset($this->info['matches'][$id]))
+        {
+            return null;
+        }
+
+        return $this->info['matches'][$id];
+    }
 } 

@@ -3,4 +3,4 @@
 namespace LeagueWrap\Dto;
 
 
-class ParticipantIdentity {}
+class ParticipantIdentity extends AbstractDto {}
