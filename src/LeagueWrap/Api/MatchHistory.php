@@ -45,12 +45,12 @@ class MatchHistory extends AbstractApi {
      * @param mixed $id
      * @return array
      */
-    public function recent($identity)
+    public function history($identity)
     {
         $id = $this->extractId($identity);
 
         $array = $this->request('matchhistory/'.$id);
-        $matchhistory = new \Leaguewrap\Dto\MatchHistory($array);
+        $matchhistory = new \LeagueWrap\Dto\MatchHistory($array);
 
         $this->attachResponse($identity, $matchhistory, 'matchhistory');
 

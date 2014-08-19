@@ -12,11 +12,9 @@ class MatchHistory extends AbstractListDto {
         if (isset($info['matches']))
         {
             $matches = [];
-            foreach ($info['matches'] as $match)
+            foreach ($info['matches'] as $key => $value)
             {
-                $match = new Match($match);
-                $matches[$match->matchId] = $match;
-
+                $matches[$key] = new Match($value);
             }
             $info['matches'] = $matches;
         }

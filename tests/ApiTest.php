@@ -54,6 +54,13 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($staticData instanceof LeagueWrap\Api\Staticdata);
 	}
 
+    public function testMatchHistory()
+    {
+        $api = new Api('key');
+        $matchhistory = $api->matchHistory();
+        $this->assertTrue($matchhistory instanceof LeagueWrap\Api\MatchHistory);
+    }
+
 	/**
 	 * @expectedException LeagueWrap\Exception\NoKeyException
 	 */
