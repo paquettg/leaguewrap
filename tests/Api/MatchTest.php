@@ -46,7 +46,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
 
         $api   = new Api('key', $this->client);
         $match = $api->match()->match(1399898747);
-        $this->assertTrue($match->teams[0] instanceof LeagueWrap\Dto\MatchTeam);
+        $this->assertTrue($match->team(0) instanceof LeagueWrap\Dto\MatchTeam);
     }
 
     public function testBans()
@@ -61,8 +61,23 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
 
         $api   = new Api('key', $this->client);
         $match = $api->match()->match(1399898747);
-        $this->assertTrue($match->teams[0]->bans[0] instanceof LeagueWrap\Dto\Ban);
+        $this->assertTrue($match->team(0)->ban(0) instanceof LeagueWrap\Dto\Ban);
     }
 
+    public function testIncludeTimeline()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('na/v2.2/match/1399898747', [
+                'api_key' => 'key',
+                'includeTimeline' => true
+            ])->once()
+            ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
+
+        $api   = new Api('key', $this->client);
+        $match = $api->match()->match(1399898747, true);
+        $this->assertTrue($match instanceof LeagueWrap\Dto\Match);
+    }
 
 } 

@@ -2,7 +2,11 @@
 
 namespace LeagueWrap\Dto;
 
-
+/**
+ * Class Participant
+ * @package LeagueWrap\Dto
+ * Participant of a match including its stats
+ */
 class Participant extends AbstractDto {
 
     /**

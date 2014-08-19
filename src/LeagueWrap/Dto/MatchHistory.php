@@ -2,7 +2,11 @@
 
 namespace LeagueWrap\Dto;
 
-
+/**
+ * Class MatchHistory
+ * @package LeagueWrap\Dto
+ * Whole match history of a summoner
+ */
 class MatchHistory extends AbstractListDto {
 
     protected $listKey = 'matches';
