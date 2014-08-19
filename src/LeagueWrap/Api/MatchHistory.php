@@ -3,7 +3,7 @@
 namespace LeagueWrap\Api;
 
 
-class MatchHistory extends AbstractApi {
+class Matchhistory extends AbstractApi {
 
     /**
      * Valid version for this api call.
