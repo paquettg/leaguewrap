@@ -43,6 +43,18 @@ class Match extends AbstractDto {
         }
         $info['participantIdentities'] = $participant_identities;
 
+        // set teams (match api)
+        if(isset($info['teams']))
+        {
+            $raw_teams = $info['teams'];
+            $teams = [];
+            foreach($raw_teams as $key => $raw_team)
+            {
+                $teams[$key] = new MatchTeam($raw_team);
+            }
+            $info['teams'] = $teams;
+        }
+
         parent::__construct($info);
     }
 
@@ -80,11 +92,48 @@ class Match extends AbstractDto {
             // no players
             return null;
         }
-        $identitz = $this->info['participantIdentities'];
-        if (isset($identitz[$id]))
+        $identity = $this->info['participantIdentities'];
+        if (isset($identity[$id]))
         {
-            return $identitz[$id];
+            return $identity[$id];
         }
         return null;
     }
-} 
+}
+
+/**
+ * Class MatchTeam
+ * @package LeagueWrap\Dto
+ * Team of a Match
+ */
+class MatchTeam extends AbstractDto{
+    /**
+     * Set up the information about this team.
+     *
+     * @param array $info
+     */
+    public function __construct(array $info)
+    {
+        // set teams (match api)
+        if(isset($info['bans']))
+        {
+            $raw_bans = $info['bans'];
+            $bans = [];
+            foreach($raw_bans as $key => $raw_ban)
+            {
+                $bans[$key] = new Ban($raw_ban);
+            }
+            $info['bans'] = $bans;
+        }
+
+        parent::__construct($info);
+    }
+}
+
+
+/**
+ * Class Ban
+ * @package LeagueWrap\Dto
+ * Represents a single ban
+ */
+class Ban extends AbstractDto{}
