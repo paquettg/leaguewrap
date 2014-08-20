@@ -73,11 +73,27 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
                 'api_key' => 'key',
                 'includeTimeline' => true
             ])->once()
-            ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
+            ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.timeline.json'));
 
         $api   = new Api('key', $this->client);
         $match = $api->match()->match(1399898747, true);
         $this->assertTrue($match instanceof LeagueWrap\Dto\Match);
+    }
+
+    public function testTimeline()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('na/v2.2/match/1399898747', [
+                'api_key' => 'key',
+                'includeTimeline' => true
+            ])->once()
+            ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.timeline.json'));
+
+        $api   = new Api('key', $this->client);
+        $match = $api->match()->match(1399898747, true);
+        $this->assertTrue($match->timeline instanceof LeagueWrap\Dto\Timeline);
     }
 
 } 

@@ -59,7 +59,8 @@ class Match extends AbstractDto {
             $info['teams'] = $teams;
         }
 
-        // TODO includeTimeline
+        if(isset($info['timeline']))
+            $info['timeline'] = new Timeline($info['timeline']);
 
         parent::__construct($info);
     }
