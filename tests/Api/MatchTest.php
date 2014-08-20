@@ -1,6 +1,7 @@
 <?php
 
 use LeagueWrap\Api;
+use LeagueWrap\Dto\MatchTimeline;
 use Mockery as m;
 
 class ApiMatchTest extends PHPUnit_Framework_TestCase
@@ -93,7 +94,27 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
 
         $api   = new Api('key', $this->client);
         $match = $api->match()->match(1399898747, true);
-        $this->assertTrue($match->timeline instanceof LeagueWrap\Dto\Timeline);
+        $this->assertTrue($match->timeline instanceof MatchTimeline);
+    }
+
+    public function testTimelineFrame()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('na/v2.2/match/1399898747', [
+                'api_key' => 'key',
+                'includeTimeline' => true
+            ])->once()
+            ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.timeline.json'));
+
+        $api   = new Api('key', $this->client);
+        $match = $api->match()->match(1399898747, true);
+
+        $frame = $match->timeline->frames[1];
+        $this->assertTrue($frame instanceof LeagueWrap\Dto\TimelineFrame);
+        $this->assertTrue($frame->participantFrame(1) instanceof LeagueWrap\Dto\TimelineParticipantFrame);
+        $this->assertTrue($frame->events[0] instanceof LeagueWrap\Dto\TimelineFrameEvent);
     }
 
 } 

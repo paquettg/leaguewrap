@@ -60,7 +60,7 @@ class Match extends AbstractDto {
         }
 
         if(isset($info['timeline']))
-            $info['timeline'] = new Timeline($info['timeline']);
+            $info['timeline'] = new MatchTimeline($info['timeline']);
 
         parent::__construct($info);
     }
