@@ -364,6 +364,34 @@ $game->recent($bakasan);
 $game = $bakasan->recentGame(0);
 ```
 
+Match
+----
+
+The Match api can be used to get a more detailed match history then the game api provides. This does only include ranked games though. You can either pass in the summoner id or a summoner object `LeagueWrap\Dto\Summoner`.
+
+```php
+$matchHistory = $api->matchHistory();
+$matches = $matchHistory->history(74602);
+
+$match = $matches[0];
+```
+
+For even more details on a specific match, the match api can be used to get detailed statistics for every summoner as well as an optional timeline of events. As argument, you need to pass a match id that you can get from `LeagueWrap\Dto\Match->matchId` or `LeagueWrap\Dto\Game->gameId`.
+
+```php
+$matchapi = $api->match();
+$match = $matchapi->match(1399898747);
+```
+
+To include the timeline:
+
+```php
+$matchapi = $api->match();
+$match = $matchapi->match(1399898747, true);
+
+$timeline = $match->timeline
+```
+
 League
 ------
 
