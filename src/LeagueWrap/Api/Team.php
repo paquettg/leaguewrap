@@ -19,7 +19,7 @@ class Team extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v2.3',
+		'v2.4',
 	];
 
 	/**

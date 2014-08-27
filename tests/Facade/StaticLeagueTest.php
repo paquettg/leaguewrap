@@ -22,7 +22,7 @@ class FacadeStaticLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
