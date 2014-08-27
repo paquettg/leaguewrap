@@ -33,6 +33,17 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('C9', $teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa']->tag);
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\ListMaxException
+	 */
+	public function testTeamListMaxException()
+	{
+		$api   = new Api('key', $this->client);
+		$teams = $api->team()->team([
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+			10, 11, 12,
+		]);
+	}
 	public function testTeamArrayAccess()
 	{
 		$this->client->shouldReceive('baseUrl')

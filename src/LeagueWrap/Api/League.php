@@ -54,9 +54,9 @@ class League extends AbstractApi {
 	{
 		if (is_array($identities))
 		{
-			if (count($identities) > 40)
+			if (count($identities) > 10)
 			{
-				throw new ListMaxException('This request can only support a list of 40 elements, '.count($identities).' given.');
+				throw new ListMaxException('This request can only support a list of 10 elements, '.count($identities).' given.');
 			}
 		}
 
