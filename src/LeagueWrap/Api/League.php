@@ -12,7 +12,7 @@ class League extends AbstractApi {
 	 * @var array
 	 */
 	protected $versions = [
-		'v2.4',
+		'v2.5',
 	];
 
 	/**

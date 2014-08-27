@@ -23,7 +23,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
@@ -54,7 +54,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
@@ -75,7 +75,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
@@ -97,7 +97,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
@@ -113,7 +113,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354', [
+		             ->with('na/v2.5/league/by-summoner/272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.272354.json'));
@@ -135,7 +135,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/74602,272354', [
+		             ->with('na/v2.5/league/by-summoner/74602,272354', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.74602.272354.json'));
@@ -158,7 +158,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.272354.7024.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354,7024,74602', [
+		             ->with('na/v2.5/league/by-summoner/272354,7024,74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.74602.272354.7024.json'));
@@ -178,7 +178,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/74602/entry', [
+		             ->with('na/v2.5/league/by-summoner/74602/entry', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.74602.entry.json'));
@@ -198,7 +198,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.272354.7024.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/by-summoner/272354,7024,74602/entry', [
+		             ->with('na/v2.5/league/by-summoner/272354,7024,74602/entry', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/league.74602.272354.7024.entry.json'));
@@ -218,7 +218,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/league/challenger', [
+		             ->with('na/v2.5/league/challenger', [
 						'api_key' => 'key',
 						'type'    => 'RANKED_SOLO_5x5',
 		             ])->once()
