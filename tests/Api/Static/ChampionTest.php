@@ -95,12 +95,12 @@ class ChampionTest extends PHPUnit_Framework_TestCase {
         $this->client->shouldReceive('request')
             ->with('na/v1.2/champion/266', [
                 'api_key' => 'key',
-                'locale'  => 'fr_FR',
-                'champData' => 'tags'
+                'champData' => 'tags',
+                'locale'  => 'de_DE',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/Static/champion.266.fr.tags.json'));
         $api    = new Api('key', $this->client);
-        $champion = $api->staticData()->setLocale('fr_FR')->getChampion(266);
+        $champion = $api->staticData()->setLocale('de_DE')->getChampion(266, 'tags');
         $this->assertContains('Tank', $champion->tags);
     }
 
