@@ -49,6 +49,13 @@ class Api {
 	protected $cache;
 
 	/**
+	 * Only check the cache. Do not do any actual request.
+	 *
+	 * @var bool
+	 */
+	protected $cacheOnly = false;
+
+	/**
 	 * How long, in seconds, should we remember a query's response.
 	 *
 	 * @var int
@@ -115,6 +122,9 @@ class Api {
 	 */
 	public function __call($method, $arguments)
 	{
+		// we don't use the arguments at the moment.
+		unset($arguments);
+
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
 		if ( ! class_exists($className))
 		{
@@ -130,6 +140,8 @@ class Api {
 
 		$api->setKey($this->key)
 		    ->setRegion($this->region)
+		    ->setTimeout($this->timeout)
+		    ->setCacheOnly($this->cacheOnly)
 		    ->attachStaticData($this->attachStaticData);
 
 		if ($this->cache instanceof CacheInterface)
@@ -163,6 +175,19 @@ class Api {
 	public function setTimeout($seconds)
 	{
 		$this->timeout = floatval($seconds);
+		return $this;
+	}
+
+	/**
+	 * Sets the api endpoint to only use the cache to get the needed
+	 * information for the requests.
+	 *
+	 * @param $cacheOnly bool
+	 * @chainable
+	 */
+	public function setCacheOnly($cacheOnly = true)
+	{
+		$this->cacheOnly = $cacheOnly;
 		return $this;
 	}
 

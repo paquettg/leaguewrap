@@ -43,12 +43,55 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn($champions);
 
-		$api = new LeagueWrap\Api('key', $this->client);
+		$api      = new LeagueWrap\Api('key', $this->client);
 		$champion = $api->champion()
 		                ->remember(60, $this->cache);
 		$champion->free();
 		$champion->free();
 		$this->assertEquals(1, $champion->getRequestCount());
+	}
+
+	public function testRememberChampionCacheOnly()
+	{
+		$champions = file_get_contents('tests/Json/champion.free.json');
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->andReturn(true);
+		$this->cache->shouldReceive('get')
+		            ->twice()
+		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->andReturn($champions);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+
+		$api = new LeagueWrap\Api('key', $this->client);
+		$api->setCacheOnly()
+		    ->remember(60, $this->cache);
+		$champion = $api->champion();
+		$champion->free();
+		$champion->free();
+		$this->assertEquals(0, $champion->getRequestCount());
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Exception\CacheNotFoundException
+	 */
+	public function testRememberSummonerCacheOnlyNoHit()
+	{
+		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
+		$this->cache->shouldReceive('has')
+		            ->once()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn(false);
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+
+		$api = new LeagueWrap\Api('key', $this->client);
+		$api->remember(null, $this->cache)
+		    ->setCacheOnly();
+		$summoner = $api->summoner()->info('bakasan');
 	}
 
 	public function testRememberSummonerFacade()
