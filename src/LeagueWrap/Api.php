@@ -36,6 +36,12 @@ class Api {
 	protected $client;
 
 	/**
+	 * The amount of seconds we will wait for a responde fromm the riot
+	 * server. 0 means wait indefinitely.
+	 */
+	protected $timeout = 0;
+
+	/**
 	 * This contains the cache container that we intend to use.
 	 *
 	 * @var CacheInterface
@@ -143,6 +149,20 @@ class Api {
 	public function setRegion($region)
 	{
 		$this->region = $region;
+		return $this;
+	}
+
+	/**
+	 * Set a timeout in seconds for how long we will wait for the server
+	 * to respond. If the server does not respond within the set number
+	 * of seconds we throw an exception.
+	 *
+	 * @param float $seconds
+	 * @chainable
+	 */
+	public function setTimeout($seconds)
+	{
+		$this->timeout = floatval($seconds);
 		return $this;
 	}
 

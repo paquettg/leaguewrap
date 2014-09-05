@@ -210,6 +210,24 @@ foreach ($games as $game)
 $recentGameCount = count($games);
 ```
 
+Setting Timeout
+---------------
+
+It is worth noting that the `LeagueWrap\ClientInterface` interface has a method called `setTimeout($seconds)`. You can invoke this feature by calling this method on the request object.
+
+```php
+$game = $api->game()
+            ->setTimeout(3.14); // wait a maximum of 3.14 seconds for a response.
+```
+
+Or, you can call it directly on the API object which will then apply to any future request objects created.
+
+```php
+$api->setTimeout(3.14);
+$game       = $api->game();
+$mostRecent = $game->recent(74602); // this reques will wait a maximum of 3.14 seconds for a response.
+```
+
 Summoner
 --------
 
