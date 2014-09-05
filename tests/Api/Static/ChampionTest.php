@@ -87,6 +87,23 @@ class ChampionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Aatrox', $champion->name);
 	}
 
+
+    public function testGetChampionByIdTags()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('na/v1.2/champion/266', [
+                'api_key' => 'key',
+                'champData' => 'tags',
+                'locale'  => 'de_DE',
+            ])->once()
+            ->andReturn(file_get_contents('tests/Json/Static/champion.266.fr.tags.json'));
+        $api    = new Api('key', $this->client);
+        $champion = $api->staticData()->setLocale('de_DE')->getChampion(266, 'tags');
+        $this->assertContains('Tank', $champion->tags);
+    }
+
 	public function testGetChampionTags()
 	{
 		$this->client->shouldReceive('baseUrl')
@@ -124,5 +141,6 @@ class ChampionTest extends PHPUnit_Framework_TestCase {
 		$champion  = $champions->getChampion(412);
 		$this->assertEquals('beginner_Starter', $champion->recommended[0]->blocks[0]->type);
 	}
+
 }
 
