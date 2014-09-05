@@ -85,7 +85,17 @@ $summoner = $api->summoner()           // Get the summoner api request object
 $bakasan = $summoner->info('bakasan'); // This request is cached for 1 hour (3600 seconds)
 ```
 
-Now we will only remember the response for the info() method is cached for 1 hour (3600 seconds). All other api objects, such as League, does not get effected by this cache time and, by default, does not cache the response.
+Now we will only remember the response for the info() method is cached for 1 hour (3600 seconds). All other api objects, such as League, does not get effected by this cache time and, by default, does not cache the response. If you want to be able to only get a response if the request got a cache hit you can turn on the `cacheOnly` flag.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey); // Load up the API
+$api->remember()        // Enable cache with the default values.
+    ->setCacheOnly()    // Only check the cache, don't do any http requests.
+```
+
+If the request was not found in cache it will throw a `LeagueWrap\Exception\CacheNotFoundException` exception. Simillarly to the `remember()` method this can also be called on the api endpoint object to only effect a certain request or endpoint while leaving the other ones untouched.
 
 Now, lets say you don't want to use memcached or you wish to use the caching service provided by your framework? I completly understand and that is why you can implement the `LeagueWrap\CacheInterface` to implement your own cache. This Dependency Injection (DI) is also used by the Api client as shown in the Quick Reference section. To use your own cache implementation you can just do the following.
 
