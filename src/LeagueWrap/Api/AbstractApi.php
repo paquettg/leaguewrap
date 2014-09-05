@@ -73,6 +73,12 @@ abstract class AbstractApi {
 	protected $requests = 0;
 
 	/**
+	 * The amount of seconds we will wait for a responde fromm the riot
+	 * server. 0 means wait indefinitely.
+	 */
+	protected $timeout = 0;
+
+	/**
 	 * This is the cache container that we intend to use.
 	 *
 	 * @var CacheInterface
@@ -146,6 +152,20 @@ abstract class AbstractApi {
 	public function setRegion($region)
 	{
 		$this->region = new Region($region);
+		return $this;
+	}
+
+	/**
+	 * Set a timeout in seconds for how long we will wait for the server
+	 * to respond. If the server does not respond within the set number
+	 * of seconds we throw an exception.
+	 *
+	 * @param float $seconds
+	 * @chainable
+	 */
+	public function setTimeout($seconds)
+	{
+		$this->timeout = floatval($seconds);
 		return $this;
 	}
 
@@ -234,6 +254,10 @@ abstract class AbstractApi {
 
 		// set the region based domain
 		$this->client->baseUrl($this->region->getDomain($static));
+		if ($this->timeout > 0)
+		{
+			$this->client->setTimeout($this->timeout);
+		}
 
 		// add the key to the param list
 		$params['api_key'] = $this->key;
