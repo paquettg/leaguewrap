@@ -14,7 +14,15 @@ class MasteryTreeList extends AbstractListDto {
 			$masteryTreeItems = [];
 			foreach ($info['masteryTreeItems'] as $id => $masteryTreeItem)
 			{
-				$masteryTreeItemDto    = new MasteryTreeItem($masteryTreeItem);
+				// fix for null positions in the tree by insertion of dummy items
+				if (is_array($masteryTreeItem)) 
+				{
+			       	$masteryTreeItemDto = new MasteryTreeItem($masteryTreeItem);
+			    } 
+			    else 
+			    {
+			        $masteryTreeItemDto = new MasteryTreeItem(["prereq" => "0", "masteryId" => 0]);
+			    }
 				$masteryTreeItems[$id] = $masteryTreeItemDto;
 			}
 			$info['masteryTreeItems'] = $masteryTreeItems;
