@@ -69,6 +69,25 @@ class ApiMatchHistoryTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($bakasan->matchhistory->match(0) instanceof LeagueWrap\Dto\Match);
     }
 
+    public function testHistoryWithParams()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('na/v2.2/matchhistory/74602', [
+                'api_key' => 'key',
+                'rankedQueues' => 'RANKED_SOLO_5x5',
+                'championIds' => '1,2,3',
+                'beginIndex' => 1,
+                'endIndex' => 4
+            ])->once()
+            ->andReturn(file_get_contents('tests/Json/matchhistory.74602.json'));
+
+        $api   = new Api('key', $this->client);
+        $matches = $api->matchHistory()->history(74602, 'RANKED_SOLO_5x5', [1,2,3], 1, 4);
+        $this->assertTrue($matches->match(0) instanceof LeagueWrap\Dto\Match);
+    }
+
 
     public function testParticipant()
     {
@@ -128,5 +147,23 @@ class ApiMatchHistoryTest extends PHPUnit_Framework_TestCase {
         $api   = new Api('key', $this->client);
         $matches = $api->matchHistory()->history(74602);
         $this->assertEquals(0, $matches->match(0)->identity(0)->participantId);
+    }
+
+    public function testParseParams()
+    {
+        $class = new ReflectionClass('LeagueWrap\Api\Matchhistory');
+        $method = $class->getMethod('parseParams');
+        $method->setAccessible(true);
+
+        $matchApi = (new Api('key', $this->client))->matchHistory();
+
+        $expected = [
+            'rankedQueues' => 'RANKED_SOLO_5x5,RANKED_TEAM_3x3',
+            'championIds' => '1,2,3',
+            'beginIndex' => 1
+        ];
+
+        $result = $method->invoke($matchApi, ['RANKED_SOLO_5x5','RANKED_TEAM_3x3'], [1,2,3], 1);
+        $this->assertEquals($expected, $result);
     }
 } 
