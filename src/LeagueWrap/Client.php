@@ -18,11 +18,9 @@ class Client implements ClientInterface {
 	public function baseUrl($url)
 	{
 		$this->guzzle = new Guzzle([
-            'base_url' => $url,
-            'defaults' => [
-                'headers' => ['Accept-Encoding' => 'gzip,deflate']
-            ]
-        ]);
+			'base_url' => $url,
+			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
+			]);
 	}
 
 	/**
