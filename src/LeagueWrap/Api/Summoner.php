@@ -234,14 +234,14 @@ class Summoner extends AbstractApi {
 		}
 
 		$this->attachResponses($identities, $summoners, 'runePages');
-		if (count($summoners) == 1)
+
+		if (is_array($identities))
 		{
-			$runePages = reset($summoners);
-			return $runePages;
+			return $summoners;
 		}
 		else
 		{
-			return $summoners;
+			return reset($summoners);
 		}
 	}
 
@@ -287,14 +287,14 @@ class Summoner extends AbstractApi {
 		}
 
 		$this->attachResponses($identities, $summoners, 'masteryPages');
-		if (count($summoners) == 1)
+
+		if (is_array($identities))
 		{
-			$masteryPages = reset($summoners);
-			return $masteryPages;
+			return $summoners;
 		}
 		else
 		{
-			return $summoners;
+			return reset($summoners);
 		}
 	}
 
@@ -313,11 +313,11 @@ class Summoner extends AbstractApi {
 			{
 				throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
 			}
-			$ids = implode(',', $ids);
+			$idList = implode(',', $ids);
 		}
-		$array     = $this->request('summoner/'.$ids);
+		$array     = $this->request('summoner/'.$idList);
 		$summoners = [];
-		foreach ($array as $id => $info)
+		foreach ($array as $info)
 		{
 			$summoner               = new Dto\Summoner($info);
 			$name                   = $summoner->name;
@@ -325,13 +325,13 @@ class Summoner extends AbstractApi {
 			$summoners[$name]       = $summoner;
 		}
 
-		if (count($summoners) == 1)
+		if (is_array($ids))
 		{
-			return reset($summoners);
+			return $summoners;
 		}
 		else
 		{
-			return $summoners;
+			return reset($summoners);
 		}
 	}
 
@@ -348,14 +348,14 @@ class Summoner extends AbstractApi {
 		{
 			if (count($names) > 40)
 			{
-				throw new ListMaxException('this request can only support a list of 40 elements, '.count($ids).' given.');
+				throw new ListMaxException('this request can only support a list of 40 elements, '.count($names).' given.');
 			}
-			$names = implode(',', $names);
+			$nameList = implode(',', $names);
 		}
 
 		// clean the name
-		$names     = htmlspecialchars($names);
-		$array     = $this->request('summoner/by-name/'.$names);
+		$names     = htmlspecialchars($nameList);
+		$array     = $this->request('summoner/by-name/'.$nameList);
 		$summoners = [];
 		foreach ($array as $name => $info)
 		{
@@ -364,13 +364,13 @@ class Summoner extends AbstractApi {
 			$summoners[$name] = $summoner;
 		}
 		
-		if (count($summoners) == 1)
+		if (is_array($names))
 		{
-			return reset($summoners);
+			return $summoners;
 		}
 		else
 		{
-			return $summoners;
+			return reset($summoners);
 		}
 	}
 }
