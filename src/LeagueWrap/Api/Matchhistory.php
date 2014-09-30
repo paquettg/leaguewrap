@@ -51,39 +51,55 @@ class Matchhistory extends AbstractApi {
      * @throws \LeagueWrap\Exception\InvalidIdentityException
      * @throws \LeagueWrap\Exception\RegionException
      */
-    public function history($identity, $rankedQueues=null, $championIds=null, $beginIndex=null, $endIndex=null)
+    public function history($identity, $rankedQueues = null, $championIds = null, $beginIndex = null, $endIndex = null)
     {
-        $id = $this->extractId($identity);
+        $matchId = $this->extractId($identity);
 
         $requestParamas = $this->parseParams($rankedQueues, $championIds, $beginIndex, $endIndex);
-        $array = $this->request('matchhistory/'.$id, $requestParamas);
-        $matchhistory = new \LeagueWrap\Dto\MatchHistory($array);
+        $array          = $this->request('matchhistory/'.$matchId, $requestParamas);
+        $matchhistory   = new \LeagueWrap\Dto\MatchHistory($array);
 
         $this->attachResponse($identity, $matchhistory, 'matchhistory');
 
         return $matchhistory;
     }
 
-    protected function parseParams($rankedQueues=null, $championIds=null, $beginIndex=null, $endIndex=null)
+    protected function parseParams($rankedQueues = null, $championIds = null, $beginIndex = null, $endIndex = null)
     {
         $params = [];
 
         if(isset($rankedQueues))
+        {
             if(is_array($rankedQueues))
+            {
                 $params['rankedQueues'] = implode(',', $rankedQueues);
+            }
             else
+            {
                 $params['rankedQueues'] = $rankedQueues;
+            }
+        }
 
         if(isset($championIds))
+        {
             if(is_array($championIds))
+            {
                 $params['championIds'] = implode(',', $championIds);
+            }
             else
+            {
                 $params['championIds'] = $championIds;
+            }
+        }
 
         if(isset($beginIndex))
+        {
             $params['beginIndex'] = $beginIndex;
+        }
         if(isset($endIndex))
+        {
             $params['endIndex'] = $endIndex;
+        }
 
         return $params;
     }

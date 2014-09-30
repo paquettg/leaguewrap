@@ -41,16 +41,16 @@ class Match extends AbstractApi
     /**
      * Get the match by match id.
      *
-     * @param int $id
+     * @param int $matchId
      * @param bool $includeTimeline
      * @return Match
      */
-    public function match($id, $includeTimeline = false)
+    public function match($matchId, $includeTimeline = false)
     {
         if($includeTimeline)
-            $response = $this->request('match/'.$id, array('includeTimeline' => $includeTimeline));
+            $response = $this->request('match/'.$matchId, array('includeTimeline' => $includeTimeline));
         else
-            $response = $this->request('match/'.$id);
+            $response = $this->request('match/'.$matchId);
         return new \LeagueWrap\Dto\Match($response);
     }
 } 

@@ -8,10 +8,10 @@ class RunePage extends AbstractListDto {
 	/**
 	 * Attempts to get a rune by slot id.
 	 *
-	 * @param int $id
+	 * @param int $runeId
 	 * @return Rune|null
 	 */
-	public function rune($id)
+	public function rune($runeId)
 	{
 		if ( ! isset($this->info['runes']))
 		{
@@ -19,9 +19,9 @@ class RunePage extends AbstractListDto {
 			return null;
 		}
 		$runes = $this->info['runes'];
-		if (isset($runes[$id]))
+		if (isset($runes[$runeId]))
 		{
-			return $runes[$id];
+			return $runes[$runeId];
 		}
 		return null;
 	}

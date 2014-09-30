@@ -19,11 +19,11 @@ class MatchTeam extends AbstractDto{
         // set teams (match api)
         if(isset($info['bans']))
         {
-            $raw_bans = $info['bans'];
+            $rawBans = $info['bans'];
             $bans = [];
-            foreach($raw_bans as $key => $raw_ban)
+            foreach($rawBans as $key => $rawBan)
             {
-                $bans[$key] = new Ban($raw_ban);
+                $bans[$key] = new Ban($rawBan);
             }
             $info['bans'] = $bans;
         }
@@ -34,10 +34,10 @@ class MatchTeam extends AbstractDto{
     /**
      * Attempts to get a ban from this team.
      *
-     * @param int $id
+     * @param int $banId
      * @return Ban|null
      */
-    public function ban($id)
+    public function ban($banId)
     {
         if ( ! isset($this->info['bans']))
         {
@@ -45,9 +45,9 @@ class MatchTeam extends AbstractDto{
             return null;
         }
         $bans = $this->info['bans'];
-        if (isset($bans[$id]))
+        if (isset($bans[$banId]))
         {
-            return $bans[$id];
+            return $bans[$banId];
         }
         return null;
     }

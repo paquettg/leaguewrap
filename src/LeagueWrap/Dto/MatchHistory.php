@@ -29,16 +29,16 @@ class MatchHistory extends AbstractListDto {
     /**
      * Get a match by the id.
      *
-     * @param int $id
+     * @param int $martchId
      * @return Match|null
      */
-    public function match($id)
+    public function match($martchId)
     {
-        if ( ! isset($this->info['matches'][$id]))
+        if ( ! isset($this->info['matches'][$martchId]))
         {
             return null;
         }
 
-        return $this->info['matches'][$id];
+        return $this->info['matches'][$martchId];
     }
 } 

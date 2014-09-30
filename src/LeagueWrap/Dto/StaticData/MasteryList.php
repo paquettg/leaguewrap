@@ -12,10 +12,10 @@ class MasteryList extends AbstractListDto {
 		if (isset($info['data']))
 		{
 			$data = [];
-			foreach ($info['data'] as $id => $mastery)
+			foreach ($info['data'] as $masteryId => $mastery)
 			{
 				$masteryDto = new Mastery($mastery);
-				$data[$id]  = $masteryDto;
+				$data[$masteryId]  = $masteryDto;
 			}
 			$info['data'] = $data;
 		}
@@ -28,16 +28,16 @@ class MasteryList extends AbstractListDto {
 	}
 
 	/**
-	 * Quick shortcut to get mastery information by $id
+	 * Quick shortcut to get mastery information by $masteryId
 	 *
-	 * @param int $id
+	 * @param int $masteryId
 	 * @return Mastery|null
 	 */
-	public function getMastery($id)
+	public function getMastery($masteryId)
 	{
-		if (isset($this->info['data'][$id]))
+		if (isset($this->info['data'][$masteryId]))
 		{
-			return $this->info['data'][$id];
+			return $this->info['data'][$masteryId];
 		}
 
 		return null;

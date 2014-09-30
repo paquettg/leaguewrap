@@ -54,7 +54,7 @@ Abstract class AbstractListDto extends AbstractDto implements ArrayAccess, Itera
 		return new ArrayIterator($this->getListByKey());
 	}
 
-	public function count($mode = COUNT_NORMAL)
+	public function count()
 	{
 		return count($this->getListByKey());
 	}

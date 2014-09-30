@@ -1,8 +1,5 @@
 <?php
-
-
 namespace LeagueWrap\Dto;
-
 
 class TimelineFrame extends AbstractDto {
 
@@ -15,12 +12,12 @@ class TimelineFrame extends AbstractDto {
     {
         if(isset($info['participantFrames']))
         {
-            $p_frames = [];
+            $pFrames = [];
             foreach($info['participantFrames'] as $key => $frame)
             {
-                $p_frames[intval($key)] = new TimelineParticipantFrame($frame);
+                $pFrames[intval($key)] = new TimelineParticipantFrame($frame);
             }
-            $info['participantFrames'] = $p_frames;
+            $info['participantFrames'] = $pFrames;
         }
 
         if(isset($info['events']))
@@ -37,10 +34,10 @@ class TimelineFrame extends AbstractDto {
     }
 
     /**
-     * @param $id int participantId
+     * @param $participantId int 
      * @return TimelineParticipantFrame|Null
      */
-    public function participantFrame($id)
+    public function participantFrame($participantId)
     {
         if ( ! isset($this->info['participantFrames']))
         {
@@ -48,9 +45,9 @@ class TimelineFrame extends AbstractDto {
             return null;
         }
         $participantframes = $this->info['participantFrames'];
-        if (isset($participantframes[$id]))
+        if (isset($participantframes[$participantId]))
         {
-            return $participantframes[$id];
+            return $participantframes[$participantId];
         }
         return null;
     }

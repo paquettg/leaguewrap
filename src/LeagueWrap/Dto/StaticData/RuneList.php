@@ -16,10 +16,10 @@ class RuneList extends AbstractListDto {
 		if (isset($info['data']))
 		{
 			$runes = [];
-			foreach ($info['data'] as $id => $rune)
+			foreach ($info['data'] as $runeId => $rune)
 			{
-				$runeDto    = new Rune($rune);
-				$runes[$id] = $runeDto;
+				$runeDto        = new Rune($rune);
+				$runes[$runeId] = $runeDto;
 			}
 			$info['data'] = $runes;
 		}
@@ -28,16 +28,16 @@ class RuneList extends AbstractListDto {
 	}
 
 	/**
-	 * Quick shortcut to get the rune information by $id
+	 * Quick shortcut to get the rune information by $runeId
 	 *
-	 * @param int $id
+	 * @param int $runeId
 	 * @return Rune|null
 	 */
-	public function getRune($id)
+	public function getRune($runeId)
 	{
-		if (isset($this->info['data'][$id]))
+		if (isset($this->info['data'][$runeId]))
 		{
-			return $this->info['data'][$id];
+			return $this->info['data'][$runeId];
 		}
 
 		return null;

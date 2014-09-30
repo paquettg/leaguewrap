@@ -34,10 +34,10 @@ class Game extends AbstractDto {
 	/**
 	 * Attempts to get a fellow player from this game.
 	 *
-	 * @param int $id
+	 * @param int $playerId
 	 * @return Player|null
 	 */
-	public function player($id)
+	public function player($playerId)
 	{
 		if ( ! isset($this->info['fellowPlayers']))
 		{
@@ -45,9 +45,9 @@ class Game extends AbstractDto {
 			return null;
 		}
 		$players = $this->info['fellowPlayers'];
-		if (isset($players[$id]))
+		if (isset($players[$playerId]))
 		{
-			return $players[$id];
+			return $players[$playerId];
 		}
 		return null;
 	}

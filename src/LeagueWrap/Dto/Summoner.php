@@ -6,10 +6,10 @@ class Summoner extends AbstractDto {
 	/**
 	 * Attempts to get a rune page by the id.
 	 *
-	 * @param int $id
+	 * @param int $runePageId
 	 * @return RunePage|null
 	 */
-	public function runePage($id)
+	public function runePage($runePageId)
 	{
 		if ( ! isset($this->info['runePages']))
 		{
@@ -17,9 +17,9 @@ class Summoner extends AbstractDto {
 			return null;
 		}
 		$runePages = $this->info['runePages'];
-		if (isset($runePages[$id]))
+		if (isset($runePages[$runePageId]))
 		{
-			return $runePages[$id];
+			return $runePages[$runePageId];
 		}
 		return null;
 	}
@@ -27,10 +27,10 @@ class Summoner extends AbstractDto {
 	/**
 	 * Attempts to get the mastery page by the id.
 	 *
-	 * @param int $id
+	 * @param int $masteryPageId
 	 * @return MasteryPage|null
 	 */
-	public function masteryPage($id)
+	public function masteryPage($masteryPageId)
 	{
 		if ( ! isset($this->info['masteryPages']))
 		{
@@ -38,9 +38,9 @@ class Summoner extends AbstractDto {
 			return null;
 		}
 		$masteryPages = $this->info['masteryPages'];
-		if (isset($masteryPages[$id]))
+		if (isset($masteryPages[$masteryPageId]))
 		{
-			return $masteryPages[$id];
+			return $masteryPages[$masteryPageId];
 		}
 		return null;
 	}
@@ -48,10 +48,10 @@ class Summoner extends AbstractDto {
 	/**
 	 * Attempts to get the game by the id.
 	 *
-	 * @param int $id
+	 * @param int $gameId
 	 * @return MasteryPage|null
 	 */
-	public function recentGame($id)
+	public function recentGame($gameId)
 	{
 		if ( ! isset($this->info['recentGames']))
 		{
@@ -59,7 +59,7 @@ class Summoner extends AbstractDto {
 			return null;
 		}
 		$recentGames = $this->info['recentGames'];
-		return $recentGames->game($id);
+		return $recentGames->game($gameId);
 	}
 
 	/**

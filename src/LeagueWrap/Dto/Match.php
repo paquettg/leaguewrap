@@ -23,11 +23,11 @@ class Match extends AbstractDto {
             // solo game
             $info['participants'] = [];
         }
-        $raw_participants = $info['participants'];
-        $participants       = [];
-        foreach ($raw_participants as $key => $value)
+        $rawParticipants = $info['participants'];
+        $participants    = [];
+        foreach ($rawParticipants as $value)
         {
-            $participant        = new Participant($value);
+            $participant                               = new Participant($value);
             $participants[$participant->participantId] = $participant;
         }
         $info['participants'] = $participants;
@@ -38,29 +38,31 @@ class Match extends AbstractDto {
             // solo game
             $info['participantIdentities'] = [];
         }
-        $raw_participant_identities = $info['participantIdentities'];
-        $participant_identities     = [];
-        foreach ($raw_participant_identities as $key => $value)
+        $rawrParticipantIds = $info['participantIdentities'];
+        $participantIds     = [];
+        foreach ($rawrParticipantIds as $value)
         {
-            $identity        = new ParticipantIdentity($value);
-            $participant_identities[$identity->participantId] = $identity;
+            $identity                                 = new ParticipantIdentity($value);
+            $participantIds[$identity->participantId] = $identity;
         }
-        $info['participantIdentities'] = $participant_identities;
+        $info['participantIdentities'] = $participantIds;
 
         // set teams (only for match api)
         if(isset($info['teams']))
         {
-            $raw_teams = $info['teams'];
-            $teams = [];
-            foreach($raw_teams as $key => $raw_team)
+            $rawTeams = $info['teams'];
+            $teams    = [];
+            foreach($rawTeams as $key => $rawTeam)
             {
-                $teams[$key] = new MatchTeam($raw_team);
+                $teams[$key] = new MatchTeam($rawTeam);
             }
             $info['teams'] = $teams;
         }
 
         if(isset($info['timeline']))
+        {
             $info['timeline'] = new MatchTimeline($info['timeline']);
+        }
 
         parent::__construct($info);
     }
@@ -68,10 +70,10 @@ class Match extends AbstractDto {
     /**
      * Attempts to get a participant from this match.
      *
-     * @param int $id
+     * @param int $participantId
      * @return Participant|null
      */
-    public function participant($id)
+    public function participant($participantId)
     {
         if ( ! isset($this->info['participants']))
         {
@@ -79,9 +81,9 @@ class Match extends AbstractDto {
             return null;
         }
         $participant = $this->info['participants'];
-        if (isset($participant[$id]))
+        if (isset($participant[$participantId]))
         {
-            return $participant[$id];
+            return $participant[$participantId];
         }
         return null;
     }
@@ -89,20 +91,20 @@ class Match extends AbstractDto {
     /**
      * Attempts to get a participant identity from this match.
      *
-     * @param int $id
+     * @param int $participantId
      * @return ParticipantIdentity|null
      */
-    public function identity($id)
+    public function identity($participantId)
     {
         if ( ! isset($this->info['participantIdentities']))
         {
             // no players
             return null;
         }
-        $identity = $this->info['participantIdentities'];
-        if (isset($identity[$id]))
+        $participantIdentity = $this->info['participantIdentities'];
+        if (isset($participantIdentity[$participantId]))
         {
-            return $identity[$id];
+            return $participantIdentity[$participantId];
         }
         return null;
     }
@@ -110,10 +112,10 @@ class Match extends AbstractDto {
     /**
      * Attempts to get a team from this match.
      *
-     * @param int $id
+     * @param int $teamId
      * @return Team|null
      */
-    public function team($id)
+    public function team($teamId)
     {
         if ( ! isset($this->info['teams']))
         {
@@ -121,9 +123,9 @@ class Match extends AbstractDto {
             return null;
         }
         $team = $this->info['teams'];
-        if (isset($team[$id]))
+        if (isset($team[$teamId]))
         {
-            return $team[$id];
+            return $team[$teamId];
         }
         return null;
     }

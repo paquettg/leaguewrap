@@ -14,17 +14,17 @@ class Team extends AbstractListDto {
 		if (isset($info['matchHistory']))
 		{
 			$matches = [];
-			foreach ($info['matchHistory'] as $id => $match)
+			foreach ($info['matchHistory'] as $matchId => $match)
 			{
 				$match        = new Team\Match($match);
-				$matches[$id] = $match;
+				$matches[$matchId] = $match;
 			}
 			$info['matchHistory'] = $matches;
 		}
 		if (isset($info['teamStatDetails']))
 		{
 			$details = [];
-			foreach ($info['teamStatDetails'] as $key => $detail)
+			foreach ($info['teamStatDetails'] as $detail)
 			{
 				$details[] = new Stats($detail);
 			}
