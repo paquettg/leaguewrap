@@ -1,7 +1,7 @@
 LeagueWrap
 ==========
 
-Version 0.5.9
+Version 0.5.10
 
 [![Build Status](https://travis-ci.org/paquettg/leaguewrap.png?branch=master)](https://travis-ci.org/paquettg/leaguewrap)
 
