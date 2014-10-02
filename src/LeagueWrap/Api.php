@@ -7,8 +7,10 @@ use LeagueWrap\Api\AbstractApi;
 use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
+use LeagueWrap\Limit\FileLimit;
 use LeagueWrap\Exception\NoKeyException;
 use LeagueWrap\Exception\ApiClassNotFoundException;
+use LeagueWrap\Exception\NoValidLimitInterfaceException;
 
 /**
  * @method \LeagueWrap\Api\Champion champion()
@@ -217,20 +219,54 @@ class Api {
 	 *
 	 * @param int $hits
 	 * @param int $seconds
+	 * @param string $region
 	 * @param Limit $limit
 	 * @chainable
 	 */
-	public function limit($hits, $seconds, LimitInterface $limit = null)
+	public function limit($hits, $seconds, $region = 'all', LimitInterface $limit = null)
 	{
 		if (is_null($limit))
 		{
 			// use the built in limit interface
 			$limit = new Limit;
 		}
+		if ( ! $limit->isValid())
+		{
+			// fall back to the file base limit handling
+			$limit = new FileLimit;
+			if ( ! $limit->isValid())
+			{
+				throw new NoValidLimitInterfaceException("We could not load a valid limit interface.");
+			}
+		}
 
-		$limit->setRate($hits, $seconds);
+		if ($region == 'all')
+		{
+			foreach ([
+				'br',
+				'eune',
+				'euw',
+				'kr',
+				'lan',
+				'las',
+				'na',
+				'oce',
+				'ru',
+				'tr'] as $region)
+			{
+				$newLimit = $limit->newInstance();
+				$newLimit->setRate($hits, $seconds, $region);
+				$this->collection->addLimit($newLimit);
+			}
+		}
+		else
+		{
+			// lower case the region
+			$region = strtolower($region);
+			$limit->setRate($hits, $seconds, $region);
+			$this->collection->addLimit($limit);
+		}
 
-		$this->collection->addLimit($limit);
 		return $this;
 	}
 
