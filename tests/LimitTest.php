@@ -58,6 +58,30 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException LeagueWrap\Exception\LimitReachedException
 	 */
+	public function testSingleFileLimit()
+	{
+		$this->limit1->shouldReceive('isValid')
+		             ->once()
+		             ->andReturn(false);
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion', [
+						'freeToPlay' => 'true',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/champion.free.json'));
+
+		$api = new LeagueWrap\Api('key', $this->client);
+		$api->limit(1, 10, 'na', $this->limit1);
+		$champion = $api->champion();
+		$champion->free();
+		$champion->free();
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Exception\LimitReachedException
+	 */
 	public function testSingleLimitFacade()
 	{
 		$this->limit1->shouldReceive('setRate')
