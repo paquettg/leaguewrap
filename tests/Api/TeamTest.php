@@ -23,7 +23,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066', [
+		             ->with('na/v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
@@ -33,12 +33,23 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('C9', $teams['TEAM-9baaf74e-ea61-4ebc-82d9-b013d29399fa']->tag);
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Exception\ListMaxException
+	 */
+	public function testTeamListMaxException()
+	{
+		$api   = new Api('key', $this->client);
+		$teams = $api->team()->team([
+			0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+			10, 11, 12,
+		]);
+	}
 	public function testTeamArrayAccess()
 	{
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066', [
+		             ->with('na/v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
@@ -54,7 +65,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066', [
+		             ->with('na/v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
@@ -70,7 +81,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066', [
+		             ->with('na/v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
@@ -91,7 +102,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066', [
+		             ->with('na/v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));
@@ -112,7 +123,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/18991200,492066', [
+		             ->with('na/v2.4/team/by-summoner/18991200,492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.18991200.492066.json'));
@@ -135,7 +146,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.18991200.492066.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.3/team/by-summoner/492066,18991200', [
+		             ->with('na/v2.4/team/by-summoner/492066,18991200', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.18991200.492066.json'));

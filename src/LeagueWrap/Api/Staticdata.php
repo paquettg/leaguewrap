@@ -58,6 +58,12 @@ class Staticdata extends AbstractApi {
 		'tr',
 	];
 
+    /**
+     * A list of all calls that require to get the data by Id
+     * @var array
+     */
+    protected $dataById = ['champion', 'summoner-spell'];
+
 	/**
 	 * The amount of time we intend to remember the response for.
 	 *
@@ -80,6 +86,20 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
+	 * Sets the DDversion to be used in the query. Null will return
+	 * the most recent version.
+	 *
+	 * @param string $DDversion
+	 * @chainable
+	 */
+	public function setDDversion($DDversion = null)
+	{
+		$this->DDversion = $DDversion;
+
+		return $this;
+	}
+
+	/**
 	 * Gets all static champion data with the given $data option.
 	 *
 	 * @param string #data
@@ -91,19 +111,19 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Gets the static champion data of all champions if $id is null.
-	 * If $id is set it will attempt to get info for that champion only.
+	 * Gets the static champion data of all champions if $championId is null.
+	 * If $championI is set it will attempt to get info for that champion only.
 	 *
-	 * @param int $id
+	 * @param int $championId
 	 * @param string $data
 	 * @return ChampionList|Champion
 	 */
-	public function getChampion($id, $data = null)
+	public function getChampion($championId, $data = null)
 	{
-		$params = $this->setUpParams($id, $data, 'champData');
-		$array  = $this->makeRequest('champion', $id, $params);
+		$params = $this->setUpParams('champion', $championId, $data, 'champData', 'champData');
+        $array  = $this->makeRequest('champion', $championId, $params);
 
-		if ($this->appendId($id))
+		if ($this->appendId($championId))
 		{
 			return new staticChampion($array);
 		}
@@ -125,19 +145,19 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Gets the static item data of all items if $id is null.
-	 * If $id is set it will attempt to get info for that item only.
+	 * Gets the static item data of all items if $itemId is null.
+	 * If $itemId is set it will attempt to get info for that item only.
 	 *
-	 * @param int $id
+	 * @param int $itemId
 	 * @param string $data
 	 * @return ItemList|Item
 	 */
-	public function getItem($id, $data = null)
+	public function getItem($itemId, $data = null)
 	{
-		$params = $this->setUpParams($id, $data, 'itemListData', 'itemData');
-		$array  = $this->makeRequest('item', $id, $params);
+		$params = $this->setUpParams('item', $itemId, $data, 'itemListData', 'itemData');
+		$array  = $this->makeRequest('item', $itemId, $params);
 		
-		if ($this->appendId($id))
+		if ($this->appendId($itemId))
 		{
 			return new staticItem($array);
 		}
@@ -159,19 +179,19 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Gets the mastery data of all masteries if $id is null.
-	 * If $id is a set it will attempt to get info for that mastery only.
+	 * Gets the mastery data of all masteries if $masteryId is null.
+	 * If $masteryId is a set it will attempt to get info for that mastery only.
 	 *
-	 * @param int $id
+	 * @param int $masteryId
 	 * @param string $data
 	 * @return MasteryList|Mastery
 	 */
-	public function getMastery($id, $data = null)
+	public function getMastery($masteryId, $data = null)
 	{
-		$params = $this->setUpParams($id, $data, 'masteryListData', 'masteryData');
-		$array  = $this->makeRequest('mastery', $id, $params);
+		$params = $this->setUpParams('mastery', $masteryId, $data, 'masteryListData', 'masteryData');
+		$array  = $this->makeRequest('mastery', $masteryId, $params);
 		
-		if ($this->appendId($id))
+		if ($this->appendId($masteryId))
 		{
 			return new staticMastery($array);
 		}
@@ -193,19 +213,19 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Gets the rune data of all runes if $id is null.
-	 * If $id is set it will attempt to get info for that rune only.
+	 * Gets the rune data of all runes if $runeId is null.
+	 * If $runeId is set it will attempt to get info for that rune only.
 	 *
-	 * $param int $id
+	 * $param int $runeId
 	 * @param string $data
 	 * @return RuneList|Rune
 	 */
-	public function getRune($id, $data = null)
+	public function getRune($runeId, $data = null)
 	{
-		$params = $this->setUpParams($id, $data, 'runeListData', 'runeData');
-		$array  = $this->makeRequest('rune', $id, $params);
+		$params = $this->setUpParams('rune', $runeId, $data, 'runeListData', 'runeData');
+		$array  = $this->makeRequest('rune', $runeId, $params);
 		
-		if ($this->appendId($id))
+		if ($this->appendId($runeId))
 		{
 			return new staticRune($array);
 		}
@@ -227,19 +247,19 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Gets the summoner spell data of all spells if $id is null
-	 * If $id is set it will attept to get info for that spell only.
+	 * Gets the summoner spell data of all spells if $summonerSpellId is null
+	 * If $summonerSpellId is set it will attept to get info for that spell only.
 	 * 
-	 * @param int $id
+	 * @param int $summonerSpellId
 	 * @param string $data
 	 * @return SummonerSpell|SummonerSpellList
 	 */
-	public function getSummonerSpell($id, $data = null)
+	public function getSummonerSpell($summonerSpellId, $data = null)
 	{
-		$params = $this->setUpParams($id, $data, 'spellData');
-		$array  = $this->makeRequest('summoner-spell', $id, $params);
+		$params = $this->setUpParams('summoner-spell', $summonerSpellId, $data, 'spellData', 'spellData');
+		$array  = $this->makeRequest('summoner-spell', $summonerSpellId, $params);
 
-		if ($this->appendId($id))
+		if ($this->appendId($summonerSpellId))
 		{
 			return new staticSummonerSpell($array);
 		}
@@ -277,31 +297,32 @@ class Staticdata extends AbstractApi {
 	 * Make the request given the proper information.
 	 *
 	 * @param string $path
-	 * @param mixed $id
+	 * @param mixed $requestId
 	 * @param array $params
 	 * @return array
 	 */
-	protected function makeRequest($path, $id, array $params)
+	protected function makeRequest($path, $requestId, array $params)
 	{
-		if ($this->appendId($id))
+		if ($this->appendId($requestId))
 		{
-			$path .= "/$id";
+			$path .= "/$requestId";
 		}
 
 		return $this->request($path, $params, true);
 	}
 
 	/**
-	 * Set up the boiler plat for the param array for any 
+	 * Set up the boiler plate for the param array for any 
 	 * static data call.
 	 *
-	 * @param mixed $id
+     * @param string $name of api call
+	 * @param mixed $requestId
 	 * @param mixed $data
 	 * @param string $listData
 	 * @param string $itemData
 	 * @return array
 	 */
-	protected function setUpParams($id = null, $data = null, $listData = '', $itemData = '')
+	protected function setUpParams($name='', $requestId = null, $data = null, $listData = '', $itemData = '')
 	{
 		$params = [];
 		if ( ! is_null($this->locale))
@@ -312,16 +333,13 @@ class Staticdata extends AbstractApi {
 		{
 			$params['version'] = $this->DDversion;
 		}
-		if ( ! $this->appendId($id) and
-		    $itemData == '' and
-		    $listData != '')
-		{
-			// add the dataById argument
-			$params['dataById'] = 'true';
-		}
+        if(! $this->appendId($requestId) and $this->dataById($name))
+        {
+            $params['dataById'] = 'true';
+        }
 		if ( ! is_null($data))
 		{
-			if ($this->appendId($id))
+			if ($this->appendId($requestId))
 			{
 				$params[$itemData] = $data;
 			}
@@ -337,17 +355,28 @@ class Staticdata extends AbstractApi {
 	 * Check if we should append the id to the end of the 
 	 * url or not.
 	 *
-	 * @param mixed $id
+	 * @param mixed $requestId
 	 * @return bool
 	 */
-	protected function appendId($id)
+	protected function appendId($requestId)
 	{
-		if ( ! is_null($id) AND
-		     $id != 'all')
+		if ( ! is_null($requestId) AND
+		     $requestId != 'all')
 		{
 			return true;
 		}
 
 		return false;
 	}
+
+    /**
+     * Check if we need the data by Id
+     *
+     * @param $name string
+     * @return bool
+     */
+    protected function dataById($name)
+    {
+        return in_array($name, $this->dataById);
+    }
 }

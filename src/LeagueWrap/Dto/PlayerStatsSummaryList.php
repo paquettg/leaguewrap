@@ -24,16 +24,16 @@ class PlayerStatsSummaryList extends AbstractListDto {
 	/**
 	 * Get the playerstat but the id in the response.
 	 *
-	 * @param int $id
+	 * @param int $playerStatId
 	 * @return PlayerStatsSummary|null
 	 */
-	public function playerStat($id)
+	public function playerStat($playerStatId)
 	{
-		if ( ! isset($this->info['playerStatSummaries'][$id]))
+		if ( ! isset($this->info['playerStatSummaries'][$playerStatId]))
 		{
 			return null;
 		}
 
-		return $this->info['playerStatSummaries'][$id];
+		return $this->info['playerStatSummaries'][$playerStatId];
 	}
 }

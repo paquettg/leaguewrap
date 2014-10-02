@@ -11,6 +11,7 @@ use LeagueWrap\Limit\Collection;
 use LeagueWrap\Exception\RegionException;
 use LeagueWrap\Exception\LimitReachedException;
 use LeagueWrap\Exception\InvalidIdentityException;
+use LeagueWrap\Exception\CacheNotFoundException;
 
 abstract class AbstractApi {
 	
@@ -73,11 +74,24 @@ abstract class AbstractApi {
 	protected $requests = 0;
 
 	/**
+	 * The amount of seconds we will wait for a responde fromm the riot
+	 * server. 0 means wait indefinitely.
+	 */
+	protected $timeout = 0;
+
+	/**
 	 * This is the cache container that we intend to use.
 	 *
 	 * @var CacheInterface
 	 */
 	protected $cache = null;
+
+	/**
+	 * Only check the cache. Do not do any actual request.
+	 *
+	 * @var bool
+	 */
+	protected $cacheOnly = false;
 
 	/**
 	 * The amount of time we intend to remember the response for.
@@ -146,6 +160,33 @@ abstract class AbstractApi {
 	public function setRegion($region)
 	{
 		$this->region = new Region($region);
+		return $this;
+	}
+
+	/**
+	 * Set a timeout in seconds for how long we will wait for the server
+	 * to respond. If the server does not respond within the set number
+	 * of seconds we throw an exception.
+	 *
+	 * @param float $seconds
+	 * @chainable
+	 */
+	public function setTimeout($seconds)
+	{
+		$this->timeout = floatval($seconds);
+		return $this;
+	}
+
+	/**
+	 * Sets the api endpoint to only use the cache to get the needed
+	 * information for the requests.
+	 *
+	 * @param $cacheOnly bool
+	 * @chainable
+	 */
+	public function setCacheOnly($cacheOnly = true)
+	{
+		$this->cacheOnly = $cacheOnly;
 		return $this;
 	}
 
@@ -219,7 +260,6 @@ abstract class AbstractApi {
 	 * @param bool $static
 	 * @return array
 	 * @throws RegionException
-	 * @throws LimitReachedException
 	 */
 	protected function request($path, $params = [], $static = false)
 	{
@@ -234,6 +274,10 @@ abstract class AbstractApi {
 
 		// set the region based domain
 		$this->client->baseUrl($this->region->getDomain($static));
+		if ($this->timeout > 0)
+		{
+			$this->client->setTimeout($this->timeout);
+		}
 
 		// add the key to the param list
 		$params['api_key'] = $this->key;
@@ -248,39 +292,54 @@ abstract class AbstractApi {
 			{
 				$content = $this->cache->get($cacheKey);
 			}
+			elseif ($this->cacheOnly)
+			{
+				throw new CacheNotFoundException("A cache item for '$uri?".http_build_query($params)."' was not found!");
+			}
 			else
 			{
-				// check if we have hit the limit
-				if ( ! $static AND
-				     ! $this->collection->hitLimits())
-				{
-					throw new LimitReachedException('You have hit the request limit in your collection.');
-				}
-				$content = $this->client->request($uri, $params);
-
-				// request was succesful
-				++$this->requests;
+				$content = $this->clientRequest($static, $uri, $params);
 
 				// we want to cache this response
 				$this->cache->set($content, $cacheKey, $this->seconds);
 			}
 		}
+		elseif ($this->cacheOnly)
+		{
+			throw new CacheNotFoundException('The cache is not enabled but we were told to use only the cache!');
+		}
 		else
 		{
-			// check if we have hit the limit
-			if ( ! $static AND
-			     ! $this->collection->hitLimits())
-			{
-				throw new LimitReachedException('You have hit the request limit in your collection.');
-			}
-			$content = $this->client->request($uri, $params);
-
-			// request was succesful
-			++$this->requests;
+			$content = $this->clientRequest($static, $uri, $params);
 		}
 
 		// decode the content
 		return json_decode($content, true);
+	}
+
+	/**
+	 * Make the actual request.
+	 * 
+	 * @param bool $static
+	 * @param string $uri
+	 * @param array $params
+	 * @return string
+	 * @throws LimitReachedException
+	 */
+	protected function clientRequest($static, $uri, $params)
+	{
+		// check if we have hit the limit
+		if ( ! $static AND
+			 ! $this->collection->hitLimits())
+		{
+			throw new LimitReachedException('You have hit the request limit in your collection.');
+		}
+		$content = $this->client->request($uri, $params);
+
+		// request was succesful
+		++$this->requests;
+
+		return $content;
 	}
 
 	/**

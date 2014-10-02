@@ -235,6 +235,21 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($masteries[0][4342] instanceof LeagueWrap\Dto\Mastery);
 	}
 
+	public function testMasteriesArrayOnlyOneMasterySummoner()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('br/v1.4/summoner/401129,1234567823/masteries', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.401129.1234567823.br.json'));
+
+		$api        = new api('key', $this->client);
+		$masteries  = $api->setRegion('BR')->summoner()->masteryPages([401129, 1234567823]);
+		$this->assertTrue(is_array($masteries[401129]));
+	}
+
 	public function testMasteriesSummoner()
 	{
 		$this->client->shouldReceive('baseUrl')

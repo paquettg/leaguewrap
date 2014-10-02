@@ -68,14 +68,14 @@ class Stats extends AbstractApi {
 	 */
 	public function summary($identity)
 	{
-		$id = $this->extractId($identity);
+		$summonerId = $this->extractId($identity);
 
 		$params = [];
 		if ( ! is_null($this->season))
 		{
 			$params['season'] = $this->season;
 		}
-		$array = $this->request('stats/by-summoner/'.$id.'/summary', $params);
+		$array = $this->request('stats/by-summoner/'.$summonerId.'/summary', $params);
 		$stats = new PlayerStatsSummaryList($array);
 
 		$this->attachResponse($identity, $stats, 'stats');
@@ -91,14 +91,14 @@ class Stats extends AbstractApi {
 	 */
 	public function ranked($identity)
 	{
-		$id = $this->extractId($identity);
+		$summonerId = $this->extractId($identity);
 
 		$params = [];
 		if ( ! is_null($this->season))
 		{
 			$params['season'] = $this->season;
 		}
-		$array = $this->request('stats/by-summoner/'.$id.'/ranked', $params);
+		$array = $this->request('stats/by-summoner/'.$summonerId.'/ranked', $params);
 		$stats = new RankedStats($array);
 
 		$this->attachResponse($identity, $stats, 'rankedStats');

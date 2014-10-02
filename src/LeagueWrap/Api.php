@@ -36,11 +36,24 @@ class Api {
 	protected $client;
 
 	/**
+	 * The amount of seconds we will wait for a responde fromm the riot
+	 * server. 0 means wait indefinitely.
+	 */
+	protected $timeout = 0;
+
+	/**
 	 * This contains the cache container that we intend to use.
 	 *
 	 * @var CacheInterface
 	 */
 	protected $cache;
+
+	/**
+	 * Only check the cache. Do not do any actual request.
+	 *
+	 * @var bool
+	 */
+	protected $cacheOnly = false;
 
 	/**
 	 * How long, in seconds, should we remember a query's response.
@@ -109,6 +122,9 @@ class Api {
 	 */
 	public function __call($method, $arguments)
 	{
+		// we don't use the arguments at the moment.
+		unset($arguments);
+
 		$className = 'LeagueWrap\\Api\\'.ucwords(strtolower($method));
 		if ( ! class_exists($className))
 		{
@@ -124,6 +140,8 @@ class Api {
 
 		$api->setKey($this->key)
 		    ->setRegion($this->region)
+		    ->setTimeout($this->timeout)
+		    ->setCacheOnly($this->cacheOnly)
 		    ->attachStaticData($this->attachStaticData);
 
 		if ($this->cache instanceof CacheInterface)
@@ -143,6 +161,33 @@ class Api {
 	public function setRegion($region)
 	{
 		$this->region = $region;
+		return $this;
+	}
+
+	/**
+	 * Set a timeout in seconds for how long we will wait for the server
+	 * to respond. If the server does not respond within the set number
+	 * of seconds we throw an exception.
+	 *
+	 * @param float $seconds
+	 * @chainable
+	 */
+	public function setTimeout($seconds)
+	{
+		$this->timeout = floatval($seconds);
+		return $this;
+	}
+
+	/**
+	 * Sets the api endpoint to only use the cache to get the needed
+	 * information for the requests.
+	 *
+	 * @param $cacheOnly bool
+	 * @chainable
+	 */
+	public function setCacheOnly($cacheOnly = true)
+	{
+		$this->cacheOnly = $cacheOnly;
 		return $this;
 	}
 

@@ -12,10 +12,10 @@ class SummonerSpellList extends AbstractListDto {
 		if (isset($info['data']))
 		{
 			$spells = [];
-			foreach ($info['data'] as $id => $spell)
+			foreach ($info['data'] as $spellId => $spell)
 			{
 				$summonerSpellDto = new SummonerSpell($spell);
-				$spells[$id]      = $summonerSpellDto;
+				$spells[$spellId] = $summonerSpellDto;
 			}
 			$info['data'] = $spells;
 		}
@@ -26,14 +26,14 @@ class SummonerSpellList extends AbstractListDto {
 	/**
 	 * A quick short cut to get the summoner spells by id.
 	 *
-	 * @param int $id
+	 * @param int $spellId
 	 * @return SummonerSpell|null
 	 */
-	public function getSpell($id)
+	public function getSpell($spellId)
 	{
-		if (isset($this->info['data'][$id]))
+		if (isset($this->info['data'][$spellId]))
 		{
-			return $this->info['data'][$id];
+			return $this->info['data'][$spellId];
 		}
 
 		return null;

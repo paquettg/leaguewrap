@@ -17,10 +17,10 @@ class ItemList extends AbstractListDto {
 		if (isset($info['data']))
 		{
 			$data = [];
-			foreach ($info['data'] as $id => $item)
+			foreach ($info['data'] as $itemId => $item)
 			{
-				$itemDto   = new Item($item);
-				$data[$id] = $itemDto;
+				$itemDto       = new Item($item);
+				$data[$itemId] = $itemDto;
 			}
 			$info['data'] = $data;
 		}
@@ -31,20 +31,20 @@ class ItemList extends AbstractListDto {
 		if (isset($info['groups']))
 		{
 			$groups = [];
-			foreach ($info['groups'] as $id => $group)
+			foreach ($info['groups'] as $itemId => $group)
 			{
-				$groupDto    = new Group($group);
-				$groups[$id] = $groupDto;
+				$groupDto        = new Group($group);
+				$groups[$itemId] = $groupDto;
 			}
 			$info['groups'] = $groups;
 		}
 		if (isset($info['tree']))
 		{
 			$tree = [];
-			foreach ($info['tree'] as $id => $tree)
+			foreach ($info['tree'] as $itemId => $tree)
 			{
-				$itemTreeDto = new ItemTree($tree);
-				$tree[$id]   = $itemTreeDto;
+				$itemTreeDto   = new ItemTree($tree);
+				$tree[$itemId] = $itemTreeDto;
 			}
 			$info['tree'] = $tree;
 		}
@@ -53,16 +53,16 @@ class ItemList extends AbstractListDto {
 	}
 
 	/**
-	 * Quick shortcut to get a champions information by $id
+	 * Quick shortcut to get a champions information by $itemId
 	 *
-	 * @param int $id
+	 * @param int $itemId
 	 * @return Champion|null
 	 */
-	public function getItem($id)
+	public function getItem($itemId)
 	{
-		if (isset($this->info['data'][$id]))
+		if (isset($this->info['data'][$itemId]))
 		{
-			return $this->info['data'][$id];
+			return $this->info['data'][$itemId];
 		}
 
 		return null;
