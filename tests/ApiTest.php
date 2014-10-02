@@ -89,6 +89,13 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 	{
 		$api = new Api('key');
 		$api->limit(5,5);
+		$this->assertEquals(10, sizeof($api->getLimits()));
+	}
+
+	public function testGetLimitsOneRegion()
+	{
+		$api = new Api('key');
+		$api->limit(5,5, 'na');
 		$this->assertEquals(1, sizeof($api->getLimits()));
 	}
 }
