@@ -84,7 +84,9 @@ class Champion extends AbstractApi {
 	 */
 	public function free()
 	{
-		$this->free = 'true';
-		return $this->all();
+		$this->free   = 'true';
+		$championList = $this->all();
+		$this->free   = 'false';
+		return $championList;
 	}
 }

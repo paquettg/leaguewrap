@@ -20,7 +20,7 @@ class Client implements ClientInterface {
 		$this->guzzle = new Guzzle([
 			'base_url' => $url,
 			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
-			]);
+		]);
 	}
 
 	/**

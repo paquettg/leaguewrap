@@ -52,6 +52,28 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($champions[53] instanceof LeagueWrap\Dto\Champion);
 	}
 
+	public function testFreeWillNotBeStoredPermanently() 
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion', [
+						'freeToPlay' => 'true',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/champion.free.json'));
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion', [
+						'freeToPlay' => 'false',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/champion.json'));
+
+	    $api      = new Api('key', $this->client);
+	    $champion = $api->champion();
+	    $this->assertNotEquals($champion->free(), $champion->all());
+	}
+
 	public function testAllIterator()
 	{
 		$this->client->shouldReceive('baseUrl')
