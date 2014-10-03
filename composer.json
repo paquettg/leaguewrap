@@ -3,7 +3,7 @@
     "type": "library",
     "description": "A wrapper for the League of Legends API.",
     "version": "0.5.10",
-    "keywords": ["League", "legends", "wrap", "api", "facade"],
+    "keywords": ["League", "legends", "wrap", "api", "facade", "proxy"],
     "homepage": "https://github.com/paquettg/leaguewrap",
     "license": "MIT",
     "authors": [

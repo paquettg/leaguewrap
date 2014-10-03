@@ -1,6 +1,6 @@
 <?php
 
-class FacadeStaticApiTest extends PHPUnit_Framework_TestCase {
+class StaticProxyStaticApiTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{

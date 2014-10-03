@@ -82,7 +82,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException LeagueWrap\Exception\LimitReachedException
 	 */
-	public function testSingleLimitFacade()
+	public function testSingleLimitStaticProxy()
 	{
 		$this->limit1->shouldReceive('setRate')
 		             ->once()

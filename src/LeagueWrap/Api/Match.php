@@ -1,6 +1,7 @@
 <?php
-
 namespace LeagueWrap\Api;
+
+use LeagueWrap\Dto\Match as MatchDto;
 
 class Match extends AbstractApi
 {
@@ -48,9 +49,14 @@ class Match extends AbstractApi
     public function match($matchId, $includeTimeline = false)
     {
         if($includeTimeline)
-            $response = $this->request('match/'.$matchId, array('includeTimeline' => $includeTimeline));
+        {
+            $response = $this->request('match/'.$matchId, ['includeTimeline' => $includeTimeline]);
+        }
         else
+        {
             $response = $this->request('match/'.$matchId);
-        return new \LeagueWrap\Dto\Match($response);
+        }
+
+        return new MatchDto($response);
     }
 } 

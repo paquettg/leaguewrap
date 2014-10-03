@@ -94,7 +94,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$summoner = $api->summoner()->info('bakasan');
 	}
 
-	public function testRememberSummonerFacade()
+	public function testRememberSummonerStaticProxy()
 	{
 		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
 		$this->cache->shouldReceive('set')

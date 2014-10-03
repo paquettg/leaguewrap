@@ -108,7 +108,7 @@ $api->remember(60, $myCache); // Set the cache to use your own cache implementat
 $api->remember(null, $myCache); // Set the cache implementation but keep the default cache times
 ```
 
-It's even easyer to do using Facades, which you will see after the Rate Limiting section.
+It's even easyer to do using StaticProxys, which you will see after the Rate Limiting section.
 
 Rate Limiting
 -------------
@@ -133,15 +133,15 @@ $api->limit(10, 10, $myLimiter);    // Set a limit using your own limit implemen
 $api->limit(500, 600, $myLimiter); 
 ```
 
-Also note that the limit functionality fully supports the Facades described next.
+Also note that the limit functionality fully supports the StaticProxys described next.
 
-Facade
-------
+StaticProxy
+-----------
 
 You can use LeagueWrap through a static client to make it even easier to send API requests.
 
 ```php
-LeagueWrap\StaticApi::mount(); // Mount all the static facades
+LeagueWrap\StaticApi::mount(); // Mount all the static static proxys
 
 Api::setKey('my-key'); // set the key for the API
 
@@ -156,10 +156,10 @@ Game::recent(Summoner::get('bakasan'));          // get the recent games for bak
 $game = Summoner::get('bakasan')->recentGame(0); // get the most recent game
 ```
 
-All normal API methods and API requests can be done using the facades and you no longer need to have an instance of `LeagueWrap\Api`. You must always set the key at least once before you can call any API requests but after it is set it will be used everywhere. The same can be applied to the cache reminder.
+All normal API methods and API requests can be done using the static proxys and you no longer need to have an instance of `LeagueWrap\Api`. You must always set the key at least once before you can call any API requests but after it is set it will be used everywhere. The same can be applied to the cache reminder.
 
 ```php
-LeagueWrap\StaticApi::mount(); // Mount all the static facades
+LeagueWrap\StaticApi::mount(); // Mount all the static static proxys
 
 Api::setKey('my-key');                // set the key for the API
 Api::remember(60);                    // cache all request for 60 seconds
@@ -172,7 +172,7 @@ $bakasan = Summoner::info('bakasan'); // cached for 60 seconds using $myCache
 And with limits.
 
 ```php
-LeagueWrap\StaticApi::mount(); // Mount all the static facades
+LeagueWrap\StaticApi::mount(); // Mount all the static static proxys
 
 Api::setKey('my-key');                // set the key for the API
 Api::remember();                      // cache all request for the default number of seconds

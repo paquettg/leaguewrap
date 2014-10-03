@@ -1,10 +1,10 @@
 <?php
-namespace LeagueWrap\Facade;
+namespace LeagueWrap\StaticProxy;
 
 use Api;
 use LeagueWrap\Api\Team;
 
-class StaticTeam extends AbstractFacade {
+class StaticTeam extends AbstractStaticProxy {
 
 	/**
 	 * The team api class to be used for all requests.
