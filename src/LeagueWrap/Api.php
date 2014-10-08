@@ -4,6 +4,7 @@ namespace LeagueWrap;
 use LeagueWrap\Cache;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\Api\AbstractApi;
+use LeagueWrap\Api\Staticdata;
 use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
@@ -143,8 +144,12 @@ class Api {
 		$api->setKey($this->key)
 		    ->setRegion($this->region)
 		    ->setTimeout($this->timeout)
-		    ->setCacheOnly($this->cacheOnly)
-		    ->attachStaticData($this->attachStaticData);
+		    ->setCacheOnly($this->cacheOnly);
+		if ($this->attachStaticData and
+		    ! ($api instanceof Staticdata))
+		{
+		    $api->attachStaticData($this->attachStaticData, $this->staticData());
+		}
 
 		if ($this->cache instanceof CacheInterface)
 		{

@@ -143,6 +143,22 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(true, $kayle->rankedPlayEnabled);
 	}
 
+	public function testChampionByIdWithStaticImport()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion/10', [
+						'api_key' => 'key',
+		             ])->twice()
+		             ->andReturn(file_get_contents('tests/Json/champion.10.json'),
+		                         file_get_contents('tests/Json/Static/champion.10.json'));
+
+		$api = new Api('key', $this->client);
+		$kayle = $api->attachStaticData()->champion()->championById(10);
+		$this->assertEquals('Kayle', $kayle->championStaticData->name);
+	}
+
 	public function testAllRegionKR()
 	{
 		$this->client->shouldReceive('baseUrl')

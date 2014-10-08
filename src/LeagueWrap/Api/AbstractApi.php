@@ -2,6 +2,7 @@
 namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\Summoner;
+use LeagueWrap\Dto\AbstractDto;
 use LeagueWrap\Api;
 use LeagueWrap\Region;
 use LeagueWrap\Cache;
@@ -115,6 +116,13 @@ abstract class AbstractApi {
 	protected $attachStaticData = false;
 
 	/**
+	 * A static data api object to be used for static data request.
+	 *
+	 * @var staticData
+	 */
+	protected $staticData = null;
+
+	/**
 	 * Default DI constructor.
 	 *
 	 * @param ClientInterface $client
@@ -194,11 +202,13 @@ abstract class AbstractApi {
 	 * Set wether to attach static data to the response.
 	 *
 	 * @param bool $attach
+	 * @param StaticData $static
 	 * @chainable
 	 */
-	public function attachStaticData($attach = true)
+	public function attachStaticData($attach = true, Staticdata $static = null)
 	{
 		$this->attachStaticData = $attach;
+		$this->staticData       = $static;
 		return $this;
 	}
 
@@ -475,6 +485,22 @@ abstract class AbstractApi {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Will attempt to attach any static data to the given dto if
+	 * the attach static data flag is set.
+	 *
+	 * $param AbstractDto $dto
+	 * @return AbstractDto
+	 */
+	protected function attachStaticDataToDto(AbstractDto $dto)
+	{
+		if ($this->attachStaticData)
+		{
+			$dto->loadStaticData($this->staticData);
+		}
+		return $dto;
 	}
 }
 
