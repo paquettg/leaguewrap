@@ -1,6 +1,8 @@
 <?php
 namespace LeagueWrap\Dto;
 
+use LeagueWrap\Api\Staticdata;
+
 Abstract class AbstractDto {
 	
 	protected $info;
@@ -63,6 +65,37 @@ Abstract class AbstractDto {
 	public function set($key, $value)
 	{
 		$this->info[$key] = $value;
+		return $this;
+	}
+
+	/**
+	 * Attempts to load all static data within the children DTO
+	 * objects.
+	 *
+	 * @param Statcidata $staticData
+	 * @chainable
+	 */
+	public function loadStaticData(Staticdata $staticData)
+	{
+		foreach($this->info as $info)
+		{
+			if (is_array($info))
+			{
+				foreach ($info as $value)
+				{
+					if ($value instanceof AbstractDto)
+					{
+						$value->loadStaticData($staticData);
+					}
+				}
+			}
+			// check if it's just a single object
+			if ($info instanceof AbstractDto)
+			{
+				$info->loadStaticData($staticData);
+			}
+		}
+
 		return $this;
 	}
 
