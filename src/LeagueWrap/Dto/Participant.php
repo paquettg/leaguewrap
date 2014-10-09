@@ -1,5 +1,4 @@
 <?php
-
 namespace LeagueWrap\Dto;
 
 /**
@@ -25,11 +24,15 @@ class Participant extends AbstractDto {
     {
         // player stats
         if(isset($info['stats']))
+        {
             $info['stats'] = new Stats($info['stats']);
+        }
 
         // timeline - this is optional for matches api
         if(isset($info['timeline']))
+		{
             $info['timeline'] = new ParticipantTimeline($info['timeline']);
+        }
 
 
         parent::__construct($info);
