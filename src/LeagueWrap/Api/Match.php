@@ -57,6 +57,6 @@ class Match extends AbstractApi
             $response = $this->request('match/'.$matchId);
         }
 
-        return new MatchDto($response);
+        return $this->attachStaticDataToDto(new MatchDto($response));
     }
 } 

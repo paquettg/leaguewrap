@@ -8,6 +8,13 @@ namespace LeagueWrap\Dto;
  * Participant of a match including its stats
  */
 class Participant extends AbstractDto {
+	use ImportStaticTrait;
+
+	protected $staticFields = [
+		'championId' => 'champion',
+		'spell1Id'   => 'summonerSpell',
+		'spell2Id'   => 'summonerSpell',
+	];
 
     /**
      * Set up the information about this Participant.

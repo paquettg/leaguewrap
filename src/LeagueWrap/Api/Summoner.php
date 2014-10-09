@@ -215,14 +215,14 @@ class Summoner extends AbstractApi {
 				$slots = $info['slots'];
 				unset($info['slots']);
 
-				$runePage = new RunePage($info);
+				$runePage = $this->attachStaticDataToDto(new RunePage($info));
 
 				// set runes
 				$runes = [];
 				foreach ($slots as $slot)
 				{
 					$id         = $slot['runeSlotId'];
-					$rune       = new Rune($slot);
+					$rune       = $this->attachStaticDataToDto(new Rune($slot));
 					$runes[$id] = $rune;
 				}
 				$runePage->runes = $runes;
@@ -269,13 +269,13 @@ class Summoner extends AbstractApi {
 
 				$masteriesInfo = $info['masteries'];
 				unset($info['masteries']);
-				$masteryPage = new MasteryPage($info);
+				$masteryPage = $this->attachStaticDataToDto(new MasteryPage($info));
 				// set masterys
 				$masteries = [];
 				foreach ($masteriesInfo as $mastery)
 				{
 					$id             = $mastery['id'];
-					$mastery        = new Mastery($mastery);
+					$mastery        = $this->attachStaticDataToDto(new Mastery($mastery));
 					$masteries[$id] = $mastery;
 				}
 				$masteryPage->masteries = $masteries;
@@ -317,7 +317,7 @@ class Summoner extends AbstractApi {
 		$summoners = [];
 		foreach ($array as $info)
 		{
-			$summoner               = new Dto\Summoner($info);
+			$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));
 			$name                   = $summoner->name;
 			$this->summoners[$name] = $summoner;
 			$summoners[$name]       = $summoner;
@@ -357,7 +357,7 @@ class Summoner extends AbstractApi {
 		$summoners = [];
 		foreach ($array as $name => $info)
 		{
-			$summoner = new Dto\Summoner($info);
+			$summoner = $this->attachStaticDataToDto(new Dto\Summoner($info));
 			$this->summoners[$name] = $summoner;
 			$summoners[$name] = $summoner;
 		}

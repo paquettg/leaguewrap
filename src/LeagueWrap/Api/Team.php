@@ -76,7 +76,7 @@ class Team extends AbstractApi {
 			foreach ($summonerTeams as $info)
 			{
 				$id   = $info['fullId'];
-				$team = new Dto\Team($info);
+				$team = $this->attachStaticDataToDto(new Dto\Team($info));
 				$teams[$id] = $team;
 			}
 			$summoners[$summonerId] = $teams;

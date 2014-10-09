@@ -49,8 +49,8 @@ class Game extends AbstractApi {
 	{
 		$summonerId = $this->extractId($identity);
 
-		$array = $this->request('game/by-summoner/'.$summonerId.'/recent');
-		$games = new RecentGames($array);
+		$info  = $this->request('game/by-summoner/'.$summonerId.'/recent');
+		$games = $this->attachStaticDataToDto(new RecentGames($info));
 
 		$this->attachResponse($identity, $games, 'recentGames');
 

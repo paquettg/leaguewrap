@@ -1,7 +1,7 @@
 <?php
-
 namespace LeagueWrap\Api;
 
+use LeagueWrap\Dto\MatchHistory as MatchHistoryDto;
 
 class Matchhistory extends AbstractApi {
 
@@ -57,7 +57,7 @@ class Matchhistory extends AbstractApi {
 
         $requestParamas = $this->parseParams($rankedQueues, $championIds, $beginIndex, $endIndex);
         $array          = $this->request('matchhistory/'.$matchId, $requestParamas);
-        $matchhistory   = new \LeagueWrap\Dto\MatchHistory($array);
+        $matchhistory   = $this->attachStaticDataToDto(new MatchHistoryDto($array));
 
         $this->attachResponse($identity, $matchhistory, 'matchhistory');
 

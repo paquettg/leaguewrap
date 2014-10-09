@@ -83,7 +83,7 @@ class League extends AbstractApi {
 					$info['id'] = $id;
 				}
 				$league    = new Dto\League($info);
-				$leagues[] = $league;
+				$leagues[] = $this->attachStaticDataToDto($league);
 			}
 			$summoners[$id] = $leagues;
 		}
@@ -110,6 +110,6 @@ class League extends AbstractApi {
 	{
 		$info       = $this->request('league/challenger', ['type' => $type]);
 		$info['id'] = null;
-		return new Dto\League($info);
+		return $this->attachStaticDataToDto(new Dto\League($info));
 	}
 }

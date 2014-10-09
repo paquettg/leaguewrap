@@ -2,6 +2,13 @@
 namespace LeagueWrap\Dto;
 
 class Game extends AbstractDto {
+	use ImportStaticTrait;
+
+	protected $staticFields = [
+		'championId' => 'champion',
+		'spell1'     => 'summonerSpell',
+		'spell2'     => 'summonerSpell',
+	];
 
 	/**
 	 * Set up the information about this game.
