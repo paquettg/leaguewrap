@@ -2,6 +2,7 @@
 namespace LeagueWrap\Dto;
 
 use LeagueWrap\Api\Staticdata;
+use LeagueWrap\StaticOptimizer;
 
 trait ImportStaticTrait {
 
@@ -19,7 +20,7 @@ trait ImportStaticTrait {
 		];
 		foreach ($this->staticFields as $field => $data)
 		{
-			$fieldValue                = $this->info[$field];
+			$fieldValue = $this->info[$field];
 			if ( ! isset($fields[$splHash][$data]))
 			{
 				$fields[$splHash][$data] = [];
@@ -35,13 +36,13 @@ trait ImportStaticTrait {
 	 * Takes a result array and attempts to fill in any needed
 	 * static data.
 	 *
-	 * @param array $results
+	 * @param staticOptimizer $optimizer
 	 * @return void
 	 */
-	protected function addStaticData(array $results)
+	protected function addStaticData(StaticOptimizer $optimizer)
 	{
 		$splHash = spl_object_hash($this);
-		$info    = $results[$splHash];
+		$info    = $optimizer->getDataFromHash($splHash);
 		foreach ($this->staticFields as $field => $data)
 		{
 			$infoArray  = $info[$data];

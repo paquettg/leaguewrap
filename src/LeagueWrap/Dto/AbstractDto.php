@@ -2,6 +2,7 @@
 namespace LeagueWrap\Dto;
 
 use LeagueWrap\Api\Staticdata;
+use LeagueWrap\StaticOptimizer;
 
 Abstract class AbstractDto {
 	
@@ -78,8 +79,10 @@ Abstract class AbstractDto {
 	public function loadStaticData(Staticdata $staticData)
 	{
 		$fields = $this->getStaticFields();
-		$data   = $this->getStaticData($fields, $staticData);
-		$this->addStaticData($data);
+		$optimizer = new StaticOptimizer;
+		$optimizer->optimizeFields($fields)
+		          ->setStaticInfo($staticData);
+		$this->addStaticData($optimizer);
 
 		return $this;
 	}
@@ -129,7 +132,7 @@ Abstract class AbstractDto {
 				{
 					if ($value instanceof AbstractDto)
 					{
-						$fields += $info->getStaticFields();
+						$fields += $value->getStaticFields();
 					}
 				}
 			}
@@ -141,34 +144,14 @@ Abstract class AbstractDto {
 		return $fields;
 	}
 
-	protected function getStaticData(array $fields, Staticdata $staticData)
-	{
-		$results = [];
-		foreach ($fields as $hash => $requests)
-		{
-			$result = [];
-			foreach ($requests as $request => $values)
-			{
-				$method = 'get'.ucfirst($request);
-				foreach ($values as $value)
-				{
-					$data           = $staticData->$method($value);
-					$result[$value] = $data;
-				}
-			}
-			$results[$hash][$request] = $result;
-		}
-		return $results;
-	}
-
 	/**
 	 * Attempts to add the static data that we got from getStaticData to
 	 * any children DTO objects.
 	 *
-	 * @param array $data
+	 * @param Statcidata $staticData
 	 * @return void
 	 */
-	protected function addStaticData(array $data)
+	protected function addStaticData(StaticOptimizer $optimizer)
 	{
 		foreach ($this->info as $info)
 		{
@@ -178,13 +161,13 @@ Abstract class AbstractDto {
 				{
 					if ($value instanceof AbstractDto)
 					{
-						$info->addStaticData($data);
+						$value->addStaticData($optimizer);
 					}
 				}
 			}
 			if ($info instanceof AbstractDto)
 			{
-				$info->addStaticData($data);
+				$info->addStaticData($optimizer);
 			}
 		}
 	}

@@ -10,6 +10,6 @@ class Ban extends AbstractDto {
 	use ImportStaticTrait;
 
 	protected $staticFields = [
-		'id' => 'championId',
+		'championId' => 'champion',
 	];
 }
