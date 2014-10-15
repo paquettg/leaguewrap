@@ -133,7 +133,32 @@ $api->limit(10, 10, $myLimiter);    // Set a limit using your own limit implemen
 $api->limit(500, 600, $myLimiter); 
 ```
 
-Also note that the limit functionality fully supports the StaticProxys described next.
+Also note that the limit functionality fully supports the Static API described further down.
+
+Attach Static Data
+------------------
+
+Some requests come with static IDs referencing data in the static api. To do this you need to get the original data, extract the ID and follow up with a call to the static API. We make this entire process much simpler and optimize the amount of api requests that we do for all the data to reduce bandwidth and request. The extra static requests do not count towards your request limit so, in that regard, this does not effect the amount of requests you can do in a certain amount of time, it just takes time.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey);                          // Load up the Api
+$api->attachStaticData();                        // Tell the api to attach all static data
+$champion = $api->champion()->championById(10);  // Get the champion by id 10
+echo $champion->championStaticData->name;        // Outputs "Kayle"
+```
+
+It will also optimize the static call so that the following example only attempt 3 static api calls even if it requires over 2 dozen different static id for multiple DTOs.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey);                          // Load up the Api
+$api->attachStaticData();                        // Tell the api to attach all static data
+$match = $api->match()->match(1399898747);
+echo $match->team(0)->ban(0)->championStaticData->name; // outputs LeBlanc
+```
 
 StaticProxy
 -----------
