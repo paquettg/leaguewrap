@@ -333,7 +333,7 @@ class Staticdata extends AbstractApi {
 		{
 			$params['version'] = $this->DDversion;
 		}
-        if(! $this->appendId($requestId) and $this->dataById($name))
+        if(! $this->appendId($requestId) && $this->dataById($name))
         {
             $params['dataById'] = 'true';
         }
@@ -360,7 +360,7 @@ class Staticdata extends AbstractApi {
 	 */
 	protected function appendId($requestId)
 	{
-		if ( ! is_null($requestId) AND
+		if ( ! is_null($requestId) &&
 		     $requestId != 'all')
 		{
 			return true;

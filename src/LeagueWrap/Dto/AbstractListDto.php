@@ -61,7 +61,7 @@ Abstract class AbstractListDto extends AbstractDto implements ArrayAccess, Itera
 
 	protected function getListByKey()
 	{
-		if (is_null($this->listKey) or
+		if (is_null($this->listKey) ||
 		     ! isset($this->info[$this->listKey]))
 		{
 			throw new ListKeyNotSetException('The listKey is not found in the abstract list DTO');

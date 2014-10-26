@@ -145,7 +145,7 @@ class Api {
 		    ->setRegion($this->region)
 		    ->setTimeout($this->timeout)
 		    ->setCacheOnly($this->cacheOnly);
-		if ($this->attachStaticData and
+		if ($this->attachStaticData &&
 		    ! ($api instanceof Staticdata))
 		{
 		    $api->attachStaticData($this->attachStaticData, $this->staticData());

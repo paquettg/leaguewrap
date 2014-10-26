@@ -339,7 +339,7 @@ abstract class AbstractApi {
 	protected function clientRequest($static, $uri, $params)
 	{
 		// check if we have hit the limit
-		if ( ! $static AND
+		if ( ! $static &&
 			 ! $this->collection->hitLimits($this->region->getRegion()))
 		{
 			throw new LimitReachedException('You have hit the request limit in your collection.');

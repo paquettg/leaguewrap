@@ -1,7 +1,6 @@
 <?php
 namespace LeagueWrap\Dto;
 
-use LeagueWrap\Api\Staticdata;
 use LeagueWrap\StaticOptimizer;
 
 trait ImportStaticTrait {
