@@ -42,4 +42,26 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 		$limit->hit(4);
 		$this->assertEquals(6, $limit->remaining());
 	}
+
+	public function testNewInstance()
+	{
+		$limit    = new FileLimit;
+		$newLimit = $limit->newInstance();
+		$this->assertTrue($newLimit instanceof FileLimit);
+	}
+
+	public function testRemainingWithOutFile()
+	{
+		$limit = new FileLimit;
+		$limit->setRate(100, 100, 'na');
+		$this->assertEquals(100, $limit->remaining());
+	}
+
+	public function testTimeRunOut()
+	{
+		$limit = new FileLimit;
+		$limit->setRate(8, 0, 'euna');
+		$limit->hit(8);
+		$this->assertEquals(8, $limit->remaining());
+	}
 }

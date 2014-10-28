@@ -170,7 +170,7 @@ class FileLimit implements LimitInterface {
 	{
 		$info = file_get_contents($this->path);
 		list($expires, $hits) = explode(',', $info);
-		if ($expires < time())
+		if ($expires <= time())
 		{
 			// it has expires
 			unlink($this->path);
