@@ -102,7 +102,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets all static champion data with the given $data option.
 	 *
-	 * @param string #data
+	 * @param mixed #data
 	 * @retrn ChampionList
 	 */
 	public function getChampions($data = null)
@@ -115,7 +115,7 @@ class Staticdata extends AbstractApi {
 	 * If $championI is set it will attempt to get info for that champion only.
 	 *
 	 * @param int $championId
-	 * @param string $data
+	 * @param mixed $data
 	 * @return ChampionList|Champion
 	 */
 	public function getChampion($championId, $data = null)
@@ -136,7 +136,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets static data on all items.
 	 *
-	 * @param string $data
+	 * @param mixed $data
 	 * @return ItemList
 	 */
 	public function getItems($data = null)
@@ -149,7 +149,7 @@ class Staticdata extends AbstractApi {
 	 * If $itemId is set it will attempt to get info for that item only.
 	 *
 	 * @param int $itemId
-	 * @param string $data
+	 * @param mixed $data
 	 * @return ItemList|Item
 	 */
 	public function getItem($itemId, $data = null)
@@ -170,7 +170,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets static data on all masteries.
 	 *
-	 * @param string $data
+	 * @param mixed $data
 	 * @return MasteryList
 	 */
 	public function getMasteries($data = null)
@@ -183,7 +183,7 @@ class Staticdata extends AbstractApi {
 	 * If $masteryId is a set it will attempt to get info for that mastery only.
 	 *
 	 * @param int $masteryId
-	 * @param string $data
+	 * @param mixed $data
 	 * @return MasteryList|Mastery
 	 */
 	public function getMastery($masteryId, $data = null)
@@ -204,7 +204,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets static data on all runes.
 	 *
-	 * @param string $data
+	 * @param mixed $data
 	 * @return RuneList
 	 */
 	public function getRunes($data = null)
@@ -217,7 +217,7 @@ class Staticdata extends AbstractApi {
 	 * If $runeId is set it will attempt to get info for that rune only.
 	 *
 	 * $param int $runeId
-	 * @param string $data
+	 * @param mixed $data
 	 * @return RuneList|Rune
 	 */
 	public function getRune($runeId, $data = null)
@@ -238,7 +238,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets static data on all summoner spells.
 	 *
-	 * @param string $data
+	 * @param mixed $data
 	 * @return SummonerSpellList
 	 */
 	public function getSummonerSpells($data = null)
@@ -251,7 +251,7 @@ class Staticdata extends AbstractApi {
 	 * If $summonerSpellId is set it will attept to get info for that spell only.
 	 * 
 	 * @param int $summonerSpellId
-	 * @param string $data
+	 * @param mixed $data
 	 * @return SummonerSpell|SummonerSpellList
 	 */
 	public function getSummonerSpell($summonerSpellId, $data = null)
@@ -341,10 +341,20 @@ class Staticdata extends AbstractApi {
 		{
 			if ($this->appendId($requestId))
 			{
+				if(is_array($data) && !empty($data))
+				{
+					$data = implode(",", $data);
+				}
+
 				$params[$itemData] = $data;
 			}
 			else
 			{
+				if(is_array($data) && !empty($data))
+				{
+					$data = implode(",", $data);
+				}
+
 				$params[$listData] = $data;
 			}
 		}
