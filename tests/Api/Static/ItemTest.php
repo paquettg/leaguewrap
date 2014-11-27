@@ -113,4 +113,21 @@ class ItemTest extends PHPUnit_Framework_TestCase {
 		$item  = $items->getItem(1042);
 		$this->assertEquals(0.12, $item->stats->PercentAttackSpeedMod);
 	}
+
+	public function testGetItemArray()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/item', [
+						'api_key'      => 'key',
+						'itemListData' => 'gold,image',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/items.gold.image.json'));
+
+		$api   = new Api('key', $this->client);
+		$items = $api->staticData()->getItems(array("gold", "image"));
+		$item  = $items->getItem(1042);
+		$this->assertEquals(450, $item->gold->total);
+	}
 }
