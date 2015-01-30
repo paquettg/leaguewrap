@@ -7,7 +7,7 @@ use \LeagueWrap\Dto\CurrentGame as CurrentGameDto;
 /**
  * Spectator service endpoint
  */
-class CurrentGame extends AbstractApi
+class Currentgame extends AbstractApi
 {
 
 	/**

@@ -60,7 +60,6 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testSingleFileLimit()
 	{
-		$this->markTestSkipped();
 		$this->limit1->shouldReceive('isValid')
 		             ->once()
 		             ->andReturn(false);

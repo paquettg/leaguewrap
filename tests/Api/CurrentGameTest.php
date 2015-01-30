@@ -10,7 +10,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$client       = m::mock('LeagueWrap\Client');
+		$client = m::mock('LeagueWrap\Client');
 		$this->client = $client;
 	}
 
