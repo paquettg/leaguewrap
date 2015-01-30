@@ -21,6 +21,7 @@ use LeagueWrap\Exception\NoValidLimitInterfaceException;
  * @method \LeagueWrap\Api\Stats stats()
  * @method \LeagueWrap\Api\Summoner summoner()
  * @method \LeagueWrap\Api\Team team()
+ * @method \LeagueWrap\Api\CurrentGame currentGame()
  */
 class Api {
 

@@ -20,6 +20,8 @@ class Region {
 	 */
 	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/';
 
+	protected $defaultObserverDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
+
 	public function __construct($region)
 	{
 		$this->region = strtolower($region);
@@ -60,6 +62,14 @@ class Region {
 	public function getStaticDataDomain()
 	{
 		return $this->defaultStaticDomain;
+	}
+
+	/**
+	 * @return stringReturns the observer domain that this region needs to make its request.
+	 */
+	public function getObserverDomain()
+	{
+		return sprintf($this->defaultObserverDomain, $this->getRegion());
 	}
 
 	/**
