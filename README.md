@@ -473,6 +473,27 @@ The documentation for the Team Api is not complete but it is fully functional.
 $team = $api->team();
 ```
 
+Current Game
+----
+
+The current game api gives information about a running game.
+
+
+```php
+// receive a current game
+$currentGame = $api->currentGame();
+$game = $currentGame->currentGame($summonerId);
+
+$game->ban(1) // first ban of the ban phase
+$game->observers->encriptionKey // observer key for spectating
+
+// participant of a game
+$participant = $game->participant($summonerId)
+$participant->masteries
+$participant->runes
+$participant->championId
+```
+
 Static Data
 -----------
 
