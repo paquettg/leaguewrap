@@ -1,8 +1,5 @@
 <?php
-
-
 namespace LeagueWrap\Dto;
-
 
 class CurrentGame extends AbstractDto
 {
@@ -41,7 +38,7 @@ class CurrentGame extends AbstractDto
         $participants    = [];
         foreach ($rawParticipants as $value)
         {
-            $participant                               = new CurrentGameParticipant($value);
+            $participant                            = new CurrentGameParticipant($value);
             $participants[$participant->summonerId] = $participant;
         }
         $info['participants'] = $participants;
@@ -87,5 +84,4 @@ class CurrentGame extends AbstractDto
         }
         return null;
     }
-
 }

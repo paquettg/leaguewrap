@@ -1,5 +1,4 @@
 <?php
-
 namespace LeagueWrap\Dto;
 
 /**
@@ -58,11 +57,15 @@ class CurrentGameParticipant extends AbstractDto {
     public function mastery($masteryId)
     {
         if(!isset($this->info['masteries']))
+        {
             return null;
+        }
 
         $masteries = $this->masteries;
         if(!isset($masteries[$masteryId]))
+        {
             return null;
+        }
         return $masteries[$masteryId];
     }
 
@@ -73,12 +76,15 @@ class CurrentGameParticipant extends AbstractDto {
     public function rune($runeId)
     {
         if(!isset($this->info['runes']))
+        {
             return null;
+        }
 
         $runes = $this->runes;
         if(!isset($runes[$runeId]))
+        {
             return null;
+        }
         return $runes[$runeId];
     }
-
 }
