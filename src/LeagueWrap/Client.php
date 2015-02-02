@@ -37,6 +37,19 @@ class Client implements ClientInterface {
 	}
 
 	/**
+	 * Attempt to add a subscriber plugin to guzzle, primary usage is
+	 * to be able to test this code.
+	 *
+	 * @param object $mock
+	 * @return void
+	 */
+	public function addMock($mock)
+	{
+		// Add the mock subscriber to the client.
+		$this->guzzle->getEmitter()->attach($mock);
+	}
+
+	/**
 	 * Attempts to do a request of the given path.
 	 *
 	 * @param string $path

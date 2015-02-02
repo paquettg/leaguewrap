@@ -28,7 +28,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
-		$api = new Api('key', $this->client);
+		$api     = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
 		$this->assertEquals(74602, $bakasan->id);
 	}
@@ -43,9 +43,26 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
 
-		$api = new Api('key', $this->client);
-		$bakasan = $api->summoner()->info(74602);
-		$this->assertEquals('bakasan', $bakasan->name);
+		$api      = new Api('key', $this->client);
+		$summoner = $api->summoner();
+		$summoner->info(74602);
+		$this->assertEquals('bakasan', $summoner->bakasan->name);
+	}
+
+	public function testInfoGetNull()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
+
+		$api      = new Api('key', $this->client);
+		$summoner = $api->summoner();
+		$summoner->info(74602);
+		$this->assertTrue(is_null($summoner->nottherightname));
 	}
 
 	public function testInfoMixed()
@@ -63,7 +80,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.7024,97235.json'));
 
-		$api = new Api('key', $this->client);
+		$api       = new Api('key', $this->client);
 		$summoners = $api->summoner()->info([
 			'bakasan',
 			7024,
@@ -87,13 +104,43 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
 
-		$api = new Api('key', $this->client);
+		$api       = new Api('key', $this->client);
 		$summoners = $api->summoner()->info([
 			'1337',
 			74602
 		]);
 		$this->assertTrue(isset($summoners['bakasan']));
 		$this->assertTrue(isset($summoners['1337']));
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Exception\ListMaxException
+	 */
+	public function testInfoToManyIds()
+	{
+		$api       = new Api('key', $this->client);
+		$summoners = $api->summoner()->info([
+			1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+			11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+			21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+			31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+			41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+		]);
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Exception\ListMaxException
+	 */
+	public function testInfoToManyNames()
+	{
+		$api       = new Api('key', $this->client);
+		$summoners = $api->summoner()->info([
+			'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+			'aa', 'ab', 'ac', 'ad', 'ae', 'af', 'ag', 'ah', 'ai', 'aj',
+			'ba', 'bb', 'bc', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'bj',
+			'ca', 'cb', 'cc', 'cd', 'ce', 'cf', 'cg', 'ch', 'ci', 'cj',
+			'da', 'db', 'dc', 'dd', 'de', 'df', 'dg', 'dh', 'di', 'dj',
+		]);
 	}
 
 	public function testName()
