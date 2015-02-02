@@ -1,16 +1,16 @@
 <?php
 
-
 use LeagueWrap\Api;
 use Mockery as m;
 
 class CurrentGameTest extends PHPUnit_Framework_TestCase
 {
+
 	protected $client;
 
 	public function setUp()
 	{
-		$client = m::mock('LeagueWrap\Client');
+		$client       = m::mock('LeagueWrap\Client');
 		$this->client = $client;
 	}
 
@@ -22,12 +22,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGame()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+		             ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -38,12 +38,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGameGetBan()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+			         ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -61,12 +61,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGameObserver()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+			         ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -79,12 +79,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGameParticipant()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+			         ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -96,12 +96,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGameParticipantMasteries()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+			         ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -115,12 +115,12 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	public function testCurrentGameParticipantRunes()
 	{
 		$this->client->shouldReceive('baseUrl')
-			->once();
+			         ->once();
 		$this->client->shouldReceive('request')
-			->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
-				'api_key' => 'key',
-			])->once()
-			->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 
 		$api = new Api('key', $this->client);
 		$api->setRegion('euw');
@@ -130,6 +130,4 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($participant->rune(5253) instanceof \LeagueWrap\Dto\Rune);
 		$this->assertTrue($participant->rune(5253)->count == 9);
 	}
-
-
 }

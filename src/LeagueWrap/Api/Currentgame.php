@@ -1,8 +1,7 @@
 <?php
-
-
 namespace LeagueWrap\Api;
-use \LeagueWrap\Dto\CurrentGame as CurrentGameDto;
+
+use LeagueWrap\Dto\CurrentGame as CurrentGameDto;
 
 /**
  * Spectator service endpoint
@@ -15,7 +14,9 @@ class Currentgame extends AbstractApi
 	 *
 	 * @var array
 	 */
-	protected $versions = ['v1.0'];
+	protected $versions = [
+		'v1.0'
+	];
 
 	/**
 	 * A list of all permitted regions for the league api call.
@@ -36,27 +37,33 @@ class Currentgame extends AbstractApi
 	];
 
 	/**
+	 * The amount of time we intend to remember the response for.
+	 *
+	 * @var int
+	 */
+	protected $defaultRemember = 900;
+
+	/**
 	 * @param platform ids for regions
 	 */
 	protected $platformIds = [
-		'na' => 'NA1',
-		'euw' => 'EUW1',
-		'br' => 'BR1',
-		'lan' => 'LA1',
-		'las' => 'LA2',
-		'oce' => 'OC1',
+		'na'   => 'NA1',
+		'euw'  => 'EUW1',
+		'br'   => 'BR1',
+		'lan'  => 'LA1',
+		'las'  => 'LA2',
+		'oce'  => 'OC1',
 		'eune' => 'EUN1',
-		'tr' => 'TR1',
-		'ru' => 'RU',
-		'kr' => 'KR'
+		'tr'   => 'TR1',
+		'ru'   => 'RU',
+		'kr'   => 'KR'
 	];
 
 	public function currentGame($identity)
 	{
 		$summonerId = $this->extractId($identity);
-		$info = $this->request('consumer/getSpectatorGameInfo/' . '%1$s' . '/' . $summonerId, [], false, true);
-		$game = new CurrentGameDto($info);
-		$game = $this->attachStaticDataToDto($game);
+		$response   = $this->request('consumer/getSpectatorGameInfo/'.'%1$s'.'/'.$summonerId, [], false, true);
+		$game       = $this->attachStaticDataToDto(new CurrentGameDto($response));
 
 		$this->attachResponse($identity, $game, 'game');
 

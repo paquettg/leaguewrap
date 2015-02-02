@@ -284,11 +284,17 @@ abstract class AbstractApi {
 
 		// set the region based domain
 		if($static)
+		{
 			$this->client->baseUrl($this->region->getStaticDataDomain());
+		}
 		elseif($observer)
+		{
 			$this->client->baseUrl($this->region->getObserverDomain());
+		}
 		else
+		{
 			$this->client->baseUrl($this->region->getDomain());
+		}
 
 		if ($this->timeout > 0)
 		{
