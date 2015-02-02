@@ -22,6 +22,10 @@ class MatchHistory extends AbstractListDto {
             }
             $info['matches'] = $matches;
         }
+        else 
+        {
+            $info['matches'] = array();
+        }
 
         parent::__construct($info);
     }
