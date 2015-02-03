@@ -44,6 +44,6 @@ class Featuredgames extends AbstractApi
 	{
 		$response = $this->request('featured', [], false, true);
 
-		return $this->attackStaticDataToDto(new FeaturedGamesDto($response));
+		return $this->attachStaticDataToDto(new FeaturedGamesDto($response));
 	}
 }
