@@ -28,7 +28,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
 
-		$api = new Api('key', $this->client);
+		$api   = new Api('key', $this->client);
 		$stats = $api->stats()->summary(74602);
 		$this->assertTrue($stats instanceof LeagueWrap\Dto\PlayerStatsSummaryList);
 	}
@@ -43,7 +43,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
 
-		$api = new Api('key', $this->client);
+		$api   = new Api('key', $this->client);
 		$stats = $api->stats()->summary(74602);
 		$this->assertTrue($stats[0] instanceof LeagueWrap\Dto\PlayerStatsSummary);
 	}
@@ -63,9 +63,33 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
-		$api = new Api('key', $this->client);
+		$api     = new Api('key', $this->client);
 		$bakasan = $api->summoner()->info('bakasan');
 		$api->stats()->summary($bakasan);
+		$this->assertTrue($bakasan->stats->playerStat(0) instanceof LeagueWrap\Dto\PlayerStatsSummary);
+	}
+
+	public function testSummonerySummonerSeason()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+						'api_key' => 'key',
+						'season'  => 3,
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
+
+		$api     = new Api('key', $this->client);
+		$bakasan = $api->summoner()->info('bakasan');
+		$stats   = $api->stats();
+		$stats->setSeason(3);
+		$stats->summary($bakasan);
 		$this->assertTrue($bakasan->stats->playerStat(0) instanceof LeagueWrap\Dto\PlayerStatsSummary);
 	}
 
@@ -96,6 +120,24 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 		$api   = new Api('key', $this->client);
 		$stats = $api->stats()->ranked(74602);
+		$this->assertTrue($stats[0] instanceof LeagueWrap\Dto\ChampionStats);
+	}
+
+	public function testRankedArrayAccessSeason()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.3/stats/by-summoner/74602/ranked', [
+						'api_key' => 'key',
+						'season'  => 3,
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/stats.ranked.74602.season4.json'));
+
+		$api   = new Api('key', $this->client);
+		$stats = $api->stats();
+		$stats->setSeason(3);
+		$stats = $stats->ranked(74602);
 		$this->assertTrue($stats[0] instanceof LeagueWrap\Dto\ChampionStats);
 	}
 }

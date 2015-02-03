@@ -3,7 +3,7 @@
 use LeagueWrap\Api;
 use Mockery as m;
 
-class MasteryTest extends PHPUnit_Framework_TestCase {
+class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 
 	protected $client;
 

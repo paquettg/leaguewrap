@@ -95,5 +95,3 @@ class StaticProxyStaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(0, count($summoners['IS1c2d27157a9df3f5aef47']->masteryPages));
 	}
 }
-
-
