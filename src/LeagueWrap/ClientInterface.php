@@ -24,11 +24,11 @@ interface ClientInterface {
 	/**
 	 * Attempts to make a request of the given path with any
 	 * additional parameters. It should return the response as
-	 * a string.
+	 * an LeagueWrap\Response object.
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return string
+	 * @return LeagueWrap\Response
 	 */
 	public function request($path, array $params);
 }

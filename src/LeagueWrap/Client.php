@@ -54,7 +54,7 @@ class Client implements ClientInterface {
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return string
+	 * @return LeagueWrap\Response
 	 * @throws BaseUrlException
 	 */
 	public function request($path, array $params = [])
@@ -66,10 +66,15 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri, ['connect_timeout' => $this->timeout]);
+		                 ->get($uri, ['connect_timeout' => $this->timeout,
+		                              'exceptions' => false]);
 		
 		$body = $response->getBody();
+		$code = $response->getStatusCode();
 		$body->seek(0);
-		return $body->read($body->getSize());
+		$content  = $body->read($body->getSize());
+		$response = new Response($content, $code);
+
+		return $response;
 	}
 }
