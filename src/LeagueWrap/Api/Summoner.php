@@ -340,11 +340,14 @@ class Summoner extends AbstractApi {
 		$nameList  = htmlspecialchars($nameList);
 		$array     = $this->request('summoner/by-name/'.$nameList);
 		$summoners = [];
-		foreach ($array as $name => $info)
-		{
-			$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));
-			$this->summoners[$name] = $summoner;
-			$summoners[$name]       = $summoner;
+		
+		if(!empty($array)) {
+			foreach ($array as $name => $info)
+			{
+				$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));
+				$this->summoners[$name] = $summoner;
+				$summoners[$name]       = $summoner;
+			}
 		}
 		
 		return $summoners;
