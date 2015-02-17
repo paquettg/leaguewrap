@@ -3,7 +3,7 @@
 use LeagueWrap\Api;
 use Mockery as m;
 
-class RealmTest extends PHPUnit_Framework_TestCase {
+class StaticRealmTest extends PHPUnit_Framework_TestCase {
 
 	protected $client;
 

@@ -13,7 +13,7 @@ class ChampionList extends AbstractListDto {
 			foreach ($info['champions'] as $champion)
 			{
 				$championId             = intval($champion['id']);
-				$championDto    = new Champion($champion);
+				$championDto            = new Champion($champion);
 				$champions[$championId] = $championDto;
 			}
 			$info['champions'] = $champions;

@@ -68,6 +68,13 @@ class ApiTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($match instanceof LeagueWrap\Api\Match);
     }
 
+	public function testCurrentGame()
+	{
+		$api = new Api('key');
+		$currentGame = $api->currentGame();
+		$this->assertTrue($currentGame instanceof LeagueWrap\Api\CurrentGame);
+	}
+
 	/**
 	 * @expectedException LeagueWrap\Exception\NoKeyException
 	 */

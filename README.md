@@ -1,9 +1,9 @@
 LeagueWrap
 ==========
 
-Version 0.6.0
+Version 0.6.1
 
-[![Build Status](https://travis-ci.org/paquettg/leaguewrap.png?branch=master)](https://travis-ci.org/paquettg/leaguewrap)
+[![Build Status](https://travis-ci.org/paquettg/leaguewrap.png)](https://travis-ci.org/paquettg/leaguewrap)
 [![Coverage Status](https://coveralls.io/repos/paquettg/leaguewrap/badge.png)](https://coveralls.io/r/paquettg/leaguewrap)
 
 LeagueWrap is a League of Legends API wrapper. The goal is to assist in the development of apps which depend on the Legue of Legends API in a quick and easy way. This project will help maintain a query limit for the API and a caching system, both which are still in progress. The mantra of this wrapper is to be lazy. We will only load the information you need when you need it and will do everything we can to reduce the amount of requests to the API. You'll notice, further into this README, choices that where made because of this mantra.
@@ -11,7 +11,7 @@ LeagueWrap is a League of Legends API wrapper. The goal is to assist in the deve
 Install
 -------
 
-This package can be found on [packagist](https://packagist.org/packages/paquettg/leaguewrap) and is best loaded using [composer](http://getcomposer.org/). We support php 5.4, 5.5, 5.6 and hhvm.
+This package can be found on [packagist](https://packagist.org/packages/paquettg/leaguewrap) and is best loaded using [composer](http://getcomposer.org/). We support php 5.4, 5.5 and 5.6.
 
 Simple Example
 --------------
@@ -471,6 +471,27 @@ The documentation for the Team Api is not complete but it is fully functional.
 
 ```php
 $team = $api->team();
+```
+
+Current Game
+----
+
+The current game api gives information about a running game.
+
+
+```php
+// receive a current game
+$currentGame = $api->currentGame();
+$game = $currentGame->currentGame($summonerId);
+
+$game->ban(1) // first ban of the ban phase
+$game->observers->encriptionKey // observer key for spectating
+
+// participant of a game
+$participant = $game->participant($summonerId)
+$participant->masteries
+$participant->runes
+$participant->championId
 ```
 
 Static Data

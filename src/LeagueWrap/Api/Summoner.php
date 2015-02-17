@@ -123,19 +123,11 @@ class Summoner extends AbstractApi {
 		{
 			// it's the id
 			$ids = $this->infoById($ids);
-			if ( ! is_array($ids))
-			{
-				$ids = [$ids->name => $ids];
-			}
 		}
 		if (count($names) > 0)
 		{
 			// the summoner name
 			$names = $this->infoByName($names);
-			if ( ! is_array($names))
-			{
-				$names = [$names->name => $names];
-			}
 		}
 
 		$summoners = $ids + $names;
@@ -323,14 +315,7 @@ class Summoner extends AbstractApi {
 			$summoners[$name]       = $summoner;
 		}
 
-		if (is_array($ids))
-		{
-			return $summoners;
-		}
-		else
-		{
-			return reset($summoners);
-		}
+		return $summoners;
 	}
 
 	/**
@@ -352,23 +337,16 @@ class Summoner extends AbstractApi {
 		}
 
 		// clean the name
-		$names     = htmlspecialchars($nameList);
+		$nameList  = htmlspecialchars($nameList);
 		$array     = $this->request('summoner/by-name/'.$nameList);
 		$summoners = [];
 		foreach ($array as $name => $info)
 		{
-			$summoner = $this->attachStaticDataToDto(new Dto\Summoner($info));
+			$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));
 			$this->summoners[$name] = $summoner;
-			$summoners[$name] = $summoner;
+			$summoners[$name]       = $summoner;
 		}
 		
-		if (is_array($names))
-		{
-			return $summoners;
-		}
-		else
-		{
-			return reset($summoners);
-		}
+		return $summoners;
 	}
 }

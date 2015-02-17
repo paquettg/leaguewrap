@@ -74,6 +74,30 @@ class StaticdataTest extends PHPUnit_Framework_TestCase{
         $this->assertEquals($expected, $params);
     }
 
+    public function testSetUpParamsDataArray()
+    {
+        $method = $this->getMethod('LeagueWrap\Api\Staticdata', 'setUpParams');
+
+        $api = new Api('key', $this->client);
+        $staticData = $api->staticData();
+
+        $data = ["string1", "string2"];
+        $params = $method->invoke($staticData, '', null, $data, 'listData', 'itemData');
+        $this->assertEquals(array('listData' => 'string1,string2'), $params);
+    }
+
+    public function testSetUpParamsDataArraySingleItem()
+    {
+        $method = $this->getMethod('LeagueWrap\Api\Staticdata', 'setUpParams');
+
+        $api = new Api('key', $this->client);
+        $staticData = $api->staticData();
+
+        $data = ["string1", "string2"];
+        $params = $method->invoke($staticData, '', 1, $data, 'listData', 'itemData');
+        $this->assertEquals(array('itemData' => 'string1,string2'), $params);
+    }
+
     public function testSetUpParamsId()
     {
         $method = $this->getMethod('LeagueWrap\Api\Staticdata', 'setUpParams');

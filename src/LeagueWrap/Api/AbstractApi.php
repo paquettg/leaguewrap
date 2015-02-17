@@ -271,7 +271,7 @@ abstract class AbstractApi {
 	 * @return array
 	 * @throws RegionException
 	 */
-	protected function request($path, $params = [], $static = false)
+	protected function request($path, $params = [], $static = false, $observer = false)
 	{
 		// get version
 		$version = $this->getVersion();
@@ -283,7 +283,19 @@ abstract class AbstractApi {
 		}
 
 		// set the region based domain
-		$this->client->baseUrl($this->region->getDomain($static));
+		if($static)
+		{
+			$this->client->baseUrl($this->region->getStaticDataDomain());
+		}
+		elseif($observer)
+		{
+			$this->client->baseUrl($this->region->getObserverDomain());
+		}
+		else
+		{
+			$this->client->baseUrl($this->region->getDomain());
+		}
+
 		if ($this->timeout > 0)
 		{
 			$this->client->setTimeout($this->timeout);
@@ -292,7 +304,7 @@ abstract class AbstractApi {
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri = $this->region->getRegion().'/'.$version.'/'.$path;
+		$uri = ($observer) ? $path : $this->region->getRegion().'/'.$version.'/'.$path;
 
 		// check cache
 		if ($this->cache instanceof CacheInterface)

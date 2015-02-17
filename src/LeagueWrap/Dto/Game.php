@@ -32,7 +32,12 @@ class Game extends AbstractDto {
 		$info['fellowPlayers'] = $players;
 
 		// put the stats in its own Dto
-		$stats = new Stats($info['stats']);
+		if ( ! isset($info['stats']))
+		{
+			// no stats?
+			$info['stats'] = [];
+		}
+		$stats         = new Stats($info['stats']);
 		$info['stats'] = $stats;
 
 		parent::__construct($info);

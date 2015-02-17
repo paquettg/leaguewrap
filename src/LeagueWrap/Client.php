@@ -37,11 +37,24 @@ class Client implements ClientInterface {
 	}
 
 	/**
+	 * Attempt to add a subscriber plugin to guzzle, primary usage is
+	 * to be able to test this code.
+	 *
+	 * @param object $mock
+	 * @return void
+	 */
+	public function addMock($mock)
+	{
+		// Add the mock subscriber to the client.
+		$this->guzzle->getEmitter()->attach($mock);
+	}
+
+	/**
 	 * Attempts to do a request of the given path.
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return string
+	 * @return LeagueWrap\Response
 	 * @throws BaseUrlException
 	 */
 	public function request($path, array $params = [])
@@ -53,10 +66,15 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri, ['connect_timeout' => $this->timeout]);
+		                 ->get($uri, ['connect_timeout' => $this->timeout,
+		                              'exceptions' => false]);
 		
 		$body = $response->getBody();
+		$code = $response->getStatusCode();
 		$body->seek(0);
-		return $body->read($body->getSize());
+		$content  = $body->read($body->getSize());
+		$response = new Response($content, $code);
+
+		return $response;
 	}
 }

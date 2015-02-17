@@ -44,6 +44,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 			10, 11, 12,
 		]);
 	}
+
 	public function testTeamArrayAccess()
 	{
 		$this->client->shouldReceive('baseUrl')

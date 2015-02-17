@@ -3,7 +3,7 @@
 use LeagueWrap\Api;
 use Mockery as m;
 
-class RuneTest extends PHPUnit_Framework_TestCase {
+class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	protected $client;
 
