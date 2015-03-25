@@ -71,8 +71,16 @@ class Client implements ClientInterface {
 		
 		$body = $response->getBody();
 		$code = $response->getStatusCode();
-		$body->seek(0);
-		$content  = $body->read($body->getSize());
+		if (is_object($body))
+		{
+			$body->seek(0);
+			$content = $body->read($body->getSize());
+		}
+		else
+		{
+			// no content
+			$content = '';
+		}
 		$response = new Response($content, $code);
 
 		return $response;
