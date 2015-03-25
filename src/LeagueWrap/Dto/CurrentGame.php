@@ -53,11 +53,6 @@ class CurrentGame extends AbstractDto
      */
     public function ban($pickTurn)
     {
-        if ( ! isset($this->info['bannedChampions']))
-        {
-            // no bans
-            return null;
-        }
         $bans = $this->info['bannedChampions'];
         if (isset($bans[$pickTurn]))
         {
@@ -72,11 +67,6 @@ class CurrentGame extends AbstractDto
      */
     public function participant($summonerId)
     {
-        if ( ! isset($this->info['participants']))
-        {
-            // no players
-            return null;
-        }
         $participant = $this->info['participants'];
         if (isset($participant[$summonerId]))
         {
