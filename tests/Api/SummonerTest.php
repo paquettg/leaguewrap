@@ -341,4 +341,30 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$api->summoner()->masteryPages($summoners);
 		$this->assertEquals(0, count($summoners['IS1c2d27157a9df3f5aef47']->masteryPages));
 	}
+
+	public function testAllInfo()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->times(3);
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602/masteries', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602/runes', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/74602', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
+
+		$api      = new API('key', $this->client);
+		$summoner = $api->summoner()->allInfo(74602);
+		$this->assertTrue($summoner->masteryPages[0] instanceof LeagueWrap\Dto\MasteryPage);
+		$this->assertTrue($summoner->runePages[0] instanceof LeagueWrap\Dto\RunePage);
+	}
 }

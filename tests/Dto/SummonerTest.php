@@ -81,4 +81,42 @@ class DtoSummonerTest extends PHPUnit_Framework_TestCase {
 		$recentGame = $summoner->recentGame(1);
 		$this->assertTrue(is_null($recentGame));
 	}
+
+	public function testNoLeague()
+	{
+		$summoner = new LeagueWrap\Dto\Summoner([]);
+		
+		$league = $summoner->league(1);
+		$this->assertTrue(is_null($league));
+	}
+
+	public function testEmptyLeague()
+	{
+		$summoner = new LeagueWrap\Dto\Summoner(['leagues' => []]);
+		
+		$league = $summoner->league(1);
+		$this->assertTrue(is_null($league));
+	}
+
+	public function testLeaguePlayerOrTeam()
+	{
+		$league1 = new LEagueWrap\Dto\League([]);
+		$league2 = new LeagueWrap\Dto\League([
+			'id'      => 2, 
+			'entries' => [
+				[
+					'playerOrTeamId' => 2,
+				],
+			],
+		]);
+		$summoner = new LeagueWrap\Dto\Summoner([
+			'leagues' => [
+				$league1,
+				$league2,
+			],
+		]);
+		
+		$league = $summoner->league(2);
+		$this->assertEquals(spl_object_hash($league2), spl_object_hash($league));
+	}
 }

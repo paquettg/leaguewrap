@@ -23,10 +23,13 @@ class League extends AbstractListDto {
 		parent::__construct($info);
 
 		// get the current team
-		$current = $this->entry($this->info['id']);
-		if ( ! is_null($current))
+		if (isset($this->info['id']))
 		{
-			$this->info['playerOrTeam'] = $current;
+			$current = $this->entry($this->info['id']);
+			if ( ! is_null($current))
+			{
+				$this->info['playerOrTeam'] = $current;
+			}
 		}
 	}
 
