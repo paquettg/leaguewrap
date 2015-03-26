@@ -6,6 +6,7 @@ use LeagueWrap\Dto\AbstractDto;
 use LeagueWrap\Api;
 use LeagueWrap\Region;
 use LeagueWrap\Cache;
+use LeagueWrap\Response;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Limit\Collection;
@@ -57,6 +58,22 @@ abstract class AbstractApi {
 	 * @param array
 	 */
 	protected $permittedRegions = [];
+
+	/**
+	 * List of http error response codes and associated erro
+	 * message with each code.
+	 *
+	 * @param array
+	 */
+	protected $responseErrors = [
+		'400' => 'Bad request.',
+		'401' => 'Unauthorized.',
+		'403' => 'Forbidden.',
+		'404' => 'Resource not found.',
+		'429' => 'Rate limit exceeded.',
+		'500' => 'Internal server error.',
+		'503' => 'Service unavailable.',
+	];
 
 	/**
 	 * The version we want to use. If null use the first
@@ -356,12 +373,17 @@ abstract class AbstractApi {
 		{
 			throw new LimitReachedException('You have hit the request limit in your collection.');
 		}
-		$content = $this->client->request($uri, $params);
+		$response = $this->client->request($uri, $params);
+		// check if it's a valid response object
+		if ($response instanceof Response)
+		{
+			$this->checkResponseErrors($response);
+		}
 
 		// request was succesful
 		++$this->requests;
 
-		return $content;
+		return $response;
 	}
 
 	/**
@@ -514,5 +536,21 @@ abstract class AbstractApi {
 		}
 		return $dto;
 	}
-}
 
+	protected function checkResponseErrors(Response $response)
+	{
+		$code = $response->getCode();
+		if (intval($code/100) != 2)
+		{
+			// we have an error!
+			$message = "Http Error.";
+			if (isset($this->responseErrors[$code]))
+			{
+				$message = trim($this->responseErrors[$code]);
+			}
+
+			$class = "LeagueWrap\Response\Http$code";
+			throw new $class($message, $code);
+		}
+	}
+}

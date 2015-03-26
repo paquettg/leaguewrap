@@ -367,4 +367,21 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($summoner->masteryPages[0] instanceof LeagueWrap\Dto\MasteryPage);
 		$this->assertTrue($summoner->runePages[0] instanceof LeagueWrap\Dto\RunePage);
 	}
+
+	/**
+	 * @expectedException LeagueWrap\Response\Http404
+	 */
+	public function testInfoSummonerNotFound()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn(new LeagueWrap\Response('', 404));
+
+		$api     = new Api('key', $this->client);
+		$bakasan = $api->summoner()->info('bakasan');
+	}
 }
