@@ -21,21 +21,17 @@ class Response {
 	 * The primary content of the response.
 	 *
 	 * @param string $content
+	 * @param int $code
 	 */
-	public function __construct($content)
+	public function __construct($content, $code)
 	{
 		$this->content = trim($content);
+		$this->code    = intval($code);
 	}
 
 	public function __toString()
 	{
 		return $this->content;
-	}
-
-	public function setCode($code)
-	{
-		$this->code = intval($code);
-		return $this;
 	}
 
 	public function getCode()

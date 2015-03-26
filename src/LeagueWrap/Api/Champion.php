@@ -73,7 +73,7 @@ class Champion extends AbstractApi {
 	 */
 	public function championById($championId)
 	{
-		$info  = $this->request('champion/'.$championId);
+		$info = $this->request('champion/'.$championId);
 		return $this->attachStaticDataToDto(new Champ($info));
 	}
 

@@ -27,7 +27,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
-		             ->andReturn(file_get_contents('tests/Json/champion.json'));
+		             ->andReturn(new LeagueWrap\Response(file_get_contents('tests/Json/champion.json'), 200));
 
 		$api       = new Api('key', $this->client);
 		$champion  = $api->champion();
@@ -195,6 +195,26 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$champion  = $api->champion();
 		$champions = $champion->all();
 		$this->assertTrue($champions->getChampion(53) instanceof LeagueWrap\Dto\Champion);
+	}
+
+	/**
+	 * @expectedException LeagueWrap\Response\Http400
+	 * @expectedExceptionMessage Bad request.
+	 */
+	public function testAllBadRquest()
+	{
+		$this->client->shouldReceive('baseUrl')
+		             ->once();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion', [
+						'freeToPlay' => 'false',
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn(new LeagueWrap\Response('', 400));
+
+		$api       = new Api('key', $this->client);
+		$champion  = $api->champion();
+		$champions = $champion->all();
 	}
 }
 

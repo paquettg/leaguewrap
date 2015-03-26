@@ -100,7 +100,7 @@ class DtoSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeaguePlayerOrTeam()
 	{
-		$league1 = new LEagueWrap\Dto\League([]);
+		$league1 = new LeagueWrap\Dto\League([]);
 		$league2 = new LeagueWrap\Dto\League([
 			'id'      => 2, 
 			'entries' => [
