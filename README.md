@@ -1,7 +1,7 @@
 LeagueWrap
 ==========
 
-Version 0.6.1
+Version 0.6.2
 
 [![Build Status](https://travis-ci.org/paquettg/leaguewrap.png)](https://travis-ci.org/paquettg/leaguewrap)
 [![Coverage Status](https://coveralls.io/repos/paquettg/leaguewrap/badge.png)](https://coveralls.io/r/paquettg/leaguewrap)
@@ -71,7 +71,7 @@ use LeagueWrap\Api;
 $api = new Api($myKey); // Load up the API
 $api->remember(60);     // Set the cache to remember every request for 60 seconds
 // or
-$api->remember();     // Enable cache with the default value for each api call.
+$api->remember();     // Enable cache with the default value for each API call.
 $api->remember(null); // Same as above, null is the default value
 ```
 
@@ -81,12 +81,12 @@ The above applies to every future request done trough the `$api` methods. If you
 use LeagueWrap\Api;
 
 $api      = new Api($myKey);           // Load up the API
-$summoner = $api->summoner()           // Get the summoner api request object
+$summoner = $api->summoner()           // Get the summoner API request object
                 ->remember(3600);      // Remember all request done by this single request object
 $bakasan = $summoner->info('bakasan'); // This request is cached for 1 hour (3600 seconds)
 ```
 
-Now we will only remember the response for the info() method is cached for 1 hour (3600 seconds). All other api objects, such as League, does not get effected by this cache time and, by default, does not cache the response. If you want to be able to only get a response if the request got a cache hit you can turn on the `cacheOnly` flag.
+Now we will only remember the response for the info() method is cached for 1 hour (3600 seconds). All other API objects, such as League, does not get effected by this cache time and, by default, does not cache the response. If you want to be able to only get a response if the request got a cache hit you can turn on the `cacheOnly` flag.
 
 ```php
 use LeagueWrap\Api;
@@ -96,7 +96,7 @@ $api->remember()        // Enable cache with the default values.
     ->setCacheOnly()    // Only check the cache, don't do any http requests.
 ```
 
-If the request was not found in cache it will throw a `LeagueWrap\Exception\CacheNotFoundException` exception. Simillarly to the `remember()` method this can also be called on the api endpoint object to only effect a certain request or endpoint while leaving the other ones untouched.
+If the request was not found in cache it will throw a `LeagueWrap\Exception\CacheNotFoundException` exception. Simillarly to the `remember()` method this can also be called on the API endpoint object to only effect a certain request or endpoint while leaving the other ones untouched.
 
 Now, lets say you don't want to use memcached or you wish to use the caching service provided by your framework? I completly understand and that is why you can implement the `LeagueWrap\CacheInterface` to implement your own cache. This Dependency Injection (DI) is also used by the Api client as shown in the Quick Reference section. To use your own cache implementation you can just do the following.
 
@@ -114,7 +114,7 @@ It's even easyer to do using StaticProxys, which you will see after the Rate Lim
 Rate Limiting
 -------------
 
-Even with caching you must also take into consideration the rate limits impossed on your api key. With this in mind we added support, similar to the support for caching, for limiting your request rate to the API. The rate limiting method requires `memcached` to be installed and operating on default port and localhost. As with the cache implementation you can always use your own version of the `LeagueWrap\LimitInterface`. Lets start with a basic example.
+Even with caching you must also take into consideration the rate limits impossed on your API key. With this in mind we added support, similar to the support for caching, for limiting your request rate to the API. The rate limiting method requires `memcached` to be installed and operating on default port and localhost. As with the cache implementation you can always use your own version of the `LeagueWrap\LimitInterface`. Lets start with a basic example.
 
 ```php
 use LeagueWrap\Api;
@@ -139,7 +139,7 @@ Also note that the limit functionality fully supports the Static API described f
 Attach Static Data
 ------------------
 
-Some requests come with static IDs referencing data in the static api. To do this you need to get the original data, extract the ID and follow up with a call to the static API. We make this entire process much simpler and optimize the amount of api requests that we do for all the data to reduce bandwidth and request. The extra static requests do not count towards your request limit so, in that regard, this does not effect the amount of requests you can do in a certain amount of time, it just takes time.
+Some requests come with static IDs referencing data in the static API. To do this you need to get the original data, extract the ID and follow up with a call to the static API. We make this entire process much simpler and optimize the amount of API requests that we do for all the data to reduce bandwidth and request. The extra static requests do not count towards your request limit so, in that regard, this does not effect the amount of requests you can do in a certain amount of time, it just takes time.
 
 ```php
 use LeagueWrap\Api;
@@ -150,13 +150,13 @@ $champion = $api->champion()->championById(10);  // Get the champion by id 10
 echo $champion->championStaticData->name;        // Outputs "Kayle"
 ```
 
-It will also optimize the static call so that the following example only attempt 3 static api calls even if it requires over 2 dozen different static id for multiple DTOs.
+It will also optimize the static call so that the following example only attempt 3 static API calls even if it requires over 2 dozen different static id for multiple DTOs.
 
 ```php
 use LeagueWrap\Api;
 
 $api = new Api($myKey);                          // Load up the Api
-$api->attachStaticData();                        // Tell the api to attach all static data
+$api->attachStaticData();                        // Tell the API to attach all static data
 $match = $api->match()->match(1399898747);
 echo $match->team(0)->ban(0)->championStaticData->name; // outputs LeBlanc
 ```
@@ -206,6 +206,37 @@ Api::limit(10, 10);                   // Limit of 10 request per 10 seconds
 Api::limit(500, 600);                 // Limit of 500 request per 10 minutes
 $bakasan = Summoner::info('bakasan'); // cached for 60 seconds
 ```
+
+Http Error Exceptions
+---------------------
+
+When you attempt to make any of the requests using this API and, for one reason or another, you receive an http error from the API we will throw an exception. All of the Http exception can be found in the `LeagueWrap\Response` namespace. The exceptions are split into 3 levels, depending on how specific you want to catch the exception at.
+
+```php
+use LeagueWrap\Api;
+
+$api = new Api($myKey); // Load up the API
+try
+{
+	$summoner = $api->summoner(); // Load up the summoner request object.
+}
+catch (LeagueWrap\Response\Http404)
+{
+	// Only thrown when a 404 http error is found
+}
+catch (LeagueWrap\Response\HttpClientError)
+{
+	// All Http4XX extend this abstract class.
+	// Which is a catch all for client errors
+}
+catch (LeagueWrap\Response\ResponseException)
+{
+	// All http error codes extends from this abstract class.
+	// This is a catch all (both 4xx and 5xx http errors)
+}
+```
+
+We attempts to implement all documented error codes that the API should throw at you. The response message can also be found in the Riot API documentation.
 
 Quick Reference
 ===============
@@ -370,7 +401,7 @@ $summoners = $summoner->allInfo([
 Champion
 --------
 
-The champion api is very bare as most of the information in this api is static information so you are best to get that information from the static api. To get the champion request object you can call the `champion()` method on the api instance.
+The champion API is very bare as most of the information in this API is static information so you are best to get that information from the static API. To get the champion request object you can call the `champion()` method on the API instance.
 
 ```php
 $champion = $api->champion();
@@ -400,7 +431,7 @@ $freeChampions = $champion->free();
 Game
 ----
 
-The game api is very simple but returns a lot of information about the given summoner. To get this request object you only need to call `game()` on the api object.
+The game API is very simple but returns a lot of information about the given summoner. To get this request object you only need to call `game()` on the API object.
 
 ```php
 $game = $api->game();
@@ -421,7 +452,7 @@ $game = $bakasan->recentGame(0);
 Match
 ----
 
-The Match api can be used to get a more detailed match history then the game api provides. This does only include ranked games though. You can either pass in the summoner id or a summoner object `LeagueWrap\Dto\Summoner`.
+The Match API can be used to get a more detailed match history then the game API provides. This does only include ranked games though. You can either pass in the summoner id or a summoner object `LeagueWrap\Dto\Summoner`.
 
 ```php
 $matchHistory = $api->matchHistory();
@@ -430,7 +461,7 @@ $matches = $matchHistory->history(74602);
 $match = $matches[0];
 ```
 
-For even more details on a specific match, the match api can be used to get detailed statistics for every summoner as well as an optional timeline of events. As argument, you need to pass a match id that you can get from `LeagueWrap\Dto\Match->matchId` or `LeagueWrap\Dto\Game->gameId`.
+For even more details on a specific match, the match API can be used to get detailed statistics for every summoner as well as an optional timeline of events. As argument, you need to pass a match id that you can get from `LeagueWrap\Dto\Match->matchId` or `LeagueWrap\Dto\Game->gameId`.
 
 ```php
 $matchapi = $api->match();
@@ -476,7 +507,7 @@ $team = $api->team();
 Current Game
 ----
 
-The current game api gives information about a running game.
+The current game API gives information about a running game.
 
 
 ```php
