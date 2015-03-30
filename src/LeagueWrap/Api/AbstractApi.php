@@ -322,8 +322,16 @@ abstract class AbstractApi {
 			{
 				$content = $this->clientRequest($static, $uri, $params);
 
-				// we want to cache this response
-				$this->cache->set($content, $cacheKey, $this->seconds);
+				$cacheContent = true;
+				//if you got a Response object check if the response code is a valid 200
+				if($content instanceof Response) {
+					$cacheContent = $content->getCode() === 200;
+				}
+
+				if($cacheContent) {
+					// we want to cache this response
+					$this->cache->set($content, $cacheKey, $this->seconds);
+				}
 			}
 		}
 		elseif ($this->cacheOnly)
