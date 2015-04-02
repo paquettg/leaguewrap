@@ -2,6 +2,7 @@
 namespace LeagueWrap;
 
 use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Stream\StreamInterface;
 use LeagueWrap\Exception\BaseUrlException;
 
 class Client implements ClientInterface {
@@ -71,7 +72,7 @@ class Client implements ClientInterface {
 		
 		$body = $response->getBody();
 		$code = $response->getStatusCode();
-		if (is_object($body))
+		if ($body instanceof StreamInterface)
 		{
 			$body->seek(0);
 			$content = $body->read($body->getSize());
