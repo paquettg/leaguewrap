@@ -51,6 +51,45 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(1, $champion->getRequestCount());
 	}
 
+	/**
+	 * @expectedException LeagueWrap\Response\HttpClientError
+	 * @expectedExceptionMessage Resource not found.
+	 */
+	public function testRememberChampionClientError()
+	{
+		$this->cache->shouldReceive('set')
+		            ->once()
+		            ->andReturn(true);
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('3edf33d12f4be66653c05dd30c42e32c')
+		            ->andReturn(false, true);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.2/champion/10101', [
+						'api_key'    => 'key',
+		             ])->once()
+		             ->andReturn(new LeagueWrap\Response(file_get_contents('tests/Json/champion.json'), 404));
+
+		$api      = new LeagueWrap\Api('key', $this->client);
+		$champion = $api->champion()
+		                ->remember(60, $this->cache);
+		try
+		{
+			$champion->championById(10101);
+		}
+		catch (LeagueWrap\Response\HttpClientError $exception)
+		{
+			$this->cache->shouldReceive('get')
+		            	->once()
+		            	->with('3edf33d12f4be66653c05dd30c42e32c')
+		            	->andReturn($exception);
+			$champion->championById(10101);
+		}
+	}
+
 	public function testRememberChampionCacheOnly()
 	{
 		$champions = file_get_contents('tests/Json/champion.free.json');

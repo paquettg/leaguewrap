@@ -10,6 +10,7 @@ use LeagueWrap\Response;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Limit\Collection;
+use LeagueWrap\Response\HttpClientError;
 use LeagueWrap\Exception\RegionException;
 use LeagueWrap\Exception\LimitReachedException;
 use LeagueWrap\Exception\InvalidIdentityException;
@@ -112,6 +113,13 @@ abstract class AbstractApi {
 	protected $cacheOnly = false;
 
 	/**
+	 * Cache client errors (4xx) from the http calls.
+	 *
+	 * @var bool
+	 */
+	protected $cacheClientError = true;
+
+	/**
 	 * The amount of time we intend to remember the response for.
 	 *
 	 * @var int
@@ -212,6 +220,19 @@ abstract class AbstractApi {
 	public function setCacheOnly($cacheOnly = true)
 	{
 		$this->cacheOnly = $cacheOnly;
+		return $this;
+	}
+
+	/**
+	 * Sets the flag to decide if we want to cache client errors.
+	 * (4xx http errors).
+	 *
+	 * @param $cache bool
+	 * @chainable
+	 */
+	public function setClientErrorCaching($cache = true)
+	{
+		$this->cacheClientError = $cache;
 		return $this;
 	}
 
@@ -330,6 +351,11 @@ abstract class AbstractApi {
 			if ($this->cache->has($cacheKey))
 			{
 				$content = $this->cache->get($cacheKey);
+				if ($content instanceof HttpClientError)
+				{
+					// this was a cached client error... throw it
+					throw $content;
+				}
 			}
 			elseif ($this->cacheOnly)
 			{
@@ -337,10 +363,22 @@ abstract class AbstractApi {
 			}
 			else
 			{
-				$content = $this->clientRequest($static, $uri, $params);
-
-				// we want to cache this response
-				$this->cache->set($content, $cacheKey, $this->seconds);
+				try
+				{
+					$content = $this->clientRequest($static, $uri, $params);
+					// we want to cache this response
+					$this->cache->set($content, $cacheKey, $this->seconds);
+				}
+				catch (HttpClientError $clientError)
+				{
+					if ($this->cacheClientError)
+					{
+						// cache client errors
+						$this->cache->set($clientError, $cacheKey, $this->seconds);
+					}
+					// rethrow the exception
+					throw $clientError;
+				}
 			}
 		}
 		elseif ($this->cacheOnly)
