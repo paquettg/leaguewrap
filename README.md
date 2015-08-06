@@ -452,6 +452,8 @@ $game = $bakasan->recentGame(0);
 Match
 ----
 
+##### **NOTE:** The MatchHistory API endpoint has been deprecated by Riot and will be removed on **September 22nd, 2015**. Please use the Matchlist endpoint instead! 
+
 The Match API can be used to get a more detailed match history then the game API provides. This does only include ranked games though. You can either pass in the summoner id or a summoner object `LeagueWrap\Dto\Summoner`.
 
 ```php
@@ -461,7 +463,21 @@ $matches = $matchHistory->history(74602);
 $match = $matches[0];
 ```
 
-For even more details on a specific match, the match API can be used to get detailed statistics for every summoner as well as an optional timeline of events. As argument, you need to pass a match id that you can get from `LeagueWrap\Dto\Match->matchId` or `LeagueWrap\Dto\Game->gameId`.
+The Matchlist API gives you a condensed list of all played ranked matches since the match api went live. It will return a `LeagueWrap\Dto\MatchList` and you can pass in the summoner id or a summoner object `LeagueWrap\Dto\Summoner`.
+
+```php
+$matchlistapi = $api->matchlist();
+$matchlist = $matchlist->matchlist(30447079);
+$numberOfplayedGames = $matchlist->totalGames;
+$roleInGame = $matchlist->match(0)->role;
+```
+You can add filter parameters for queue, season, played champions, start and end index as well as time, respectivly.
+```php
+$matchlistapi = $api->matchlist();
+$matchlist = $matchlist->matchlist(30447079, "RANKED_SOLO_5x5", "SEASON2015", [1,2,3], 5, 7, 12346586, 35483434);
+```
+
+For even more details on a specific match, the match API can be used to get detailed statistics for every summoner as well as an optional timeline of events. As argument, you need to pass a match id that you can get from `LeagueWrap\Dto\Match->matchId`, `LeagueWrap\Dto\MatchReference->matchId` or `LeagueWrap\Dto\Game->gameId`.
 
 ```php
 $matchapi = $api->match();

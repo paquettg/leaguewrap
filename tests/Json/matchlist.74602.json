@@ -1,0 +1,27 @@
+{
+  "matches": [
+    {
+      "platformId": "NA1",
+      "matchId": 1399990529,
+      "champion": 58,
+      "queue": "RANKED_SOLO_5x5",
+      "season": "SEASON2014",
+      "timestamp": 1401411982356,
+      "lane": "TOP",
+      "role": "SOLO"
+    },
+    {
+      "platformId": "NA1",
+      "matchId": 1399898747,
+      "champion": 26,
+      "queue": "RANKED_SOLO_5x5",
+      "season": "SEASON2014",
+      "timestamp": 1401408124298,
+      "lane": "BOTTOM",
+      "role": "DUO_SUPPORT"
+    }
+  ],
+  "startIndex": 0,
+  "endIndex": 2,
+  "totalGames": 2
+}
