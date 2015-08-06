@@ -41,6 +41,7 @@ class Matchhistory extends AbstractApi {
 
     /**
      * Get the match history by summoner identity.
+     * @deprecated This endpoint will be removed on September 22nd, 2015.
      * @param $identity int|Summoner
      * @param array|string|null $rankedQueues List of ranked queue types to use for fetching games.
      * @param array|string|null $championIds Comma-separated list of champion IDs to use for fetching games.
