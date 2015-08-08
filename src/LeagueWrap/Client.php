@@ -18,10 +18,18 @@ class Client implements ClientInterface {
 	 */
 	public function baseUrl($url)
 	{
-		$this->guzzle = new Guzzle([
+		$this->guzzle = $this->buildGuzzle($url);
+	}
+
+	private function buildGuzzle($url, $handler = null) {
+		$config = [
 			'base_uri' => $url,
 			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
-		]);
+		];
+		if(isset($handler))
+			$config['handler'] = $handler;
+
+		return new Guzzle($config);
 	}
 
 	/**
@@ -38,16 +46,19 @@ class Client implements ClientInterface {
 	}
 
 	/**
-	 * Attempt to add a subscriber plugin to guzzle, primary usage is
+	 * Attempt to add a mocked handler stack to guzzle, primary usage is
 	 * to be able to test this code.
 	 *
-	 * @param object $mock
+	 * @param \GuzzleHttp\HandlerStack $mock
 	 * @return void
 	 */
 	public function addMock($mock)
 	{
-		// Add the mock subscriber to the client.
-		$this->guzzle->getEmitter()->attach($mock);
+		// Replace the current guzzle client with the mocked version
+		$this->guzzle = $this->buildGuzzle(
+			$this->guzzle->getConfig()['base_uri'],
+			$mock
+		);
 	}
 
 	/**
