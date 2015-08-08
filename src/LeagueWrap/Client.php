@@ -2,7 +2,7 @@
 namespace LeagueWrap;
 
 use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Stream\StreamInterface;
+use GuzzleHttp\Psr7\Stream;
 use LeagueWrap\Exception\BaseUrlException;
 
 class Client implements ClientInterface {
@@ -19,7 +19,7 @@ class Client implements ClientInterface {
 	public function baseUrl($url)
 	{
 		$this->guzzle = new Guzzle([
-			'base_url' => $url,
+			'base_uri' => $url,
 			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
 		]);
 	}
@@ -55,7 +55,7 @@ class Client implements ClientInterface {
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return LeagueWrap\Response
+	 * @return \LeagueWrap\Response
 	 * @throws BaseUrlException
 	 */
 	public function request($path, array $params = [])
@@ -67,12 +67,11 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri, ['connect_timeout' => $this->timeout,
-		                              'exceptions' => false]);
-		
+		                 ->get($uri, ['timeout' => $this->timeout,
+		                              'http_errors' => false]);
 		$body = $response->getBody();
 		$code = $response->getStatusCode();
-		if ($body instanceof StreamInterface)
+		if ($body instanceof Stream)
 		{
 			$body->seek(0);
 			$content = $body->read($body->getSize());
