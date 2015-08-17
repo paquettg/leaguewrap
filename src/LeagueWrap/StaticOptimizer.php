@@ -73,6 +73,9 @@ class StaticOptimizer {
 			if (count($ids) > 1)
 			{
 				// group up the calls
+				if ( substr($method, -1) == 'y'){ // if last char is 'y' replace for plural
+					$method = substr($method, 0, -1) . 'ie';
+				}
 				$method .= 's';
 				$data    = $staticData->$method();
 				foreach ($ids as $id)
