@@ -73,7 +73,7 @@ class StaticOptimizer {
 			if (count($ids) > 1)
 			{
 				// group up the calls
-				if ( substr($method, -1) == 'y'){ // if last char is 'y' replace for plural
+				if ( preg_match('/(?<![aeiou])y$/', $method)){ // if last char is 'y' preceeded by a vowel replace for plural
 					$method = substr($method, 0, -1) . 'ie';
 				}
 				$method .= 's';
