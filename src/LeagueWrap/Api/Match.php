@@ -50,7 +50,7 @@ class Match extends AbstractApi
     {
         if($includeTimeline)
         {
-            $response = $this->request('match/'.$matchId, ['includeTimeline' => $includeTimeline]);
+            $response = $this->request('match/'.$matchId, ['includeTimeline' => ($includeTimeline) ? 'true' : 'false']);
         }
         else
         {
