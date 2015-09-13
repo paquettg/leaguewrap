@@ -67,6 +67,13 @@ class Api {
 	protected $cacheClientError = true;
 
 	/**
+	 * Cache the server errors (5xx) from the http calls.
+	 *
+	 * @var bool
+	 */
+	protected $cacheServerError = false;
+
+	/**
 	 * How long, in seconds, should we remember a query's response.
 	 *
 	 * @var int
@@ -153,7 +160,8 @@ class Api {
 		    ->setRegion($this->region)
 		    ->setTimeout($this->timeout)
 		    ->setCacheOnly($this->cacheOnly)
-		    ->setClientErrorCaching($this->cacheClientError);
+		    ->setClientErrorCaching($this->cacheClientError)
+		    ->setServerErrorCaching($this->cacheServerError);
 		if ($this->attachStaticData &&
 		    ! ($api instanceof Staticdata))
 		{
@@ -217,6 +225,19 @@ class Api {
 	public function setClientErrorCaching($cache = true)
 	{
 		$this->cacheClientError = $cache;
+		return $this;
+	}
+
+	/**
+	 * Sets the flag to decide if we want to cache client errors.
+	 * (5xx http errors).
+	 *
+	 * @param $cache bool
+	 * @chainable
+	 */
+	public function setServerErrorCaching($cache = true)
+	{
+		$this->cacheServerError = $cache;
 		return $this;
 	}
 

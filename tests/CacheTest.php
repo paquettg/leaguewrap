@@ -164,4 +164,159 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		Summoner::info('bakasan');
 		$this->assertEquals(1, Summoner::getRequestCount());
 	}
+
+	public function testCaching4xxError()
+	{
+		$response = new LeagueWrap\Response('', 404);
+		$exception = new LeagueWrap\Response\Http404('', 404);
+		$this->cache->shouldReceive('set')
+		            ->once()
+		            ->with(m::any(), '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
+		            ->andReturn(true);
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn(false, true);
+		$this->cache->shouldReceive('get')
+		            ->once()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn($exception);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn($response);
+
+		LeagueWrap\StaticApi::mount();
+		Api::setKey('key', $this->client);
+		Api::remember(10, $this->cache);
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http404 $e) {}
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http404 $e) {}
+
+		$this->assertEquals(1, Summoner::getRequestCount());
+	}
+
+	public function testNoCaching4xxError()
+	{
+		$response = new LeagueWrap\Response('', 404);
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn(false, false);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->twice()
+		             ->andReturn($response);
+
+		LeagueWrap\StaticApi::mount();
+		Api::setKey('key', $this->client);
+		Api::remember(10, $this->cache);
+		Api::setClientErrorCaching(false);
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http404 $e) {}
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http404 $e) {}
+
+		$this->assertEquals(2, Summoner::getRequestCount());
+	}
+
+	public function testCaching5xxError()
+	{
+		$response = new LeagueWrap\Response('', 500);
+		$exception = new LeagueWrap\Response\Http500('', 500);
+
+		$this->cache->shouldReceive('set')
+		            ->once()
+		            ->with(m::any(), '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
+		            ->andReturn(true);
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn(false, true);
+		$this->cache->shouldReceive('get')
+		            ->once()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn($exception);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->once()
+		             ->andReturn($response);
+
+		LeagueWrap\StaticApi::mount();
+		$api = new LeagueWrap\Api('key', $this->client);
+		$api->remember(10, $this->cache);
+		$api->setServerErrorCaching();
+		$summoner = $api->summoner();
+		try
+		{
+			$summoner->info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http500 $e) {}
+		try
+		{
+			$summoner->info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http500 $e) {}
+
+		$this->assertEquals(1, $summoner->getRequestCount());
+	}
+
+	public function testNoCaching5xxError()
+	{
+		$response = new LeagueWrap\Response('', 500);
+		$exception = new LeagueWrap\Response\Http500('', 500);
+		$this->cache->shouldReceive('has')
+		            ->twice()
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->andReturn(false, false);
+
+		$this->client->shouldReceive('baseUrl')
+		             ->twice();
+		$this->client->shouldReceive('request')
+		             ->with('na/v1.4/summoner/by-name/bakasan', [
+						'api_key' => 'key',
+		             ])->twice()
+		             ->andReturn($response);
+
+		LeagueWrap\StaticApi::mount();
+		Api::setKey('key', $this->client);
+		Api::remember(10, $this->cache);
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http500 $e) {}
+		try
+		{
+			Summoner::info('bakasan');
+		}
+		catch (LeagueWrap\Response\Http500 $e) {}
+
+		$this->assertEquals(2, Summoner::getRequestCount());
+	}
 }

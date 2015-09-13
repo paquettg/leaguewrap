@@ -11,6 +11,7 @@ use LeagueWrap\CacheInterface;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Limit\Collection;
 use LeagueWrap\Response\HttpClientError;
+use LeagueWrap\Response\HttpServerError;
 use LeagueWrap\Exception\RegionException;
 use LeagueWrap\Exception\LimitReachedException;
 use LeagueWrap\Exception\InvalidIdentityException;
@@ -118,6 +119,13 @@ abstract class AbstractApi {
 	 * @var bool
 	 */
 	protected $cacheClientError = true;
+
+	/**
+	 * Cache server errors (5xx) from the http calls.
+	 *
+	 * @var bool
+	 */
+	protected $cacheServerError = false;
 
 	/**
 	 * The amount of time we intend to remember the response for.
@@ -237,6 +245,19 @@ abstract class AbstractApi {
 	}
 
 	/**
+	 * Sets the flag to decide if we want to cache server errors.
+	 * (5xx http errors).
+	 *
+	 * @param $cache bool
+	 * @chainable
+	 */
+	public function setServerErrorCaching($cache = true)
+	{
+		$this->cacheServerError = $cache;
+		return $this;
+	}
+
+	/**
 	 * Set wether to attach static data to the response.
 	 *
 	 * @param bool $attach
@@ -351,7 +372,8 @@ abstract class AbstractApi {
 			if ($this->cache->has($cacheKey))
 			{
 				$content = $this->cache->get($cacheKey);
-				if ($content instanceof HttpClientError)
+				if ($content instanceof HttpClientError ||
+				    $content instanceof HttpServerError)
 				{
 					// this was a cached client error... throw it
 					throw $content;
@@ -378,6 +400,16 @@ abstract class AbstractApi {
 					}
 					// rethrow the exception
 					throw $clientError;
+				}
+				catch (HttpServerError $serverError)
+				{
+					if ($this->cacheServerError)
+					{
+						// cache server errors
+						$this->cache->set($serverError, $cacheKey, $this->seconds);
+					}
+					// rethrow the exception
+					throw $serverError;
 				}
 			}
 		}
@@ -412,14 +444,12 @@ abstract class AbstractApi {
 			throw new LimitReachedException('You have hit the request limit in your collection.');
 		}
 		$response = $this->client->request($uri, $params);
+		++$this->requests;
 		// check if it's a valid response object
 		if ($response instanceof Response)
 		{
 			$this->checkResponseErrors($response);
 		}
-
-		// request was succesful
-		++$this->requests;
 
 		return $response;
 	}
