@@ -50,7 +50,7 @@ class Team extends AbstractApi {
 	/**
 	 * Gets the team information by summoner id or list of summoner ids.
 	 *
-	 * @param mixed $identity
+	 * @param Summoner|Int $identities
 	 * @return array
 	 * @throws ListMaxException
 	 */

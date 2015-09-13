@@ -118,16 +118,16 @@ class Summoner extends AbstractApi {
 				$names[] = $identities;
 			}
 		}
-		$summoners = [];
+
 		if (count($ids) > 0)
 		{
 			// it's the id
-			$ids = $this->infoById($ids);
+			$ids = $this->infoByIds($ids);
 		}
 		if (count($names) > 0)
 		{
 			// the summoner name
-			$names = $this->infoByName($names);
+			$names = $this->infoByNames($names);
 		}
 
 		$summoners = $ids + $names;
@@ -295,16 +295,14 @@ class Summoner extends AbstractApi {
 	 * @return Dto\Summoner|Dto\Summoner[];
 	 * @throws ListMaxException
 	 */
-	protected function infoById($ids)
+	protected function infoByIds($ids)
 	{
-		if (is_array($ids))
-		{
-			if (count($ids) > 40)
-			{
-				throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
-			}
-			$idList = implode(',', $ids);
-		}
+        if (count($ids) > 40)
+        {
+            throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
+        }
+        $idList = implode(',', $ids);
+
 		$array     = $this->request('summoner/'.$idList);
 		$summoners = [];
 		foreach ($array as $info)
@@ -321,27 +319,25 @@ class Summoner extends AbstractApi {
 	/**
 	 * Gets the information by the name of the summoner.
 	 *
-	 * @param mixed $name
+	 * @param array $names
 	 * @return Dto\Summoner|Dto\Summoner[];
 	 * @throws ListMaxException
 	 */
-	protected function infoByName($names)
+	protected function infoByNames(array $names)
 	{
-		if (is_array($names))
-		{
-			if (count($names) > 40)
-			{
-				throw new ListMaxException('this request can only support a list of 40 elements, '.count($names).' given.');
-			}
-			$nameList = implode(',', $names);
-		}
+        if (count($names) > 40)
+        {
+            throw new ListMaxException('this request can only support a list of 40 elements, '.count($names).' given.');
+        }
+        $nameList = implode(',', $names);
 
 		// clean the name
 		$nameList  = htmlspecialchars($nameList);
 		$array     = $this->request('summoner/by-name/'.$nameList);
 		$summoners = [];
 		
-		if(!empty($array)) {
+		if( ! empty($array))
+        {
 			foreach ($array as $name => $info)
 			{
 				$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));

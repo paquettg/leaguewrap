@@ -5,7 +5,10 @@ class Team extends AbstractListDto {
 
 	protected $listKey = 'matchHistory';
 
-	public function __construct(array $info)
+    /**
+     * @param array $info
+     */
+    public function __construct(array $info)
 	{
 		if (isset($info['roster']))
 		{

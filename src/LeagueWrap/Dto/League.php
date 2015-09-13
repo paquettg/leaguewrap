@@ -5,7 +5,10 @@ class League extends AbstractListDto {
 
 	protected $listKey = 'entries';
 
-	public function __construct(array $info)
+    /**
+     * @param array $info
+     */
+    public function __construct(array $info)
 	{
 		if (isset($info['entries']))
 		{
@@ -37,8 +40,8 @@ class League extends AbstractListDto {
 	 * Select an entry by the team/summoner name or the team\summoner
 	 * id.
 	 *
-	 * @param mixerd $identity
-	 * @return LeagueItem|null
+	 * @param mixed $identity
+	 * @return LeagueEntry|null
 	 */
 	public function entry($identity)
 	{

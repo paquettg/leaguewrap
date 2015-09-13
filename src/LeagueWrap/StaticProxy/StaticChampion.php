@@ -9,11 +9,18 @@ class StaticChampion extends AbstractStaticProxy {
 	/**
 	 * The champion api class to be used for all requests.
 	 *
-	 * @var Api\Champion
+	 * @var \LeagueWrap\Api\Champion
 	 */
 	protected static $champion = null;
 
-	public static function __callStatic($method, $arguments)
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($method, $arguments)
 	{
 		if (self::$champion instanceof Champion)
 		{

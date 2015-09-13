@@ -49,7 +49,10 @@ class Limit implements LimitInterface {
 	 */
 	protected $valid = false;
 
-	public function __construct()
+    /**
+     * Sets up memcached if it exists.
+     */
+    public function __construct()
 	{
 		if (class_exists('Memcached'))
 		{
@@ -62,7 +65,7 @@ class Limit implements LimitInterface {
 	/**
 	 * Returns a new instance of the current limit object.
 	 *
-	 * @return Static $this
+	 * @return Limit
 	 */
 	public function newInstance()
 	{
@@ -76,7 +79,7 @@ class Limit implements LimitInterface {
 	 * @param int $hits
 	 * @param int $seconds
 	 * @param string $region
-	 * @chainable
+	 * @return $this
 	 */
 	public function setRate($hits, $seconds, $region)
 	{

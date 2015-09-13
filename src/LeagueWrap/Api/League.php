@@ -45,7 +45,7 @@ class League extends AbstractApi {
 	 * get the single entry information for the summoner(s) ensure that $entry
 	 * is set to true.
 	 *
-	 * @param mixed $identity
+	 * @param Summoner|Int $identities
 	 * @param bool $entry
 	 * @return array
 	 * @throws ListMaxException

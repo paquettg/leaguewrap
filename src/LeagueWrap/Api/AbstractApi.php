@@ -184,7 +184,7 @@ abstract class AbstractApi {
 	 * Set the key to be used in the api.
 	 *
 	 * @param string $key
-	 * @chainable
+	 * @return $this
 	 */
 	public function setKey($key)
 	{
@@ -196,7 +196,7 @@ abstract class AbstractApi {
 	 * Set the region to be used in the api.
 	 *
 	 * @param string $region
-	 * @chainable
+	 * @return $this
 	 */
 	public function setRegion($region)
 	{
@@ -210,7 +210,7 @@ abstract class AbstractApi {
 	 * of seconds we throw an exception.
 	 *
 	 * @param float $seconds
-	 * @chainable
+	 * @return $this
 	 */
 	public function setTimeout($seconds)
 	{
@@ -223,7 +223,7 @@ abstract class AbstractApi {
 	 * information for the requests.
 	 *
 	 * @param $cacheOnly bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setCacheOnly($cacheOnly = true)
 	{
@@ -236,7 +236,7 @@ abstract class AbstractApi {
 	 * (4xx http errors).
 	 *
 	 * @param $cache bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setClientErrorCaching($cache = true)
 	{
@@ -249,7 +249,7 @@ abstract class AbstractApi {
 	 * (5xx http errors).
 	 *
 	 * @param $cache bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setServerErrorCaching($cache = true)
 	{
@@ -262,7 +262,7 @@ abstract class AbstractApi {
 	 *
 	 * @param bool $attach
 	 * @param StaticData $static
-	 * @chainable
+	 * @return $this
 	 */
 	public function attachStaticData($attach = true, Staticdata $static = null)
 	{
@@ -278,7 +278,7 @@ abstract class AbstractApi {
 	 *
 	 * @param string $version
 	 * @return bool|$this
-	 * @chainable
+	 * @return $this
 	 */
 	public function selectVersion($version)
 	{
@@ -299,7 +299,7 @@ abstract class AbstractApi {
 	 *
 	 * @param int $seconds
 	 * @param CacheInterface $cache
-	 * @chainable
+	 * @return $this
 	 */
 	public function remember($seconds = null, CacheInterface $cache = null)
 	{
@@ -327,9 +327,15 @@ abstract class AbstractApi {
 	 * @param string $path
 	 * @param array $params
 	 * @param bool $static
-	 * @return array
-	 * @throws RegionException
-	 */
+     * @param bool $observer
+     * @return mixed
+     * @throws CacheNotFoundException
+     * @throws HttpClientError
+     * @throws HttpServerError
+     * @throws LimitReachedException
+     * @throws RegionException
+     * @throws \Exception
+     */
 	protected function request($path, $params = [], $static = false, $observer = false)
 	{
 		// get version
@@ -473,7 +479,7 @@ abstract class AbstractApi {
 	/**
 	 * Attempts to extract an ID from the object/value given
 	 *
-	 * @param mixed $identity
+	 * @param Summoner|int $identity
 	 * @return int
 	 * @throws InvalidIdentityException
 	 */
@@ -540,7 +546,7 @@ abstract class AbstractApi {
 	/**
 	 * Attempts to attach all the responses to the correct summoner.
 	 *
-	 * @param mixed $identity
+	 * @param array|Summoner $identities
 	 * @param mixed $responses
 	 * @param string $key
 	 * @return bool
@@ -593,7 +599,7 @@ abstract class AbstractApi {
 	 * Will attempt to attach any static data to the given dto if
 	 * the attach static data flag is set.
 	 *
-	 * $param AbstractDto $dto
+	 * @param AbstractDto $dto
 	 * @return AbstractDto
 	 */
 	protected function attachStaticDataToDto(AbstractDto $dto)
@@ -605,7 +611,28 @@ abstract class AbstractApi {
 		return $dto;
 	}
 
-	protected function checkResponseErrors(Response $response)
+    /**
+     * Checks the response for Http errors.
+     *
+     * @param Response $response
+     * @throws \LeagueWrap\Response\Http400
+     * @throws \LeagueWrap\Response\Http401
+     * @throws \LeagueWrap\Response\Http402
+     * @throws \LeagueWrap\Response\Http403
+     * @throws \LeagueWrap\Response\Http404
+     * @throws \LeagueWrap\Response\Http405
+     * @throws \LeagueWrap\Response\Http406
+     * @throws \LeagueWrap\Response\Http407
+     * @throws \LeagueWrap\Response\Http408
+     * @throws \LeagueWrap\Response\Http429
+     * @throws \LeagueWrap\Response\Http500
+     * @throws \LeagueWrap\Response\Http501
+     * @throws \LeagueWrap\Response\Http502
+     * @throws \LeagueWrap\Response\Http503
+     * @throws \LeagueWrap\Response\Http504
+     * @throws \LeagueWrap\Response\Http505
+     */
+    protected function checkResponseErrors(Response $response)
 	{
 		$code = $response->getCode();
 		if (intval($code/100) != 2)
@@ -617,7 +644,7 @@ abstract class AbstractApi {
 				$message = trim($this->responseErrors[$code]);
 			}
 
-			$class = "LeagueWrap\Response\Http$code";
+			$class = 'LeagueWrap\Response\Http'.$code;
 			throw new $class($message, $code);
 		}
 	}

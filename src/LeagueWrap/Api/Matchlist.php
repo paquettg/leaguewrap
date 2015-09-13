@@ -68,6 +68,18 @@ class Matchlist extends AbstractApi {
         return $matchList;
     }
 
+    /**
+     * Parse the params into an array.
+     *
+     * @param mixed $rankedQueues
+     * @param mixed $seasons
+     * @param mixed $championIds
+     * @param mixed $beginIndex
+     * @param mixed $endIndex
+     * @param mixed $beginTime
+     * @param mixed $endTime
+     * @return array
+     */
     protected function parseParams($rankedQueues = null, $seasons = null, $championIds = null, $beginIndex = null, $endIndex = null, $beginTime = null, $endTime = null)
     {
         $params = [];

@@ -52,7 +52,7 @@ class Stats extends AbstractApi {
 	 * Sets the season param to the given input.
 	 *
 	 * @param string $season
-	 * @chainable
+	 * @return $this
 	 */
 	public function setSeason($season)
 	{

@@ -40,7 +40,17 @@ class Featuredgames extends AbstractApi
 	 */
 	protected $defaultRemember = 900;
 
-	public function featuredGames()
+    /**
+     * Requests all featured games.
+     *
+     * @return \LeagueWrap\Dto\AbstractDto
+     * @throws \Exception
+     * @throws \LeagueWrap\Exception\CacheNotFoundException
+     * @throws \LeagueWrap\Exception\RegionException
+     * @throws \LeagueWrap\Response\HttpClientError
+     * @throws \LeagueWrap\Response\HttpServerError
+     */
+    public function featuredGames()
 	{
 		$response = $this->request('featured', [], false, true);
 

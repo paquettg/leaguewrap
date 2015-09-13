@@ -7,7 +7,10 @@ class Cache implements CacheInterface {
 
 	protected $memcached;
 
-	public function __construct()
+    /**
+     * Sets up the memcached object.
+     */
+    public function __construct()
 	{
 		$this->memcached = new Memcached;
 		$this->memcached->addServer('localhost', 11211, 100);
@@ -46,7 +49,7 @@ class Cache implements CacheInterface {
 	 * Gets the contents that are stored at the given key.
 	 *
 	 * @param string $key
-	 * @return strig
+	 * @return string
 	 */
 	public function get($key)
 	{

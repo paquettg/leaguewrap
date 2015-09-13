@@ -54,7 +54,10 @@ class FileLimit implements LimitInterface {
 	 */
 	protected $path;
 
-	public function __construct()
+    /**
+     * Figures if the dir is writable.
+     */
+    public function __construct()
 	{
 		if (is_writable($this->dir))
 		{
@@ -65,7 +68,7 @@ class FileLimit implements LimitInterface {
 	/**
 	 * Returns a new instance of the current limit object.
 	 *
-	 * @return Static $this
+	 * @return FileLimit
 	 */
 	public function newInstance()
 	{
@@ -79,6 +82,7 @@ class FileLimit implements LimitInterface {
 	 * @param int $hits
 	 * @param int $seconds
 	 * @param string $region
+     * @return $this
 	 * @chainable
 	 */
 	public function setRate($hits, $seconds, $region)
@@ -164,7 +168,7 @@ class FileLimit implements LimitInterface {
 	 * the data requested.
 	 * 
 	 * @param string $data
-	 * @return int
+	 * @return int|null
 	 */
 	protected function getPathContent($data)
 	{
@@ -185,6 +189,8 @@ class FileLimit implements LimitInterface {
 		{
 			return $expires;
 		}
+
+        return null;
 	}
 
 	/**

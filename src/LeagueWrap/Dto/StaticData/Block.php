@@ -7,7 +7,10 @@ class Block extends AbstractListDto {
 
 	protected $listKey = 'items';
 
-	public function __construct(array $info)
+    /**
+     * @param array $info
+     */
+    public function __construct(array $info)
 	{
 		if (isset($info['items']))
 		{
@@ -21,7 +24,13 @@ class Block extends AbstractListDto {
 		parent::__construct($info);
 	}
 
-	public function item($key)
+    /**
+     * Gets the item by key.
+     *
+     * @param mixed $key
+     * @return null
+     */
+    public function item($key)
 	{
 		if ( ! isset($this->info['items'][$key]))
 		{

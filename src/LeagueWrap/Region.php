@@ -22,7 +22,10 @@ class Region {
 
 	protected $defaultObserverDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
 
-	public function __construct($region)
+    /**
+     * @param $region
+     */
+    public function __construct($region)
 	{
 		$this->region = strtolower($region);
 	}
@@ -65,7 +68,9 @@ class Region {
 	}
 
 	/**
-	 * @return stringReturns the observer domain that this region needs to make its request.
+	 * Returns the observer domain that this region needs to make its request.
+     *
+     * @return string
 	 */
 	public function getObserverDomain()
 	{
@@ -75,7 +80,7 @@ class Region {
 	/**
 	 * Determines wether the given region is locked out.
 	 *
-	 * @param array $region
+	 * @param array $regions
 	 * @return bool
 	 */
 	public function isLocked(array $regions)

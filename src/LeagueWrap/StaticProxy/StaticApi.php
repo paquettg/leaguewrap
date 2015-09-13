@@ -5,12 +5,16 @@ use LeagueWrap\Api;
 use LeagueWrap\ClientInterface;
 use LeagueWrap\Exception\ApiNotLoadedException;
 
+/**
+ * Class StaticApi
+ * @package LeagueWrap\StaticProxy
+ */
 final class StaticApi extends AbstractStaticProxy {
 
 	/**
 	 * The api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api
+	 * @var \LeagueWrap\Api
 	 */
 	protected static $api = null;
 
@@ -19,6 +23,7 @@ final class StaticApi extends AbstractStaticProxy {
 	 *
 	 * @param string $method
 	 * @param array $arguments
+     * @return mixed
 	 * @throws ApiNotLoadedException
 	 */
 	public static function __callStatic($method, $arguments)
@@ -38,7 +43,7 @@ final class StaticApi extends AbstractStaticProxy {
 	 *
 	 * @param string $key
 	 * @param ClientInterface $client
-	 * @chainable
+	 * @return $this
 	 */
 	public static function setKey($key, ClientInterface $client = null)
 	{

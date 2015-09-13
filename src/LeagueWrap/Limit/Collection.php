@@ -7,12 +7,25 @@ class Collection {
 
 	protected $limits = [];
 
-	public function addLimit(LimitInterface $limit)
+    /**
+     * Add a limit to this collection.
+     *
+     * @param LimitInterface $limit
+     * @return void
+     */
+    public function addLimit(LimitInterface $limit)
 	{
 		$this->limits[] = $limit;
 	}
 
-	public function hitLimits($region, $count = 1)
+    /**
+     * Hit the limit set for the given region.
+     *
+     * @param string $region
+     * @param int $count
+     * @return bool
+     */
+    public function hitLimits($region, $count = 1)
 	{
 		foreach ($this->limits as $limit)
 		{

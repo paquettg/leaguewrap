@@ -5,8 +5,6 @@ interface LimitInterface {
 
 	/**
 	 * Returns a new instance of the current limit object.
-	 *
-	 * @return Static $this
 	 */
 	public function newInstance();
 

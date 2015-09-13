@@ -1,11 +1,8 @@
 <?php
 namespace LeagueWrap;
 
-use LeagueWrap\Cache;
-use LeagueWrap\CacheInterface;
 use LeagueWrap\Api\AbstractApi;
 use LeagueWrap\Api\Staticdata;
-use LeagueWrap\LimitInterface;
 use LeagueWrap\Limit\Limit;
 use LeagueWrap\Limit\Collection;
 use LeagueWrap\Limit\FileLimit;
@@ -14,14 +11,14 @@ use LeagueWrap\Exception\ApiClassNotFoundException;
 use LeagueWrap\Exception\NoValidLimitInterfaceException;
 
 /**
- * @method \LeagueWrap\Api\Champion champion()
- * @method \LeagueWrap\Api\Game game()
- * @method \LeagueWrap\Api\League league()
- * @method \LeagueWrap\Api\Staticdata staticData()
- * @method \LeagueWrap\Api\Stats stats()
- * @method \LeagueWrap\Api\Summoner summoner()
- * @method \LeagueWrap\Api\Team team()
- * @method \LeagueWrap\Api\CurrentGame currentGame()
+ * @method Api\Champion champion()
+ * @method Api\Game game()
+ * @method Api\League league()
+ * @method Api\Staticdata staticData()
+ * @method Api\Stats stats()
+ * @method Api\Summoner summoner()
+ * @method Api\Team team()
+ * @method Api\CurrentGame currentGame()
  */
 class Api {
 
@@ -105,6 +102,7 @@ class Api {
 	 * Initiat the default client and key.
 	 *
 	 * @param string $key
+     * @param ClientInterface $client
 	 * @throws NoKeyException
 	 */
 	public function __construct($key = null, ClientInterface $client = null)
@@ -180,7 +178,7 @@ class Api {
 	 * Set the region code to a valid string.
 	 *
 	 * @param string $region
-	 * @chainable
+	 * @return $this
 	 */
 	public function setRegion($region)
 	{
@@ -194,7 +192,7 @@ class Api {
 	 * of seconds we throw an exception.
 	 *
 	 * @param float $seconds
-	 * @chainable
+	 * @return $this
 	 */
 	public function setTimeout($seconds)
 	{
@@ -207,7 +205,7 @@ class Api {
 	 * information for the requests.
 	 *
 	 * @param $cacheOnly bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setCacheOnly($cacheOnly = true)
 	{
@@ -220,7 +218,7 @@ class Api {
 	 * (4xx http errors).
 	 *
 	 * @param $cache bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setClientErrorCaching($cache = true)
 	{
@@ -233,7 +231,7 @@ class Api {
 	 * (5xx http errors).
 	 *
 	 * @param $cache bool
-	 * @chainable
+	 * @return $this
 	 */
 	public function setServerErrorCaching($cache = true)
 	{
@@ -248,7 +246,7 @@ class Api {
 	 *
 	 * @param int $seconds
 	 * @param CacheInterface $cache
-	 * @chainable
+	 * @return $this
 	 */
 	public function remember($seconds = null, CacheInterface $cache = null)
 	{
@@ -268,9 +266,10 @@ class Api {
 	 * @param int $hits
 	 * @param int $seconds
 	 * @param string $region
-	 * @param Limit $limit
-	 * @chainable
-	 */
+     * @param LimitInterface $limit
+     * @return $this
+     * @throws NoValidLimitInterfaceException
+     */
 	public function limit($hits, $seconds, $region = 'all', LimitInterface $limit = null)
 	{
 		if (is_null($limit))
@@ -331,7 +330,7 @@ class Api {
 	 * api.
 	 *
 	 * @param bool $attach
-	 * @chainable
+	 * @return $this
 	 */
 	public function attachStaticData($attach = true)
 	{

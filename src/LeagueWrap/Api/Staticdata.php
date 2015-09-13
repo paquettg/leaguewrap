@@ -76,7 +76,7 @@ class Staticdata extends AbstractApi {
 	 * the default local for that region.
 	 *
 	 * @param string $locale
-	 * @chainable
+	 * @return $this
 	 */
 	public function setLocale($locale)
 	{
@@ -90,7 +90,7 @@ class Staticdata extends AbstractApi {
 	 * the most recent version.
 	 *
 	 * @param string $DDversion
-	 * @chainable
+	 * @return $this
 	 */
 	public function setDDversion($DDversion = null)
 	{
@@ -102,8 +102,8 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets all static champion data with the given $data option.
 	 *
-	 * @param mixed #data
-	 * @retrn ChampionList
+	 * @param mixed $data
+	 * @return ChampionList
 	 */
 	public function getChampions($data = null)
 	{
@@ -150,7 +150,7 @@ class Staticdata extends AbstractApi {
 	 *
 	 * @param int $itemId
 	 * @param mixed $data
-	 * @return ItemList|Item
+	 * @return staticItem|ItemList
 	 */
 	public function getItem($itemId, $data = null)
 	{
@@ -184,7 +184,7 @@ class Staticdata extends AbstractApi {
 	 *
 	 * @param int $masteryId
 	 * @param mixed $data
-	 * @return MasteryList|Mastery
+	 * @return MasteryList|staticMastery
 	 */
 	public function getMastery($masteryId, $data = null)
 	{
@@ -216,9 +216,9 @@ class Staticdata extends AbstractApi {
 	 * Gets the rune data of all runes if $runeId is null.
 	 * If $runeId is set it will attempt to get info for that rune only.
 	 *
-	 * $param int $runeId
+	 * @param int $runeId
 	 * @param mixed $data
-	 * @return RuneList|Rune
+	 * @return RuneList|staticRune
 	 */
 	public function getRune($runeId, $data = null)
 	{
@@ -252,7 +252,7 @@ class Staticdata extends AbstractApi {
 	 * 
 	 * @param int $summonerSpellId
 	 * @param mixed $data
-	 * @return SummonerSpell|SummonerSpellList
+	 * @return staticSummonerSpell|SummonerSpellList
 	 */
 	public function getSummonerSpell($summonerSpellId, $data = null)
 	{
@@ -272,7 +272,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Get the realm information for the current region.
 	 *
-	 * @return Realm
+	 * @return staticRealm
 	 */
 	public function getRealm()
 	{

@@ -11,6 +11,9 @@ class MatchHistory extends AbstractListDto {
 
     protected $listKey = 'matches';
 
+    /**
+     * @param array $info
+     */
     public function __construct(array $info)
     {
         if (isset($info['matches']))

@@ -7,7 +7,10 @@ class MasteryTreeList extends AbstractListDto {
 
 	protected $listKey = 'masteryTreeItems';
 
-	public function __construct(array $info)
+    /**
+     * @param array $info
+     */
+    public function __construct(array $info)
 	{
 		if (isset($info['masteryTreeItems']))
 		{

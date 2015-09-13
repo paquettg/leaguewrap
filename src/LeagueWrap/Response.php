@@ -29,12 +29,22 @@ class Response {
 		$this->code    = intval($code);
 	}
 
-	public function __toString()
+    /**
+     * Returns the content of the response as a string.
+     *
+     * @return string
+     */
+    public function __toString()
 	{
 		return $this->content;
 	}
 
-	public function getCode()
+    /**
+     * Returns the code associated with the response.
+     *
+     * @return int
+     */
+    public function getCode()
 	{
 		return $this->code;
 	}

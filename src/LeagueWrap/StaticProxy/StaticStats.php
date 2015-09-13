@@ -9,11 +9,18 @@ class StaticStats extends AbstractStaticProxy {
 	/**
 	 * The Stats api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api\Stats
+	 * @var \LeagueWrap\Api\Stats
 	 */
 	protected static $stats = null;
 
-	public static function __callStatic($method, $arguments)
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($method, $arguments)
 	{
 		if (self::$stats instanceof Stats)
 		{

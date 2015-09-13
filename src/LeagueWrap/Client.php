@@ -55,7 +55,7 @@ class Client implements ClientInterface {
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return LeagueWrap\Response
+	 * @return \LeagueWrap\Response
 	 * @throws BaseUrlException
 	 */
 	public function request($path, array $params = [])

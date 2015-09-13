@@ -9,11 +9,18 @@ class StaticGame extends AbstractStaticProxy {
 	/**
 	 * The game api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api\Game
+	 * @var \LeagueWrap\Api\Game
 	 */
 	protected static $game = null;
 
-	public static function __callStatic($method, $arguments)
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($method, $arguments)
 	{
 		if (self::$game instanceof Game)
 		{

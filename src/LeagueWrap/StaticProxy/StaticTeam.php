@@ -9,10 +9,17 @@ class StaticTeam extends AbstractStaticProxy {
 	/**
 	 * The team api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api\Team
+	 * @var \LeagueWrap\Api\Team
 	 */
 	protected static $team = null;
 
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
 	public static function __callStatic($method, $arguments)
 	{
 		if (self::$team instanceof Team)

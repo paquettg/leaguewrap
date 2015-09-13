@@ -65,6 +65,15 @@ class Matchhistory extends AbstractApi {
         return $matchhistory;
     }
 
+    /**
+     * Parse the parameters to an array.
+     *
+     * @param mixed $rankedQueues
+     * @param mixed $championIds
+     * @param mixed $beginIndex
+     * @param mixed $endIndex
+     * @return array
+     */
     protected function parseParams($rankedQueues = null, $championIds = null, $beginIndex = null, $endIndex = null)
     {
         $params = [];

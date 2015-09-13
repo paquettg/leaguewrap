@@ -9,11 +9,18 @@ class StaticStaticData extends AbstractStaticProxy {
 	/**
 	 * The static data api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api\Staticdata
+	 * @var \LeagueWrap\Api\Staticdata
 	 */
 	protected static $staticData = null;
 
-	public static function __callStatic($method, $arguments)
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($method, $arguments)
 	{
 		if (self::$staticData instanceof Staticdata)
 		{

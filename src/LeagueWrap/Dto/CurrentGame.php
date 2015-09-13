@@ -62,8 +62,10 @@ class CurrentGame extends AbstractDto
     }
 
     /**
-     * @param $participantId get a participant by its summoner id
-     * @return \LeagueWrap\Dto\CurrentGameParticipant
+     * Gets the participant by the given summoner id.
+     *
+     * @param $summonerId
+     * @return \LeagueWrap\Dto\CurrentGameParticipant|null
      */
     public function participant($summonerId)
     {

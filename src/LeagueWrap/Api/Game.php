@@ -42,7 +42,7 @@ class Game extends AbstractApi {
 	/**
 	 * Get the recent games by summoner id.
 	 *
-	 * @param mixed $summonerId
+	 * @param Summoner|Int $identity
 	 * @return array
 	 */
 	public function recent($identity)

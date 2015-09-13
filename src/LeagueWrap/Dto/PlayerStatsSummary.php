@@ -3,6 +3,9 @@ namespace LeagueWrap\Dto;
 
 class PlayerStatsSummary extends AbstractDto {
 
+    /**
+     * @param array $info
+     */
 	public function __construct(array $info)
 	{
 		$aggregatedStats         = $info['aggregatedStats'];

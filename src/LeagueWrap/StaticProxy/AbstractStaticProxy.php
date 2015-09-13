@@ -11,9 +11,9 @@ abstract class AbstractStaticProxy {
 	 */
 	public static function mount($className = null)
 	{
+        $class = get_called_class();
 		if (is_null($className))
 		{
-			$class      = get_called_class();
 			$namespaces = explode('\\', $class);
 			$staticName = end($namespaces);
 			$className  = preg_replace('/^Static/', '', $staticName);

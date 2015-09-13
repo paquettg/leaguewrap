@@ -9,11 +9,18 @@ class StaticSummoner extends AbstractStaticProxy {
 	/**
 	 * The summoner api class to be used for all requests.
 	 *
-	 * @var LeagueWrap\Api\Summoner
+	 * @var \LeagueWrap\Api\Summoner
 	 */
 	protected static $summoner = null;
 
-	public static function __callStatic($method, $arguments)
+    /**
+     * Magic method.
+     *
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($method, $arguments)
 	{
 		if (self::$summoner instanceof Summoner)
 		{

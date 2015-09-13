@@ -61,7 +61,7 @@ Abstract class AbstractDto {
 	 *
 	 * @param string $key
 	 * @param mixed $value
-	 * @chainable
+	 * @return $this
 	 */
 	public function set($key, $value)
 	{
@@ -73,8 +73,8 @@ Abstract class AbstractDto {
 	 * Attempts to load all static data within the children DTO
 	 * objects.
 	 *
-	 * @param Statcidata $staticData
-	 * @chainable
+     * @param Staticdata $staticData
+	 * @return $this
 	 */
 	public function loadStaticData(Staticdata $staticData)
 	{
@@ -148,7 +148,7 @@ Abstract class AbstractDto {
 	 * Attempts to add the static data that we got from getStaticData to
 	 * any children DTO objects.
 	 *
-	 * @param Statcidata $staticData
+	 * @param StaticOptimizer $optimizer
 	 * @return void
 	 */
 	protected function addStaticData(StaticOptimizer $optimizer)
@@ -175,6 +175,7 @@ Abstract class AbstractDto {
 	/**
 	 * Unpacks an array that contains Dto objects.
 	 *
+     * @param array $info
 	 * @return array
 	 */
 	protected function unpack(array $info)

@@ -28,7 +28,7 @@ interface ClientInterface {
 	 *
 	 * @param string $path
 	 * @param array $params
-	 * @return LeagueWrap\Response
+	 * @return \LeagueWrap\Response
 	 */
 	public function request($path, array $params);
 }
