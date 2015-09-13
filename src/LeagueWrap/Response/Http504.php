@@ -1,6 +1,8 @@
 <?php
 namespace LeagueWrap\Response;
 
-class Http504 extends HttpServerError {}
+class Http504 extends HttpServerError {
+
+}
 
 

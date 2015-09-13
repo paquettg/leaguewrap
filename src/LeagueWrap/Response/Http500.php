@@ -1,5 +1,7 @@
 <?php
 namespace LeagueWrap\Response;
 
-class Http500 extends HttpServerError {}
+class Http500 extends HttpServerError {
+
+}
 

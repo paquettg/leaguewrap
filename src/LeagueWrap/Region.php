@@ -14,7 +14,7 @@ class Region {
 	 * The default domain to attempt to query
 	 */
 	protected $defaultDomain = 'https://%s.api.pvp.net/api/lol/';
-	
+
 	/**
 	 * The default domain for static queries
 	 */
@@ -22,10 +22,10 @@ class Region {
 
 	protected $defaultObserverDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
 
-    /**
-     * @param $region
-     */
-    public function __construct($region)
+	/**
+	 * @param $region
+	 */
+	public function __construct($region)
 	{
 		$this->region = strtolower($region);
 	}
@@ -69,8 +69,8 @@ class Region {
 
 	/**
 	 * Returns the observer domain that this region needs to make its request.
-     *
-     * @return string
+	 *
+	 * @return string
 	 */
 	public function getObserverDomain()
 	{

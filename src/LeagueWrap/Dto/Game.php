@@ -2,6 +2,7 @@
 namespace LeagueWrap\Dto;
 
 class Game extends AbstractDto {
+
 	use ImportStaticTrait;
 
 	protected $staticFields = [
@@ -61,6 +62,7 @@ class Game extends AbstractDto {
 		{
 			return $players[$playerId];
 		}
+
 		return null;
 	}
 }

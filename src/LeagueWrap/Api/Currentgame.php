@@ -6,8 +6,7 @@ use LeagueWrap\Dto\CurrentGame as CurrentGameDto;
 /**
  * Spectator service endpoint
  */
-class Currentgame extends AbstractApi
-{
+class Currentgame extends AbstractApi {
 
 	/**
 	 * Valid version for this api call.
@@ -59,19 +58,19 @@ class Currentgame extends AbstractApi
 		'kr'   => 'KR'
 	];
 
-    /**
-     * Gets the current game of summoner.
-     *
-     * @param \LeagueWrap\Api\Summoner|Int $identity
-     * @return \LeagueWrap\Dto\AbstractDto
-     * @throws \Exception
-     * @throws \LeagueWrap\Exception\CacheNotFoundException
-     * @throws \LeagueWrap\Exception\InvalidIdentityException
-     * @throws \LeagueWrap\Exception\RegionException
-     * @throws \LeagueWrap\Response\HttpClientError
-     * @throws \LeagueWrap\Response\HttpServerError
-     */
-    public function currentGame($identity)
+	/**
+	 * Gets the current game of summoner.
+	 *
+	 * @param \LeagueWrap\Api\Summoner|Int $identity
+	 * @return \LeagueWrap\Dto\AbstractDto
+	 * @throws \Exception
+	 * @throws \LeagueWrap\Exception\CacheNotFoundException
+	 * @throws \LeagueWrap\Exception\InvalidIdentityException
+	 * @throws \LeagueWrap\Exception\RegionException
+	 * @throws \LeagueWrap\Response\HttpClientError
+	 * @throws \LeagueWrap\Response\HttpServerError
+	 */
+	public function currentGame($identity)
 	{
 		$summonerId = $this->extractId($identity);
 		$response   = $this->request('consumer/getSpectatorGameInfo/'.'%1$s'.'/'.$summonerId, [], false, true);
@@ -84,16 +83,17 @@ class Currentgame extends AbstractApi
 
 	/**
 	 * Intercept client request to patch platform id into url (ugly hack!)
-     *
-     * @param bool $static
-     * @param string $uri
-     * @param array $params
-     * @return string
-     * @throws \LeagueWrap\Exception\LimitReachedException
-     */
+	 *
+	 * @param bool $static
+	 * @param string $uri
+	 * @param array $params
+	 * @return string
+	 * @throws \LeagueWrap\Exception\LimitReachedException
+	 */
 	protected function clientRequest($static, $uri, $params)
 	{
 		$uri = sprintf($uri, $this->platformIds[$this->region->getRegion()]);
+
 		return parent::clientRequest($static, $uri, $params);
 	}
 }

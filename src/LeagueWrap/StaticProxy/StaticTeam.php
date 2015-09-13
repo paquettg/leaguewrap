@@ -13,13 +13,13 @@ class StaticTeam extends AbstractStaticProxy {
 	 */
 	protected static $team = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
 	public static function __callStatic($method, $arguments)
 	{
 		if (self::$team instanceof Team)
@@ -29,10 +29,11 @@ class StaticTeam extends AbstractStaticProxy {
 		else
 		{
 			self::$team = Api::team();
+
 			return call_user_func_array([self::$team, $method], $arguments);
 		}
 	}
-	
+
 	/**
 	 * Set the team api to null.
 	 *
@@ -42,7 +43,7 @@ class StaticTeam extends AbstractStaticProxy {
 	{
 		self::$team = null;
 	}
-	
+
 }
 
 

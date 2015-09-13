@@ -49,10 +49,10 @@ class Limit implements LimitInterface {
 	 */
 	protected $valid = false;
 
-    /**
-     * Sets up memcached if it exists.
-     */
-    public function __construct()
+	/**
+	 * Sets up memcached if it exists.
+	 */
+	public function __construct()
 	{
 		if (class_exists('Memcached'))
 		{
@@ -70,6 +70,7 @@ class Limit implements LimitInterface {
 	public function newInstance()
 	{
 		$limit = new Static();
+
 		return $limit;
 	}
 
@@ -87,13 +88,14 @@ class Limit implements LimitInterface {
 		$this->hits    = (int) $hits;
 		$this->seconds = (int) $seconds;
 		$this->region  = $region;
+
 		return $this;
 	}
 
 	/**
 	 * Returns the region that is tied to this limit counter.
 	 *
-	 * @return string 
+	 * @return string
 	 */
 	public function getRegion()
 	{
@@ -121,7 +123,7 @@ class Limit implements LimitInterface {
 			return false;
 		}
 
-		if ($this->memcached->decrement($this->key, $count) === FALSE)
+		if ($this->memcached->decrement($this->key, $count) === false)
 		{
 			// it failed to decrement
 			return false;

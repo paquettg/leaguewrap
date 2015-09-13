@@ -1,4 +1,6 @@
 <?php
 namespace LeagueWrap\Exception;
 
-final class ListMaxException extends \Exception {}
+final class ListMaxException extends \Exception {
+
+}

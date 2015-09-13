@@ -3,8 +3,7 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\FeaturedGames as FeaturedGamesDto;
 
-class Featuredgames extends AbstractApi
-{
+class Featuredgames extends AbstractApi {
 
 	/**
 	 * Valid versions for this api call.
@@ -40,17 +39,17 @@ class Featuredgames extends AbstractApi
 	 */
 	protected $defaultRemember = 900;
 
-    /**
-     * Requests all featured games.
-     *
-     * @return \LeagueWrap\Dto\AbstractDto
-     * @throws \Exception
-     * @throws \LeagueWrap\Exception\CacheNotFoundException
-     * @throws \LeagueWrap\Exception\RegionException
-     * @throws \LeagueWrap\Response\HttpClientError
-     * @throws \LeagueWrap\Response\HttpServerError
-     */
-    public function featuredGames()
+	/**
+	 * Requests all featured games.
+	 *
+	 * @return \LeagueWrap\Dto\AbstractDto
+	 * @throws \Exception
+	 * @throws \LeagueWrap\Exception\CacheNotFoundException
+	 * @throws \LeagueWrap\Exception\RegionException
+	 * @throws \LeagueWrap\Response\HttpClientError
+	 * @throws \LeagueWrap\Response\HttpServerError
+	 */
+	public function featuredGames()
 	{
 		$response = $this->request('featured', [], false, true);
 

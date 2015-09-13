@@ -5,10 +5,10 @@ class PlayerStatsSummaryList extends AbstractListDto {
 
 	protected $listKey = 'playerStatSummaries';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['playerStatSummaries']))
 		{

@@ -7,6 +7,7 @@ use LeagueWrap\Exception\ApiNotLoadedException;
 
 /**
  * Class StaticApi
+ *
  * @package LeagueWrap\StaticProxy
  */
 final class StaticApi extends AbstractStaticProxy {
@@ -23,7 +24,7 @@ final class StaticApi extends AbstractStaticProxy {
 	 *
 	 * @param string $method
 	 * @param array $arguments
-     * @return mixed
+	 * @return mixed
 	 * @throws ApiNotLoadedException
 	 */
 	public static function __callStatic($method, $arguments)
@@ -48,6 +49,7 @@ final class StaticApi extends AbstractStaticProxy {
 	public static function setKey($key, ClientInterface $client = null)
 	{
 		self::$api = new Api($key, $client);
+
 		return self::$api;
 	}
 

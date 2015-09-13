@@ -13,14 +13,14 @@ class StaticGame extends AbstractStaticProxy {
 	 */
 	protected static $game = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$game instanceof Game)
 		{
@@ -29,6 +29,7 @@ class StaticGame extends AbstractStaticProxy {
 		else
 		{
 			self::$game = Api::game();
+
 			return call_user_func_array([self::$game, $method], $arguments);
 		}
 	}
@@ -42,6 +43,6 @@ class StaticGame extends AbstractStaticProxy {
 	{
 		self::$game = null;
 	}
-	
+
 }
 

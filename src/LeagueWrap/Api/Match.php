@@ -3,60 +3,60 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\Match as MatchDto;
 
-class Match extends AbstractApi
-{
-    /**
-     * Valid version for this api call.
-     *
-     * @var array
-     */
-    protected $versions = [
-        'v2.2',
-    ];
+class Match extends AbstractApi {
 
-    /**
-     * A list of all permitted regions for the Champion api call.
-     *
-     * @param array
-     */
-    protected $permittedRegions = [
-        'br',
-        'eune',
-        'euw',
-        'lan',
-        'las',
-        'na',
-        'oce',
-        'kr',
-        'ru',
-        'tr',
-    ];
+	/**
+	 * Valid version for this api call.
+	 *
+	 * @var array
+	 */
+	protected $versions = [
+		'v2.2',
+	];
 
-    /**
-     * The amount of time we intend to remember the response for.
-     *
-     * @var int
-     */
-    protected $defaultRemember = 1800;
+	/**
+	 * A list of all permitted regions for the Champion api call.
+	 *
+	 * @param array
+	 */
+	protected $permittedRegions = [
+		'br',
+		'eune',
+		'euw',
+		'lan',
+		'las',
+		'na',
+		'oce',
+		'kr',
+		'ru',
+		'tr',
+	];
 
-    /**
-     * Get the match by match id.
-     *
-     * @param int $matchId
-     * @param bool $includeTimeline
-     * @return Match
-     */
-    public function match($matchId, $includeTimeline = false)
-    {
-        if($includeTimeline)
-        {
-            $response = $this->request('match/'.$matchId, ['includeTimeline' => ($includeTimeline) ? 'true' : 'false']);
-        }
-        else
-        {
-            $response = $this->request('match/'.$matchId);
-        }
+	/**
+	 * The amount of time we intend to remember the response for.
+	 *
+	 * @var int
+	 */
+	protected $defaultRemember = 1800;
 
-        return $this->attachStaticDataToDto(new MatchDto($response));
-    }
+	/**
+	 * Get the match by match id.
+	 *
+	 * @param int $matchId
+	 * @param bool $includeTimeline
+	 * @return Match
+	 */
+	public function match($matchId, $includeTimeline = false)
+	{
+		if ($includeTimeline)
+		{
+			$response = $this->request('match/'.$matchId, ['includeTimeline' => ($includeTimeline) ? 'true' : 'false']);
+		}
+		else
+		{
+			$response = $this->request('match/'.$matchId);
+		}
+
+		return $this->attachStaticDataToDto(new MatchDto($response));
+	}
 } 

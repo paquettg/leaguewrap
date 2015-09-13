@@ -33,7 +33,7 @@ class StaticOptimizer {
 	 * array.
 	 *
 	 * @param array $fields
-     * @return $this
+	 * @return $this
 	 * @chainable
 	 */
 	public function optimizeFields(array $fields)
@@ -54,6 +54,7 @@ class StaticOptimizer {
 				$this->requests[$source] = array_unique($this->requests[$source]);
 			}
 		}
+
 		return $this;
 	}
 
@@ -75,7 +76,7 @@ class StaticOptimizer {
 			{
 				// group up the calls
 				$method .= 's';
-				$data    = $staticData->$method();
+				$data = $staticData->$method();
 				foreach ($ids as $id)
 				{
 					$result[$id] = $data[$id];
@@ -83,8 +84,8 @@ class StaticOptimizer {
 			}
 			else
 			{
-				$id   = reset($ids);
-				$data = $staticData->$method($id);
+				$id          = reset($ids);
+				$data        = $staticData->$method($id);
 				$result[$id] = $data;
 			}
 			$results[$source] = $result;
@@ -113,6 +114,7 @@ class StaticOptimizer {
 			}
 			$data[$source] = $result;
 		}
+
 		return $data;
 	}
 }

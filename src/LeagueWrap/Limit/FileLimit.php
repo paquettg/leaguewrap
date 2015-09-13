@@ -54,10 +54,10 @@ class FileLimit implements LimitInterface {
 	 */
 	protected $path;
 
-    /**
-     * Figures if the dir is writable.
-     */
-    public function __construct()
+	/**
+	 * Figures if the dir is writable.
+	 */
+	public function __construct()
 	{
 		if (is_writable($this->dir))
 		{
@@ -73,6 +73,7 @@ class FileLimit implements LimitInterface {
 	public function newInstance()
 	{
 		$limit = new Static();
+
 		return $limit;
 	}
 
@@ -82,7 +83,7 @@ class FileLimit implements LimitInterface {
 	 * @param int $hits
 	 * @param int $seconds
 	 * @param string $region
-     * @return $this
+	 * @return $this
 	 * @chainable
 	 */
 	public function setRate($hits, $seconds, $region)
@@ -91,13 +92,14 @@ class FileLimit implements LimitInterface {
 		$this->hits    = (int) $hits;
 		$this->seconds = (int) $seconds;
 		$this->region  = $region;
+
 		return $this;
 	}
 
 	/**
 	 * Returns the region that is tied to this limit counter.
-	 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	public function getRegion()
 	{
@@ -117,7 +119,7 @@ class FileLimit implements LimitInterface {
 			$expires = $this->getPathContent('expires');
 			if ( ! is_null($expires))
 			{
-				$hits  = $this->getPathContent('hits');
+				$hits = $this->getPathContent('hits');
 				$hits += $count;
 				if ($hits > $this->hits)
 				{
@@ -125,13 +127,15 @@ class FileLimit implements LimitInterface {
 					return false;
 				}
 				$size = $this->writePathContent($expires, $hits);
+
 				return $size !== false;
 			}
 		}
 
 		// first hit
 		$expires = time() + $this->seconds;
-		$size = $this->writePathContent($expires, $count);
+		$size    = $this->writePathContent($expires, $count);
+
 		return $size !== false;
 	}
 
@@ -166,7 +170,7 @@ class FileLimit implements LimitInterface {
 	/**
 	 * Gets the content of the current path and returns
 	 * the data requested.
-	 * 
+	 *
 	 * @param string $data
 	 * @return int|null
 	 */
@@ -190,7 +194,7 @@ class FileLimit implements LimitInterface {
 			return $expires;
 		}
 
-        return null;
+		return null;
 	}
 
 	/**
@@ -204,6 +208,7 @@ class FileLimit implements LimitInterface {
 	protected function writePathContent($expires, $count)
 	{
 		$info = $expires.','.$count;
+
 		return file_put_contents($this->path, $info);
 	}
 }

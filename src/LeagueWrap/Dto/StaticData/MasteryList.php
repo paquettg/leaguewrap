@@ -7,18 +7,18 @@ class MasteryList extends AbstractListDto {
 
 	protected $listKey = 'data';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['data']))
 		{
 			$data = [];
 			foreach ($info['data'] as $masteryId => $mastery)
 			{
-				$masteryDto = new Mastery($mastery);
-				$data[$masteryId]  = $masteryDto;
+				$masteryDto       = new Mastery($mastery);
+				$data[$masteryId] = $masteryDto;
 			}
 			$info['data'] = $data;
 		}

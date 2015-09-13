@@ -67,7 +67,7 @@ class League extends AbstractApi {
 			$ids .= '/entry';
 		}
 		$array = $this->request('league/by-summoner/'.$ids);
-		
+
 		$summoners = [];
 		foreach ($array as $id => $summonerLeagues)
 		{
@@ -90,7 +90,7 @@ class League extends AbstractApi {
 
 		$this->attachResponses($identities, $summoners, 'leagues');
 
-		if(is_array($identities))
+		if (is_array($identities))
 		{
 			return $summoners;
 		}
@@ -110,6 +110,7 @@ class League extends AbstractApi {
 	{
 		$info       = $this->request('league/challenger', ['type' => $type]);
 		$info['id'] = null;
+
 		return $this->attachStaticDataToDto(new Dto\League($info));
 	}
 }

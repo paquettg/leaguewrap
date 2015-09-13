@@ -1,5 +1,7 @@
 <?php
 namespace LeagueWrap\Response;
 
-class Http406 extends HttpClientError {}
+class Http406 extends HttpClientError {
+
+}
 

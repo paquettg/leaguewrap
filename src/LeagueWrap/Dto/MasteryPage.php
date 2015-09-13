@@ -23,7 +23,8 @@ class MasteryPage extends AbstractListDto {
 		{
 			return $masteries[$masteryId];
 		}
+
 		return null;
-		
+
 	}
 }

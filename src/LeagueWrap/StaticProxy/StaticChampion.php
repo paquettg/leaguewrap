@@ -13,14 +13,14 @@ class StaticChampion extends AbstractStaticProxy {
 	 */
 	protected static $champion = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$champion instanceof Champion)
 		{
@@ -29,6 +29,7 @@ class StaticChampion extends AbstractStaticProxy {
 		else
 		{
 			self::$champion = Api::champion();
+
 			return call_user_func_array([self::$champion, $method], $arguments);
 		}
 	}
@@ -42,5 +43,5 @@ class StaticChampion extends AbstractStaticProxy {
 	{
 		self::$champion = null;
 	}
-	
+
 }

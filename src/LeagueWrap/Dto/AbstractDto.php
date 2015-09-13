@@ -5,7 +5,7 @@ use LeagueWrap\Api\Staticdata;
 use LeagueWrap\StaticOptimizer;
 
 Abstract class AbstractDto {
-	
+
 	protected $info;
 
 	/**
@@ -53,6 +53,7 @@ Abstract class AbstractDto {
 		{
 			return $this->info[$key];
 		}
+
 		return null;
 	}
 
@@ -66,6 +67,7 @@ Abstract class AbstractDto {
 	public function set($key, $value)
 	{
 		$this->info[$key] = $value;
+
 		return $this;
 	}
 
@@ -73,15 +75,15 @@ Abstract class AbstractDto {
 	 * Attempts to load all static data within the children DTO
 	 * objects.
 	 *
-     * @param Staticdata $staticData
+	 * @param Staticdata $staticData
 	 * @return $this
 	 */
 	public function loadStaticData(Staticdata $staticData)
 	{
-		$fields = $this->getStaticFields();
+		$fields    = $this->getStaticFields();
 		$optimizer = new StaticOptimizer;
 		$optimizer->optimizeFields($fields)
-		          ->setStaticInfo($staticData);
+				  ->setStaticInfo($staticData);
 		$this->addStaticData($optimizer);
 
 		return $this;
@@ -89,7 +91,7 @@ Abstract class AbstractDto {
 
 	/**
 	 * Returns the raw info array
-	 * 
+	 *
 	 * @return array
 	 * @recursive
 	 */
@@ -97,7 +99,7 @@ Abstract class AbstractDto {
 	{
 		// unpack
 		$raw = [];
-		foreach($this->info as $key => $info)
+		foreach ($this->info as $key => $info)
 		{
 			if (is_array($info))
 			{
@@ -141,6 +143,7 @@ Abstract class AbstractDto {
 				$fields += $info->getStaticFields();
 			}
 		}
+
 		return $fields;
 	}
 
@@ -175,7 +178,7 @@ Abstract class AbstractDto {
 	/**
 	 * Unpacks an array that contains Dto objects.
 	 *
-     * @param array $info
+	 * @param array $info
 	 * @return array
 	 */
 	protected function unpack(array $info)

@@ -21,7 +21,7 @@ interface LimitInterface {
 	/**
 	 * Returns the region that is tied to this limit counter.
 	 *
-	 * @return string 
+	 * @return string
 	 */
 	public function getRegion();
 

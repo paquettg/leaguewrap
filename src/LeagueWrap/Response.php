@@ -5,7 +5,7 @@ class Response {
 
 	/**
 	 * The content of the response.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $content;
@@ -29,22 +29,22 @@ class Response {
 		$this->code    = intval($code);
 	}
 
-    /**
-     * Returns the content of the response as a string.
-     *
-     * @return string
-     */
-    public function __toString()
+	/**
+	 * Returns the content of the response as a string.
+	 *
+	 * @return string
+	 */
+	public function __toString()
 	{
 		return $this->content;
 	}
 
-    /**
-     * Returns the code associated with the response.
-     *
-     * @return int
-     */
-    public function getCode()
+	/**
+	 * Returns the code associated with the response.
+	 *
+	 * @return int
+	 */
+	public function getCode()
 	{
 		return $this->code;
 	}

@@ -57,6 +57,7 @@ class Stats extends AbstractApi {
 	public function setSeason($season)
 	{
 		$this->season = trim(strtoupper($season));
+
 		return $this;
 	}
 

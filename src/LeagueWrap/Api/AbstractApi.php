@@ -18,7 +18,7 @@ use LeagueWrap\Exception\InvalidIdentityException;
 use LeagueWrap\Exception\CacheNotFoundException;
 
 abstract class AbstractApi {
-	
+
 	/**
 	 * The client used to communicate with the api.
 	 *
@@ -189,6 +189,7 @@ abstract class AbstractApi {
 	public function setKey($key)
 	{
 		$this->key = $key;
+
 		return $this;
 	}
 
@@ -201,6 +202,7 @@ abstract class AbstractApi {
 	public function setRegion($region)
 	{
 		$this->region = new Region($region);
+
 		return $this;
 	}
 
@@ -215,6 +217,7 @@ abstract class AbstractApi {
 	public function setTimeout($seconds)
 	{
 		$this->timeout = floatval($seconds);
+
 		return $this;
 	}
 
@@ -228,6 +231,7 @@ abstract class AbstractApi {
 	public function setCacheOnly($cacheOnly = true)
 	{
 		$this->cacheOnly = $cacheOnly;
+
 		return $this;
 	}
 
@@ -241,6 +245,7 @@ abstract class AbstractApi {
 	public function setClientErrorCaching($cache = true)
 	{
 		$this->cacheClientError = $cache;
+
 		return $this;
 	}
 
@@ -254,6 +259,7 @@ abstract class AbstractApi {
 	public function setServerErrorCaching($cache = true)
 	{
 		$this->cacheServerError = $cache;
+
 		return $this;
 	}
 
@@ -268,6 +274,7 @@ abstract class AbstractApi {
 	{
 		$this->attachStaticData = $attach;
 		$this->staticData       = $static;
+
 		return $this;
 	}
 
@@ -289,12 +296,13 @@ abstract class AbstractApi {
 		}
 
 		$this->version = $version;
+
 		return $this;
 	}
 
 	/**
 	 * Sets the amount of seconds we should remember the response for.
-	 * Leave it empty (or null) if you want to use the default set for 
+	 * Leave it empty (or null) if you want to use the default set for
 	 * each api request.
 	 *
 	 * @param int $seconds
@@ -327,15 +335,15 @@ abstract class AbstractApi {
 	 * @param string $path
 	 * @param array $params
 	 * @param bool $static
-     * @param bool $observer
-     * @return mixed
-     * @throws CacheNotFoundException
-     * @throws HttpClientError
-     * @throws HttpServerError
-     * @throws LimitReachedException
-     * @throws RegionException
-     * @throws \Exception
-     */
+	 * @param bool $observer
+	 * @return mixed
+	 * @throws CacheNotFoundException
+	 * @throws HttpClientError
+	 * @throws HttpServerError
+	 * @throws LimitReachedException
+	 * @throws RegionException
+	 * @throws \Exception
+	 */
 	protected function request($path, $params = [], $static = false, $observer = false)
 	{
 		// get version
@@ -348,11 +356,11 @@ abstract class AbstractApi {
 		}
 
 		// set the region based domain
-		if($static)
+		if ($static)
 		{
 			$this->client->baseUrl($this->region->getStaticDataDomain());
 		}
-		elseif($observer)
+		elseif ($observer)
 		{
 			$this->client->baseUrl($this->region->getObserverDomain());
 		}
@@ -379,7 +387,8 @@ abstract class AbstractApi {
 			{
 				$content = $this->cache->get($cacheKey);
 				if ($content instanceof HttpClientError ||
-				    $content instanceof HttpServerError)
+					$content instanceof HttpServerError
+				)
 				{
 					// this was a cached client error... throw it
 					throw $content;
@@ -434,7 +443,7 @@ abstract class AbstractApi {
 
 	/**
 	 * Make the actual request.
-	 * 
+	 *
 	 * @param bool $static
 	 * @param string $uri
 	 * @param array $params
@@ -445,7 +454,8 @@ abstract class AbstractApi {
 	{
 		// check if we have hit the limit
 		if ( ! $static &&
-			 ! $this->collection->hitLimits($this->region->getRegion()))
+			! $this->collection->hitLimits($this->region->getRegion())
+		)
 		{
 			throw new LimitReachedException('You have hit the request limit in your collection.');
 		}
@@ -472,7 +482,7 @@ abstract class AbstractApi {
 			// get the first version in versions
 			$this->version = reset($this->versions);
 		}
-		
+
 		return $this->version;
 	}
 
@@ -489,7 +499,7 @@ abstract class AbstractApi {
 		{
 			return $identity->id;
 		}
-		elseif (filter_var($identity, FILTER_VALIDATE_INT) !== FALSE)
+		elseif (filter_var($identity, FILTER_VALIDATE_INT) !== false)
 		{
 			return $identity;
 		}
@@ -537,9 +547,10 @@ abstract class AbstractApi {
 		if ($identity instanceof Summoner)
 		{
 			$identity->set($key, $response);
+
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -608,34 +619,35 @@ abstract class AbstractApi {
 		{
 			$dto->loadStaticData($this->staticData);
 		}
+
 		return $dto;
 	}
 
-    /**
-     * Checks the response for Http errors.
-     *
-     * @param Response $response
-     * @throws \LeagueWrap\Response\Http400
-     * @throws \LeagueWrap\Response\Http401
-     * @throws \LeagueWrap\Response\Http402
-     * @throws \LeagueWrap\Response\Http403
-     * @throws \LeagueWrap\Response\Http404
-     * @throws \LeagueWrap\Response\Http405
-     * @throws \LeagueWrap\Response\Http406
-     * @throws \LeagueWrap\Response\Http407
-     * @throws \LeagueWrap\Response\Http408
-     * @throws \LeagueWrap\Response\Http429
-     * @throws \LeagueWrap\Response\Http500
-     * @throws \LeagueWrap\Response\Http501
-     * @throws \LeagueWrap\Response\Http502
-     * @throws \LeagueWrap\Response\Http503
-     * @throws \LeagueWrap\Response\Http504
-     * @throws \LeagueWrap\Response\Http505
-     */
-    protected function checkResponseErrors(Response $response)
+	/**
+	 * Checks the response for Http errors.
+	 *
+	 * @param Response $response
+	 * @throws \LeagueWrap\Response\Http400
+	 * @throws \LeagueWrap\Response\Http401
+	 * @throws \LeagueWrap\Response\Http402
+	 * @throws \LeagueWrap\Response\Http403
+	 * @throws \LeagueWrap\Response\Http404
+	 * @throws \LeagueWrap\Response\Http405
+	 * @throws \LeagueWrap\Response\Http406
+	 * @throws \LeagueWrap\Response\Http407
+	 * @throws \LeagueWrap\Response\Http408
+	 * @throws \LeagueWrap\Response\Http429
+	 * @throws \LeagueWrap\Response\Http500
+	 * @throws \LeagueWrap\Response\Http501
+	 * @throws \LeagueWrap\Response\Http502
+	 * @throws \LeagueWrap\Response\Http503
+	 * @throws \LeagueWrap\Response\Http504
+	 * @throws \LeagueWrap\Response\Http505
+	 */
+	protected function checkResponseErrors(Response $response)
 	{
 		$code = $response->getCode();
-		if (intval($code/100) != 2)
+		if (intval($code / 100) != 2)
 		{
 			// we have an error!
 			$message = "Http Error.";

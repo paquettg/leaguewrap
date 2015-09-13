@@ -5,9 +5,9 @@ use LeagueWrap\Dto\AbstractDto;
 
 class MasteryTree extends AbstractDto {
 
-    /**
-     * @param array $info
-     */
+	/**
+	 * @param array $info
+	 */
 	public function __construct(array $info)
 	{
 		if (isset($info['Defense']))

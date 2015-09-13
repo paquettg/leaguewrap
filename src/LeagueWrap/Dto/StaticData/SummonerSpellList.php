@@ -7,12 +7,12 @@ class SummonerSpellList extends AbstractListDto {
 
 	protected $listKey = 'data';
 
-    /**
-     * Set up the information about this response.
-     *
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * Set up the information about this response.
+	 *
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['data']))
 		{

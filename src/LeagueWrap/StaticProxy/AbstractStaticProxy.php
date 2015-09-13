@@ -11,7 +11,7 @@ abstract class AbstractStaticProxy {
 	 */
 	public static function mount($className = null)
 	{
-        $class = get_called_class();
+		$class = get_called_class();
 		if (is_null($className))
 		{
 			$namespaces = explode('\\', $class);
@@ -30,6 +30,8 @@ abstract class AbstractStaticProxy {
 	 *
 	 * @return void
 	 */
-	public static function fresh() {}
+	public static function fresh()
+	{
+	}
 
 }

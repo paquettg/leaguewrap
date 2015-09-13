@@ -3,4 +3,6 @@ namespace LeagueWrap\Response;
 
 use Exception;
 
-abstract class ResponseException extends Exception {}
+abstract class ResponseException extends Exception {
+
+}

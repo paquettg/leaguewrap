@@ -7,10 +7,10 @@ class Cache implements CacheInterface {
 
 	protected $memcached;
 
-    /**
-     * Sets up the memcached object.
-     */
-    public function __construct()
+	/**
+	 * Sets up the memcached object.
+	 */
+	public function __construct()
 	{
 		$this->memcached = new Memcached;
 		$this->memcached->addServer('localhost', 11211, 100);
@@ -42,6 +42,7 @@ class Cache implements CacheInterface {
 		{
 			return false;
 		}
+
 		return true;
 	}
 

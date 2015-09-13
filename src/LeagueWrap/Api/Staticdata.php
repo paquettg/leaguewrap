@@ -14,9 +14,9 @@ use LeagueWrap\Dto\StaticData\SummonerSpellList;
 use LeagueWrap\Dto\StaticData\Realm as staticRealm;
 
 class Staticdata extends AbstractApi {
-	
+
 	/**
-	 * The locale you want the response in. By default it is not 
+	 * The locale you want the response in. By default it is not
 	 * passed (null).
 	 *
 	 * @var string
@@ -58,11 +58,12 @@ class Staticdata extends AbstractApi {
 		'tr',
 	];
 
-    /**
-     * A list of all calls that require to get the data by Id
-     * @var array
-     */
-    protected $dataById = ['champion', 'summoner-spell'];
+	/**
+	 * A list of all calls that require to get the data by Id
+	 *
+	 * @var array
+	 */
+	protected $dataById = ['champion', 'summoner-spell'];
 
 	/**
 	 * The amount of time we intend to remember the response for.
@@ -121,7 +122,7 @@ class Staticdata extends AbstractApi {
 	public function getChampion($championId, $data = null)
 	{
 		$params = $this->setUpParams('champion', $championId, $data, 'champData', 'champData');
-        $array  = $this->makeRequest('champion', $championId, $params);
+		$array  = $this->makeRequest('champion', $championId, $params);
 
 		if ($this->appendId($championId))
 		{
@@ -156,7 +157,7 @@ class Staticdata extends AbstractApi {
 	{
 		$params = $this->setUpParams('item', $itemId, $data, 'itemListData', 'itemData');
 		$array  = $this->makeRequest('item', $itemId, $params);
-		
+
 		if ($this->appendId($itemId))
 		{
 			return new staticItem($array);
@@ -190,7 +191,7 @@ class Staticdata extends AbstractApi {
 	{
 		$params = $this->setUpParams('mastery', $masteryId, $data, 'masteryListData', 'masteryData');
 		$array  = $this->makeRequest('mastery', $masteryId, $params);
-		
+
 		if ($this->appendId($masteryId))
 		{
 			return new staticMastery($array);
@@ -224,7 +225,7 @@ class Staticdata extends AbstractApi {
 	{
 		$params = $this->setUpParams('rune', $runeId, $data, 'runeListData', 'runeData');
 		$array  = $this->makeRequest('rune', $runeId, $params);
-		
+
 		if ($this->appendId($runeId))
 		{
 			return new staticRune($array);
@@ -249,7 +250,7 @@ class Staticdata extends AbstractApi {
 	/**
 	 * Gets the summoner spell data of all spells if $summonerSpellId is null
 	 * If $summonerSpellId is set it will attept to get info for that spell only.
-	 * 
+	 *
 	 * @param int $summonerSpellId
 	 * @param mixed $data
 	 * @return staticSummonerSpell|SummonerSpellList
@@ -278,7 +279,7 @@ class Staticdata extends AbstractApi {
 	{
 		$params = $this->setUpParams();
 		$array  = $this->makeRequest('realm', null, $params);
-			
+
 		return new staticRealm($array);
 	}
 
@@ -290,6 +291,7 @@ class Staticdata extends AbstractApi {
 	public function version()
 	{
 		$params = $this->setUpParams();
+
 		return $this->makeRequest('versions', null, $params);
 	}
 
@@ -312,17 +314,17 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
-	 * Set up the boiler plate for the param array for any 
+	 * Set up the boiler plate for the param array for any
 	 * static data call.
 	 *
-     * @param string $name of api call
+	 * @param string $name of api call
 	 * @param mixed $requestId
 	 * @param mixed $data
 	 * @param string $listData
 	 * @param string $itemData
 	 * @return array
 	 */
-	protected function setUpParams($name='', $requestId = null, $data = null, $listData = '', $itemData = '')
+	protected function setUpParams($name = '', $requestId = null, $data = null, $listData = '', $itemData = '')
 	{
 		$params = [];
 		if ( ! is_null($this->locale))
@@ -333,15 +335,15 @@ class Staticdata extends AbstractApi {
 		{
 			$params['version'] = $this->DDversion;
 		}
-        if(! $this->appendId($requestId) && $this->dataById($name))
-        {
-            $params['dataById'] = 'true';
-        }
+		if ( ! $this->appendId($requestId) && $this->dataById($name))
+		{
+			$params['dataById'] = 'true';
+		}
 		if ( ! is_null($data))
 		{
 			if ($this->appendId($requestId))
 			{
-				if(is_array($data) && !empty($data))
+				if (is_array($data) && ! empty($data))
 				{
 					$data = implode(",", $data);
 				}
@@ -350,7 +352,7 @@ class Staticdata extends AbstractApi {
 			}
 			else
 			{
-				if(is_array($data) && !empty($data))
+				if (is_array($data) && ! empty($data))
 				{
 					$data = implode(",", $data);
 				}
@@ -358,11 +360,12 @@ class Staticdata extends AbstractApi {
 				$params[$listData] = $data;
 			}
 		}
+
 		return $params;
 	}
 
 	/**
-	 * Check if we should append the id to the end of the 
+	 * Check if we should append the id to the end of the
 	 * url or not.
 	 *
 	 * @param mixed $requestId
@@ -371,7 +374,8 @@ class Staticdata extends AbstractApi {
 	protected function appendId($requestId)
 	{
 		if ( ! is_null($requestId) &&
-		     $requestId != 'all')
+			$requestId != 'all'
+		)
 		{
 			return true;
 		}
@@ -379,14 +383,14 @@ class Staticdata extends AbstractApi {
 		return false;
 	}
 
-    /**
-     * Check if we need the data by Id
-     *
-     * @param $name string
-     * @return bool
-     */
-    protected function dataById($name)
-    {
-        return in_array($name, $this->dataById);
-    }
+	/**
+	 * Check if we need the data by Id
+	 *
+	 * @param $name string
+	 * @return bool
+	 */
+	protected function dataById($name)
+	{
+		return in_array($name, $this->dataById);
+	}
 }

@@ -1,5 +1,7 @@
 <?php
 namespace LeagueWrap\Response;
 
-class Http407 extends HttpClientError {}
+class Http407 extends HttpClientError {
+
+}
 

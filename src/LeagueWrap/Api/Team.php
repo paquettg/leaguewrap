@@ -70,13 +70,13 @@ class Team extends AbstractApi {
 		$array = $this->request('team/by-summoner/'.$ids);
 
 		$summoners = [];
-		foreach($array as $summonerId => $summonerTeams)
+		foreach ($array as $summonerId => $summonerTeams)
 		{
 			$teams = [];
 			foreach ($summonerTeams as $info)
 			{
-				$id   = $info['fullId'];
-				$team = $this->attachStaticDataToDto(new Dto\Team($info));
+				$id         = $info['fullId'];
+				$team       = $this->attachStaticDataToDto(new Dto\Team($info));
 				$teams[$id] = $team;
 			}
 			$summoners[$summonerId] = $teams;

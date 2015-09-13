@@ -5,17 +5,17 @@ class League extends AbstractListDto {
 
 	protected $listKey = 'entries';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['entries']))
 		{
 			$entries = [];
 			foreach ($info['entries'] as $key => $entry)
 			{
-				$leagueEntry = new LeagueEntry($entry);
+				$leagueEntry   = new LeagueEntry($entry);
 				$entries[$key] = $leagueEntry;
 			}
 			$info['entries'] = $entries;

@@ -5,10 +5,10 @@ class ChampionList extends AbstractListDto {
 
 	protected $listKey = 'champions';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['champions']))
 		{
@@ -36,6 +36,7 @@ class ChampionList extends AbstractListDto {
 		{
 			return null;
 		}
+
 		return $this->info['champions'][$championId];
 	}
 }

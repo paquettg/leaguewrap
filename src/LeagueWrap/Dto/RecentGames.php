@@ -5,10 +5,10 @@ class RecentGames extends AbstractListDto {
 
 	protected $listKey = 'games';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['games']))
 		{

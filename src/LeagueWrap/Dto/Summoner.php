@@ -21,6 +21,7 @@ class Summoner extends AbstractDto {
 		{
 			return $runePages[$runePageId];
 		}
+
 		return null;
 	}
 
@@ -42,6 +43,7 @@ class Summoner extends AbstractDto {
 		{
 			return $masteryPages[$masteryPageId];
 		}
+
 		return null;
 	}
 
@@ -59,6 +61,7 @@ class Summoner extends AbstractDto {
 			return null;
 		}
 		$recentGames = $this->info['recentGames'];
+
 		return $recentGames->game($gameId);
 	}
 
@@ -97,6 +100,7 @@ class Summoner extends AbstractDto {
 				return $league;
 			}
 		}
+
 		return null;
 	}
 }

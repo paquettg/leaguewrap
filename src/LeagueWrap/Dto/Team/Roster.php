@@ -7,12 +7,12 @@ class Roster extends AbstractListDto {
 
 	protected $listKey = 'memberList';
 
-    /**
-     * Set up the information about this response.
-     *
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * Set up the information about this response.
+	 *
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['memberList']))
 		{
@@ -31,7 +31,7 @@ class Roster extends AbstractListDto {
 	/**
 	 * Attempts to get a member by the member id.
 	 *
-     * @param int $memberId
+	 * @param int $memberId
 	 * @return null|Member
 	 */
 	public function member($memberId)
@@ -40,6 +40,7 @@ class Roster extends AbstractListDto {
 		{
 			return $this->info['memberList'][$memberId];
 		}
+
 		// could not find the member
 		return null;
 	}

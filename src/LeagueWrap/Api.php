@@ -102,7 +102,7 @@ class Api {
 	 * Initiat the default client and key.
 	 *
 	 * @param string $key
-     * @param ClientInterface $client
+	 * @param ClientInterface $client
 	 * @throws NoKeyException
 	 */
 	public function __construct($key = null, ClientInterface $client = null)
@@ -127,7 +127,7 @@ class Api {
 	}
 
 	/**
-	 * This is the primary service locater if you utilize the api (which you should) to 
+	 * This is the primary service locater if you utilize the api (which you should) to
 	 * load instance of the abstractApi. This is the method that is called when you attempt
 	 * to invoke "Champion()", "League()", etc.
 	 *
@@ -155,15 +155,16 @@ class Api {
 		}
 
 		$api->setKey($this->key)
-		    ->setRegion($this->region)
-		    ->setTimeout($this->timeout)
-		    ->setCacheOnly($this->cacheOnly)
-		    ->setClientErrorCaching($this->cacheClientError)
-		    ->setServerErrorCaching($this->cacheServerError);
+			->setRegion($this->region)
+			->setTimeout($this->timeout)
+			->setCacheOnly($this->cacheOnly)
+			->setClientErrorCaching($this->cacheClientError)
+			->setServerErrorCaching($this->cacheServerError);
 		if ($this->attachStaticData &&
-		    ! ($api instanceof Staticdata))
+			! ($api instanceof Staticdata)
+		)
 		{
-		    $api->attachStaticData($this->attachStaticData, $this->staticData());
+			$api->attachStaticData($this->attachStaticData, $this->staticData());
 		}
 
 		if ($this->cache instanceof CacheInterface)
@@ -183,6 +184,7 @@ class Api {
 	public function setRegion($region)
 	{
 		$this->region = $region;
+
 		return $this;
 	}
 
@@ -197,6 +199,7 @@ class Api {
 	public function setTimeout($seconds)
 	{
 		$this->timeout = floatval($seconds);
+
 		return $this;
 	}
 
@@ -210,6 +213,7 @@ class Api {
 	public function setCacheOnly($cacheOnly = true)
 	{
 		$this->cacheOnly = $cacheOnly;
+
 		return $this;
 	}
 
@@ -223,6 +227,7 @@ class Api {
 	public function setClientErrorCaching($cache = true)
 	{
 		$this->cacheClientError = $cache;
+
 		return $this;
 	}
 
@@ -236,12 +241,13 @@ class Api {
 	public function setServerErrorCaching($cache = true)
 	{
 		$this->cacheServerError = $cache;
+
 		return $this;
 	}
 
 	/**
 	 * Sets the amount of seconds we should remember the response for.
-	 * Leave it empty (or null) if you want to use the default set for 
+	 * Leave it empty (or null) if you want to use the default set for
 	 * each api request.
 	 *
 	 * @param int $seconds
@@ -257,6 +263,7 @@ class Api {
 		}
 		$this->cache    = $cache;
 		$this->remember = $seconds;
+
 		return $this;
 	}
 
@@ -266,10 +273,10 @@ class Api {
 	 * @param int $hits
 	 * @param int $seconds
 	 * @param string $region
-     * @param LimitInterface $limit
-     * @return $this
-     * @throws NoValidLimitInterfaceException
-     */
+	 * @param LimitInterface $limit
+	 * @return $this
+	 * @throws NoValidLimitInterfaceException
+	 */
 	public function limit($hits, $seconds, $region = 'all', LimitInterface $limit = null)
 	{
 		if (is_null($limit))
@@ -290,16 +297,16 @@ class Api {
 		if ($region == 'all')
 		{
 			foreach ([
-				'br',
-				'eune',
-				'euw',
-				'kr',
-				'lan',
-				'las',
-				'na',
-				'oce',
-				'ru',
-				'tr'] as $region)
+						 'br',
+						 'eune',
+						 'euw',
+						 'kr',
+						 'lan',
+						 'las',
+						 'na',
+						 'oce',
+						 'ru',
+						 'tr'] as $region)
 			{
 				$newLimit = $limit->newInstance();
 				$newLimit->setRate($hits, $seconds, $region);
@@ -318,8 +325,8 @@ class Api {
 	}
 
 	/**
-	* @return array of Limit
-	*/
+	 * @return array of Limit
+	 */
 	public function getLimits()
 	{
 		return $this->collection->getLimits();
@@ -335,6 +342,7 @@ class Api {
 	public function attachStaticData($attach = true)
 	{
 		$this->attachStaticData = $attach;
+
 		return $this;
 	}
 }

@@ -23,6 +23,7 @@ class RunePage extends AbstractListDto {
 		{
 			return $runes[$runeId];
 		}
+
 		return null;
 	}
 }

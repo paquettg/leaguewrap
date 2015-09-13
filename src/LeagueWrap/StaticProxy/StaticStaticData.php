@@ -13,14 +13,14 @@ class StaticStaticData extends AbstractStaticProxy {
 	 */
 	protected static $staticData = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$staticData instanceof Staticdata)
 		{
@@ -29,6 +29,7 @@ class StaticStaticData extends AbstractStaticProxy {
 		else
 		{
 			self::$staticData = Api::staticData();
+
 			return call_user_func_array([self::$staticData, $method], $arguments);
 		}
 	}

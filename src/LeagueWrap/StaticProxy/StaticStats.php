@@ -13,14 +13,14 @@ class StaticStats extends AbstractStaticProxy {
 	 */
 	protected static $stats = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$stats instanceof Stats)
 		{
@@ -29,6 +29,7 @@ class StaticStats extends AbstractStaticProxy {
 		else
 		{
 			self::$stats = Api::stats();
+
 			return call_user_func_array([self::$stats, $method], $arguments);
 		}
 	}
@@ -42,6 +43,6 @@ class StaticStats extends AbstractStaticProxy {
 	{
 		self::$stats = null;
 	}
-	
+
 }
 

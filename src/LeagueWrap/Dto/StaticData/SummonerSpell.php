@@ -5,10 +5,10 @@ use LeagueWrap\Dto\AbstractDto;
 
 class SummonerSpell extends AbstractDto {
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['image']))
 		{

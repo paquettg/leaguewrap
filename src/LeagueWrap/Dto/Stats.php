@@ -2,6 +2,7 @@
 namespace LeagueWrap\Dto;
 
 class Stats extends AbstractDto {
+
 	use ImportStaticTrait;
 
 	protected $staticFields = [

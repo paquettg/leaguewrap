@@ -28,6 +28,7 @@ trait ImportStaticTrait {
 		}
 
 		$fields += parent::getStaticFields();
+
 		return $fields;
 	}
 

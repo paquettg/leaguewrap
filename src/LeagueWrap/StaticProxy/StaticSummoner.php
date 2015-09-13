@@ -13,14 +13,14 @@ class StaticSummoner extends AbstractStaticProxy {
 	 */
 	protected static $summoner = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$summoner instanceof Summoner)
 		{
@@ -29,10 +29,11 @@ class StaticSummoner extends AbstractStaticProxy {
 		else
 		{
 			self::$summoner = Api::summoner();
+
 			return call_user_func_array([self::$summoner, $method], $arguments);
 		}
 	}
-	
+
 	/**
 	 * Set the summoner api to null.
 	 *
@@ -42,5 +43,5 @@ class StaticSummoner extends AbstractStaticProxy {
 	{
 		self::$summoner = null;
 	}
-	
+
 }

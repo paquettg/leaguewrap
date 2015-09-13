@@ -5,7 +5,7 @@ use LeagueWrap\Dto\Champion as Champ;
 use LeagueWrap\Dto\ChampionList;
 
 class Champion extends AbstractApi {
-	
+
 	/**
 	 * Do we want to only get the free champions?
 	 *
@@ -62,6 +62,7 @@ class Champion extends AbstractApi {
 
 		// set up the champions
 		$championList = new ChampionList($info);
+
 		return $this->attachStaticDataToDto($championList);
 	}
 
@@ -74,6 +75,7 @@ class Champion extends AbstractApi {
 	public function championById($championId)
 	{
 		$info = $this->request('champion/'.$championId);
+
 		return $this->attachStaticDataToDto(new Champ($info));
 	}
 
@@ -88,6 +90,7 @@ class Champion extends AbstractApi {
 		$this->free   = 'true';
 		$championList = $this->all();
 		$this->free   = 'false';
+
 		return $championList;
 	}
 }

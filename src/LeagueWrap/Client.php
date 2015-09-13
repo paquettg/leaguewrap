@@ -19,9 +19,9 @@ class Client implements ClientInterface {
 	public function baseUrl($url)
 	{
 		$this->guzzle = new Guzzle([
-			'base_url' => $url,
-			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
-		]);
+									   'base_url' => $url,
+									   'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
+								   ]);
 	}
 
 	/**
@@ -67,9 +67,9 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri, ['connect_timeout' => $this->timeout,
-		                              'exceptions' => false]);
-		
+			->get($uri, ['connect_timeout' => $this->timeout,
+						 'exceptions'      => false]);
+
 		$body = $response->getBody();
 		$code = $response->getStatusCode();
 		if ($body instanceof StreamInterface)

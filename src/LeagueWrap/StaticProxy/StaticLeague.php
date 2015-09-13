@@ -13,14 +13,14 @@ class StaticLeague extends AbstractStaticProxy {
 	 */
 	protected static $league = null;
 
-    /**
-     * Magic method.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public static function __callStatic($method, $arguments)
+	/**
+	 * Magic method.
+	 *
+	 * @param $method
+	 * @param $arguments
+	 * @return mixed
+	 */
+	public static function __callStatic($method, $arguments)
 	{
 		if (self::$league instanceof League)
 		{
@@ -29,10 +29,11 @@ class StaticLeague extends AbstractStaticProxy {
 		else
 		{
 			self::$league = Api::league();
+
 			return call_user_func_array([self::$league, $method], $arguments);
 		}
 	}
-	
+
 	/**
 	 * Set the league api to null.
 	 *
@@ -42,6 +43,6 @@ class StaticLeague extends AbstractStaticProxy {
 	{
 		self::$league = null;
 	}
-	
+
 }
 

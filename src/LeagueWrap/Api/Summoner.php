@@ -75,6 +75,7 @@ class Summoner extends AbstractApi {
 		{
 			return $this->summoners[$key];
 		}
+
 		return null;
 	}
 
@@ -155,7 +156,7 @@ class Summoner extends AbstractApi {
 		$summoners = $this->info($identities);
 		$this->runePages($summoners);
 		$this->masteryPages($summoners);
-		
+
 		return $summoners;
 	}
 
@@ -169,7 +170,7 @@ class Summoner extends AbstractApi {
 	{
 		$ids = $this->extractIds($identities);
 		$ids = implode(',', $ids);
-		
+
 		$array = $this->request('summoner/'.$ids.'/name');
 		$names = [];
 		foreach ($array as $id => $name)
@@ -297,11 +298,11 @@ class Summoner extends AbstractApi {
 	 */
 	protected function infoByIds($ids)
 	{
-        if (count($ids) > 40)
-        {
-            throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
-        }
-        $idList = implode(',', $ids);
+		if (count($ids) > 40)
+		{
+			throw new ListMaxException('This request can only support a list of 40 elements, '.count($ids).' given.');
+		}
+		$idList = implode(',', $ids);
 
 		$array     = $this->request('summoner/'.$idList);
 		$summoners = [];
@@ -325,19 +326,19 @@ class Summoner extends AbstractApi {
 	 */
 	protected function infoByNames(array $names)
 	{
-        if (count($names) > 40)
-        {
-            throw new ListMaxException('this request can only support a list of 40 elements, '.count($names).' given.');
-        }
-        $nameList = implode(',', $names);
+		if (count($names) > 40)
+		{
+			throw new ListMaxException('this request can only support a list of 40 elements, '.count($names).' given.');
+		}
+		$nameList = implode(',', $names);
 
 		// clean the name
 		$nameList  = htmlspecialchars($nameList);
 		$array     = $this->request('summoner/by-name/'.$nameList);
 		$summoners = [];
-		
-		if( ! empty($array))
-        {
+
+		if ( ! empty($array))
+		{
 			foreach ($array as $name => $info)
 			{
 				$summoner               = $this->attachStaticDataToDto(new Dto\Summoner($info));
@@ -345,7 +346,7 @@ class Summoner extends AbstractApi {
 				$summoners[$name]       = $summoner;
 			}
 		}
-		
+
 		return $summoners;
 	}
 }

@@ -3,9 +3,9 @@ namespace LeagueWrap\Dto;
 
 class LeagueEntry extends AbstractDto {
 
-    /**
-     * @param array $info
-     */
+	/**
+	 * @param array $info
+	 */
 	public function __construct($info)
 	{
 		if (isset($info['miniSeries']))

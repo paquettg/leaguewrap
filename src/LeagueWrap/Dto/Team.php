@@ -5,10 +5,10 @@ class Team extends AbstractListDto {
 
 	protected $listKey = 'matchHistory';
 
-    /**
-     * @param array $info
-     */
-    public function __construct(array $info)
+	/**
+	 * @param array $info
+	 */
+	public function __construct(array $info)
 	{
 		if (isset($info['roster']))
 		{
@@ -19,7 +19,7 @@ class Team extends AbstractListDto {
 			$matches = [];
 			foreach ($info['matchHistory'] as $matchId => $match)
 			{
-				$match        = new Team\Match($match);
+				$match             = new Team\Match($match);
 				$matches[$matchId] = $match;
 			}
 			$info['matchHistory'] = $matches;
