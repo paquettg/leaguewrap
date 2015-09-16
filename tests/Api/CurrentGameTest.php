@@ -130,4 +130,48 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($participant->rune(5253) instanceof \LeagueWrap\Dto\Rune);
 		$this->assertTrue($participant->rune(5253)->count == 9);
 	}
+
+	public function testAttachStaticData()
+	{
+		$this->client->shouldReceive('baseUrl')
+			         ->times(5);
+		$this->client->shouldReceive('request')
+			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+						'api_key' => 'key',
+			         ])->once()
+			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
+		$this->client->shouldReceive('request')
+		             ->with('euw/v1.2/champion', [
+						'api_key'  => 'key',
+						'dataById' => 'true',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/champion.euw.json'));
+		$this->client->shouldReceive('request')
+		             ->with('euw/v1.2/summoner-spell', [
+						'api_key'  => 'key',
+						'dataById' => 'true',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/summonerspell.euw.json'));
+		$this->client->shouldReceive('request')
+		             ->with('euw/v1.2/mastery', [
+						'api_key'  => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/mastery.euw.json'));
+		$this->client->shouldReceive('request')
+		             ->with('euw/v1.2/rune', [
+						'api_key'  => 'key',
+		             ])->once()
+		             ->andReturn(file_get_contents('tests/Json/Static/rune.euw.json'));
+
+		$api = new Api('key', $this->client);
+		$api->setRegion('euw');
+		$api->attachStaticData(true);
+		$game = $api->currentGame()->currentGame(30447079);
+
+		$participant = $game->participant(28882300);
+		$rune = $participant->rune(5253);
+		$this->assertTrue($rune->runeStaticData instanceof LeagueWrap\Dto\StaticData\Rune);
+		$masteries = $participant->masteries;
+		$this->assertTrue($masteries[4111]->masteryStaticData instanceof LeagueWrap\Dto\StaticData\Mastery);
+	}
 }

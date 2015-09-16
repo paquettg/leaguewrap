@@ -51,5 +51,7 @@ trait ImportStaticTrait {
 
 			$this->info[$data.'StaticData'] = $staticData;
 		}
+
+		parent::addStaticData($optimizer);
 	}
 }
