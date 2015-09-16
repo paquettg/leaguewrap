@@ -1,7 +1,7 @@
 LeagueWrap
 ==========
 
-Version 0.6.2
+Version 0.6.3
 
 [![Build Status](https://travis-ci.org/paquettg/leaguewrap.png)](https://travis-ci.org/paquettg/leaguewrap)
 [![Coverage Status](https://coveralls.io/repos/paquettg/leaguewrap/badge.png)](https://coveralls.io/r/paquettg/leaguewrap)
