@@ -11,16 +11,19 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 
 	public function testRequest()
 	{
-		$response = new GuzzleHttp\Message\Response(200, ['X-Foo' => 'Bar']);
-		$response->setBody(GuzzleHttp\Stream\Stream::factory('foo'));
-		$mock = new GuzzleHttp\Subscriber\Mock([
+		$response = new GuzzleHttp\Psr7\Response(
+			200,
+			['X-Foo' => 'Bar'],
+			GuzzleHttp\Psr7\stream_for('foo'));
+		$mockedHandler = new GuzzleHttp\Handler\MockHandler([
 			$response,
 		]);
+		$handlerStack = \GuzzleHttp\HandlerStack::create($mockedHandler);
 
 		$client = new LeagueWrap\Client;
 		$client->baseUrl('http://google.com');
 		$client->setTimeout(10);
-		$client->addMock($mock);
+		$client->addMock($handlerStack);
 		$response = $client->request('', []);
 		$this->assertEquals('foo', $response);
 	}

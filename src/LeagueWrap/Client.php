@@ -2,7 +2,7 @@
 namespace LeagueWrap;
 
 use GuzzleHttp\Client as Guzzle;
-use GuzzleHttp\Stream\StreamInterface;
+use GuzzleHttp\Psr7\Stream;
 use LeagueWrap\Exception\BaseUrlException;
 
 class Client implements ClientInterface {
@@ -18,10 +18,20 @@ class Client implements ClientInterface {
 	 */
 	public function baseUrl($url)
 	{
-		$this->guzzle = new Guzzle([
-									   'base_url' => $url,
-									   'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
-								   ]);
+		$this->guzzle = $this->buildGuzzle($url);
+	}
+
+	private function buildGuzzle($url, $handler = null) {
+		$config = [
+			'base_uri' => $url,
+			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
+		];
+		if(isset($handler))
+		{
+			$config['handler'] = $handler;
+		}
+
+		return new Guzzle($config);
 	}
 
 	/**
@@ -38,16 +48,19 @@ class Client implements ClientInterface {
 	}
 
 	/**
-	 * Attempt to add a subscriber plugin to guzzle, primary usage is
+	 * Attempt to add a mocked handler stack to guzzle, primary usage is
 	 * to be able to test this code.
 	 *
-	 * @param object $mock
+	 * @param \GuzzleHttp\HandlerStack $mock
 	 * @return void
 	 */
 	public function addMock($mock)
 	{
-		// Add the mock subscriber to the client.
-		$this->guzzle->getEmitter()->attach($mock);
+		// Replace the current guzzle client with the mocked version
+		$this->guzzle = $this->buildGuzzle(
+			$this->guzzle->getConfig()['base_uri'],
+			$mock
+		);
 	}
 
 	/**
@@ -67,12 +80,11 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-			->get($uri, ['connect_timeout' => $this->timeout,
-						 'exceptions'      => false]);
-
+		                 ->get($uri, ['timeout' => $this->timeout,
+		                              'http_errors' => false]);
 		$body = $response->getBody();
 		$code = $response->getStatusCode();
-		if ($body instanceof StreamInterface)
+		if ($body instanceof Stream)
 		{
 			$body->seek(0);
 			$content = $body->read($body->getSize());
