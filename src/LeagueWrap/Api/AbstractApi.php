@@ -4,7 +4,6 @@ namespace LeagueWrap\Api;
 use LeagueWrap\Dto\Summoner;
 use LeagueWrap\Dto\AbstractDto;
 use LeagueWrap\Api;
-use LeagueWrap\Region;
 use LeagueWrap\Cache;
 use LeagueWrap\Response;
 use LeagueWrap\CacheInterface;
@@ -18,6 +17,8 @@ use LeagueWrap\Exception\InvalidIdentityException;
 use LeagueWrap\Exception\CacheNotFoundException;
 
 abstract class AbstractApi {
+
+	use ConfigTrait;
 
 	/**
 	 * The client used to communicate with the api.
@@ -39,13 +40,6 @@ abstract class AbstractApi {
 	 * @param string
 	 */
 	protected $key;
-
-	/**
-	 * The region to be used by the api.
-	 *
-	 * @param string
-	 */
-	protected $region;
 
 	/**
 	 * Provides access to the api object to perform requests on
@@ -94,38 +88,11 @@ abstract class AbstractApi {
 	protected $requests = 0;
 
 	/**
-	 * The amount of seconds we will wait for a responde fromm the riot
-	 * server. 0 means wait indefinitely.
-	 */
-	protected $timeout = 0;
-
-	/**
 	 * This is the cache container that we intend to use.
 	 *
 	 * @var CacheInterface
 	 */
 	protected $cache = null;
-
-	/**
-	 * Only check the cache. Do not do any actual request.
-	 *
-	 * @var bool
-	 */
-	protected $cacheOnly = false;
-
-	/**
-	 * Cache client errors (4xx) from the http calls.
-	 *
-	 * @var bool
-	 */
-	protected $cacheClientError = true;
-
-	/**
-	 * Cache server errors (5xx) from the http calls.
-	 *
-	 * @var bool
-	 */
-	protected $cacheServerError = false;
 
 	/**
 	 * The amount of time we intend to remember the response for.
@@ -140,20 +107,6 @@ abstract class AbstractApi {
 	 * @var int
 	 */
 	protected $seconds = 0;
-
-	/**
-	 * Should we attach static data to the requests done by this object?
-	 *
-	 * @var bool
-	 */
-	protected $attachStaticData = false;
-
-	/**
-	 * A static data api object to be used for static data request.
-	 *
-	 * @var staticData
-	 */
-	protected $staticData = null;
 
 	/**
 	 * Default DI constructor.
@@ -192,92 +145,6 @@ abstract class AbstractApi {
 
 		return $this;
 	}
-
-	/**
-	 * Set the region to be used in the api.
-	 *
-	 * @param string $region
-	 * @return $this
-	 */
-	public function setRegion($region)
-	{
-		$this->region = new Region($region);
-
-		return $this;
-	}
-
-	/**
-	 * Set a timeout in seconds for how long we will wait for the server
-	 * to respond. If the server does not respond within the set number
-	 * of seconds we throw an exception.
-	 *
-	 * @param float $seconds
-	 * @return $this
-	 */
-	public function setTimeout($seconds)
-	{
-		$this->timeout = floatval($seconds);
-
-		return $this;
-	}
-
-	/**
-	 * Sets the api endpoint to only use the cache to get the needed
-	 * information for the requests.
-	 *
-	 * @param $cacheOnly bool
-	 * @return $this
-	 */
-	public function setCacheOnly($cacheOnly = true)
-	{
-		$this->cacheOnly = $cacheOnly;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the flag to decide if we want to cache client errors.
-	 * (4xx http errors).
-	 *
-	 * @param $cache bool
-	 * @return $this
-	 */
-	public function setClientErrorCaching($cache = true)
-	{
-		$this->cacheClientError = $cache;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the flag to decide if we want to cache server errors.
-	 * (5xx http errors).
-	 *
-	 * @param $cache bool
-	 * @return $this
-	 */
-	public function setServerErrorCaching($cache = true)
-	{
-		$this->cacheServerError = $cache;
-
-		return $this;
-	}
-
-	/**
-	 * Set wether to attach static data to the response.
-	 *
-	 * @param bool $attach
-	 * @param StaticData $static
-	 * @return $this
-	 */
-	public function attachStaticData($attach = true, Staticdata $static = null)
-	{
-		$this->attachStaticData = $attach;
-		$this->staticData       = $static;
-
-		return $this;
-	}
-
 
 	/**
 	 * Select the version of the api you wish to

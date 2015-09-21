@@ -21,12 +21,13 @@ class Client implements ClientInterface {
 		$this->guzzle = $this->buildGuzzle($url);
 	}
 
-	private function buildGuzzle($url, $handler = null) {
+	private function buildGuzzle($url, $handler = null)
+	{
 		$config = [
 			'base_uri' => $url,
 			'defaults' => ['headers' => ['Accept-Encoding' => 'gzip,deflate']]
 		];
-		if(isset($handler))
+		if (isset($handler))
 		{
 			$config['handler'] = $handler;
 		}
@@ -80,10 +81,10 @@ class Client implements ClientInterface {
 
 		$uri      = $path.'?'.http_build_query($params);
 		$response = $this->guzzle
-		                 ->get($uri, ['timeout' => $this->timeout,
-		                              'http_errors' => false]);
-		$body = $response->getBody();
-		$code = $response->getStatusCode();
+			->get($uri, ['timeout'     => $this->timeout,
+						 'http_errors' => false]);
+		$body     = $response->getBody();
+		$code     = $response->getStatusCode();
 		if ($body instanceof Stream)
 		{
 			$body->seek(0);

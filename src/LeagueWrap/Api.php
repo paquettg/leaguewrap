@@ -22,25 +22,14 @@ use LeagueWrap\Exception\NoValidLimitInterfaceException;
  */
 class Api {
 
-	/**
-	 * The region to be used. Defaults to 'na'.
-	 *
-	 * @var string
-	 */
-	protected $region = 'na';
+	use Api\ConfigTrait;
 
 	/**
 	 * The client used to connect with the riot API.
 	 *
-	 * @var object
+	 * @var ClientInterface
 	 */
 	protected $client;
-
-	/**
-	 * The amount of seconds we will wait for a responde fromm the riot
-	 * server. 0 means wait indefinitely.
-	 */
-	protected $timeout = 0;
 
 	/**
 	 * This contains the cache container that we intend to use.
@@ -48,27 +37,6 @@ class Api {
 	 * @var CacheInterface
 	 */
 	protected $cache;
-
-	/**
-	 * Only check the cache. Do not do any actual request.
-	 *
-	 * @var bool
-	 */
-	protected $cacheOnly = false;
-
-	/**
-	 * Cache client errors (4xx) from the http calls.
-	 *
-	 * @var bool
-	 */
-	protected $cacheClientError = true;
-
-	/**
-	 * Cache the server errors (5xx) from the http calls.
-	 *
-	 * @var bool
-	 */
-	protected $cacheServerError = false;
 
 	/**
 	 * How long, in seconds, should we remember a query's response.
@@ -83,13 +51,6 @@ class Api {
 	 * @var Collection
 	 */
 	protected $limits = null;
-
-	/**
-	 * Whould we attach static data to all requests done on the api?
-	 *
-	 * @var bool
-	 */
-	protected $attachStaticData = false;
 
 	/**
 	 * This is the api key, very important.
@@ -173,76 +134,6 @@ class Api {
 		}
 
 		return $api;
-	}
-
-	/**
-	 * Set the region code to a valid string.
-	 *
-	 * @param string $region
-	 * @return $this
-	 */
-	public function setRegion($region)
-	{
-		$this->region = $region;
-
-		return $this;
-	}
-
-	/**
-	 * Set a timeout in seconds for how long we will wait for the server
-	 * to respond. If the server does not respond within the set number
-	 * of seconds we throw an exception.
-	 *
-	 * @param float $seconds
-	 * @return $this
-	 */
-	public function setTimeout($seconds)
-	{
-		$this->timeout = floatval($seconds);
-
-		return $this;
-	}
-
-	/**
-	 * Sets the api endpoint to only use the cache to get the needed
-	 * information for the requests.
-	 *
-	 * @param $cacheOnly bool
-	 * @return $this
-	 */
-	public function setCacheOnly($cacheOnly = true)
-	{
-		$this->cacheOnly = $cacheOnly;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the flag to decide if we want to cache client errors.
-	 * (4xx http errors).
-	 *
-	 * @param $cache bool
-	 * @return $this
-	 */
-	public function setClientErrorCaching($cache = true)
-	{
-		$this->cacheClientError = $cache;
-
-		return $this;
-	}
-
-	/**
-	 * Sets the flag to decide if we want to cache client errors.
-	 * (5xx http errors).
-	 *
-	 * @param $cache bool
-	 * @return $this
-	 */
-	public function setServerErrorCaching($cache = true)
-	{
-		$this->cacheServerError = $cache;
-
-		return $this;
 	}
 
 	/**
@@ -330,19 +221,5 @@ class Api {
 	public function getLimits()
 	{
 		return $this->collection->getLimits();
-	}
-
-	/**
-	 * Set wether or not to attach static data to all requests done on this
-	 * api.
-	 *
-	 * @param bool $attach
-	 * @return $this
-	 */
-	public function attachStaticData($attach = true)
-	{
-		$this->attachStaticData = $attach;
-
-		return $this;
 	}
 }
