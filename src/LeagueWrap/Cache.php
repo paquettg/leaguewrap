@@ -26,7 +26,7 @@ class Cache implements CacheInterface {
 	 */
 	public function set($response, $key, $seconds)
 	{
-		return $this->memcached->set($key, $response, time() + $seconds);
+		return $this->memcached->set($key, $response, $seconds);
 	}
 
 	/**
