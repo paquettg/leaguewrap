@@ -19,12 +19,12 @@ class Cache implements CacheInterface {
 	/**
 	 * Adds the response string into the cache under the given key.
 	 *
-	 * @param string $response
 	 * @param string $key
+	 * @param string $response
 	 * @param int $seconds
 	 * @return bool
 	 */
-	public function set($response, $key, $seconds)
+	public function set($key, $response, $seconds)
 	{
 		return $this->memcached->set($key, $response, $seconds);
 	}
