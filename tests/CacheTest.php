@@ -23,7 +23,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$champions = file_get_contents('tests/Json/champion.free.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with($champions, '4be3fe5c15c888d40a1793190d77166b', 60)
+		            ->with('4be3fe5c15c888d40a1793190d77166b', $champions, 60)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
@@ -138,7 +138,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with($bakasan, '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', $bakasan, 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
@@ -171,7 +171,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$exception = new LeagueWrap\Response\Http404('', 404);
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with(m::any(), '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', m::any(), 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
@@ -248,7 +248,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with(m::any(), '9bd8e5b11e0ac9c0a52d5711c9057dd2', 10)
+		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', m::any(), 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()

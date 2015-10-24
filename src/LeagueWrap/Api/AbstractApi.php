@@ -271,14 +271,14 @@ abstract class AbstractApi {
 				{
 					$content = $this->clientRequest($static, $uri, $params);
 					// we want to cache this response
-					$this->cache->set($content, $cacheKey, $this->seconds);
+					$this->cache->set($cacheKey, $content, $this->seconds);
 				}
 				catch (HttpClientError $clientError)
 				{
 					if ($this->cacheClientError)
 					{
 						// cache client errors
-						$this->cache->set($clientError, $cacheKey, $this->seconds);
+						$this->cache->set($cacheKey, $clientError, $this->seconds);
 					}
 					// rethrow the exception
 					throw $clientError;
@@ -288,7 +288,7 @@ abstract class AbstractApi {
 					if ($this->cacheServerError)
 					{
 						// cache server errors
-						$this->cache->set($serverError, $cacheKey, $this->seconds);
+						$this->cache->set($cacheKey, $serverError, $this->seconds);
 					}
 					// rethrow the exception
 					throw $serverError;
