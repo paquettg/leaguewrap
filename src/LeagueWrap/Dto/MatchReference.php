@@ -1,6 +1,6 @@
 <?php
 
-namespace Leaguewrap\Dto;
+namespace LeagueWrap\Dto;
 
 /**
  * Class MatchReference
