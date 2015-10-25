@@ -24,10 +24,10 @@ Abstract class AbstractDto {
 	 * @param array $info
 	 */
 	public function __isset($key)
-    {
-        return !is_null($this->$key);
-    }
-    
+	{
+		return !is_null($this->$key);
+	}
+
 	/**
 	 * Gets the attribute of this Dto.
 	 *
