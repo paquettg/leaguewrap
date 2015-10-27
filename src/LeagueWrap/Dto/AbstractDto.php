@@ -19,6 +19,17 @@ Abstract class AbstractDto {
 	}
 
 	/**
+	 * Check if an attribute exists
+	 *
+	 * @param string $key
+	 * @return bool
+	 */
+	public function __isset($key)
+	{
+		return !is_null($this->$key);
+	}
+
+	/**
 	 * Gets the attribute of this Dto.
 	 *
 	 * @param string $key

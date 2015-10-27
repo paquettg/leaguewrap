@@ -1,5 +1,5 @@
 <?php
-namespace Leaguewrap;
+namespace LeagueWrap;
 
 final class StaticApi {
 
