@@ -21,7 +21,8 @@ Abstract class AbstractDto {
 	/**
 	 * Check if an attribute exists
 	 *
-	 * @param array $info
+	 * @param string $key
+	 * @return bool
 	 */
 	public function __isset($key)
 	{
