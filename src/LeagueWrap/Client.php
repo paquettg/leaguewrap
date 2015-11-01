@@ -88,7 +88,7 @@ class Client implements ClientInterface {
 		if ($body instanceof Stream)
 		{
 			$body->seek(0);
-			$content = $body->read($body->getSize());
+			$content = ($body->getSize() > 0) ? $body->read($body->getSize()) : null;
 		}
 		else
 		{
