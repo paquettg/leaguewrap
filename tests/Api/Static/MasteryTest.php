@@ -30,8 +30,8 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 
 		$api       = new Api('key', $this->client);
 		$masteries = $api->staticData()->getMasteries();
-		$mastery   = $masteries->getMastery(4231);
-		$this->assertEquals('Oppression', $mastery->name);
+		$mastery   = $masteries->getMastery(6111);
+		$this->assertEquals('Fury', $mastery->name);
 	}
 
 	public function testArrayAccess()
@@ -46,7 +46,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 
 		$api       = new Api('key', $this->client);
 		$masteries = $api->staticData()->getMasteries();
-		$this->assertEquals('Oppression', $masteries[4231]->name);
+		$this->assertEquals('Fury', $masteries[6111]->name);
 	}
 
 	public function testGetMasteryRegionKR()
@@ -63,8 +63,8 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 		$api       = new Api('key', $this->client);
 		$masteries = $api->staticData()->setLocale('ko_KR')
 		                               ->getMasteries();
-		$mastery   = $masteries->getMastery(4111);
-		$this->assertEquals('양날의 검', $mastery->name);
+		$mastery   = $masteries->getMastery(6111);
+		$this->assertEquals('분노', $mastery->name);
 	}
 
 	public function testGetMasteryById()
@@ -72,14 +72,14 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/mastery/4111', [
+		             ->with('na/v1.2/mastery/6111', [
 						'api_key' => 'key',
 		             ])->once()
-		             ->andReturn(file_get_contents('tests/Json/Static/mastery.4111.json'));
+		             ->andReturn(file_get_contents('tests/Json/Static/mastery.6111.json'));
 
 		$api     = new Api('key', $this->client);
-		$mastery = $api->staticData()->getMastery(4111);
-		$this->assertEquals('Double-Edged Sword', $mastery->name);
+		$mastery = $api->staticData()->getMastery(6111);
+		$this->assertEquals('Fury', $mastery->name);
 	}
 
 	public function testGetMasteryRank()
@@ -87,15 +87,15 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/mastery/4322', [
+		             ->with('na/v1.2/mastery/6111', [
 						'api_key'     => 'key',
 						'masteryData' => 'ranks',
 		             ])->once()
-		             ->andReturn(file_get_contents('tests/Json/Static/mastery.4322.ranks.json'));
+		             ->andReturn(file_get_contents('tests/Json/Static/mastery.6111.ranks.json'));
 
 		$api     = new Api('key', $this->client);
-		$mastery = $api->staticData()->getMastery(4322, 'ranks');
-		$this->assertEquals(3, $mastery->ranks);
+		$mastery = $api->staticData()->getMastery(6111, 'ranks');
+		$this->assertEquals(5, $mastery->ranks);
 	}
 
 	public function testGetMasteryAll()
@@ -111,7 +111,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase {
 
 		$api       = new Api('key', $this->client);
 		$masteries = $api->staticData()->getMasteries('all');
-		$mastery   = $masteries->getMastery(4322);
-		$this->assertEquals('Reduces the cooldown of Summoner Spells by 10%', $mastery->description[2]);
+		$mastery   = $masteries->getMastery(6111);
+		$this->assertEquals('+1.6% Attack Speed', $mastery->description[1]);
 	}
 }

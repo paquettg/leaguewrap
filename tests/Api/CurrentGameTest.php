@@ -172,6 +172,6 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$rune = $participant->rune(5253);
 		$this->assertTrue($rune->runeStaticData instanceof LeagueWrap\Dto\StaticData\Rune);
 		$masteries = $participant->masteries;
-		$this->assertTrue($masteries[4111]->masteryStaticData instanceof LeagueWrap\Dto\StaticData\Mastery);
+		$this->assertTrue($masteries[6111]->masteryStaticData instanceof LeagueWrap\Dto\StaticData\Mastery);
 	}
 }
