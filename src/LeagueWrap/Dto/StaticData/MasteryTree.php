@@ -10,35 +10,16 @@ class MasteryTree extends AbstractDto {
 	 */
 	public function __construct(array $info)
 	{
-		if (isset($info['Defense']))
+		foreach($info as $treeName => $rawTree)
 		{
-			$defense = [];
-			foreach ($info['Defense'] as $id => $masteryTreeList)
+			$tree = [];
+			foreach($rawTree as $id => $masteryTreeList)
 			{
 				$masteryTreeListDto = new MasteryTreeList($masteryTreeList);
-				$defense[$id]       = $masteryTreeListDto;
+				$tree[$id] = $masteryTreeListDto;
 			}
-			$info['Defense'] = $defense;
-		}
-		if (isset($info['Offense']))
-		{
-			$offense = [];
-			foreach ($info['Offense'] as $id => $masteryTreeList)
-			{
-				$masteryTreeListDto = new MasteryTreeList($masteryTreeList);
-				$offense[$id]       = $masteryTreeListDto;
-			}
-			$info['Offense'] = $offense;
-		}
-		if (isset($info['Utility']))
-		{
-			$utility = [];
-			foreach ($info['Utility'] as $id => $masteryTreeList)
-			{
-				$masteryTreeListDto = new MasteryTreeList($masteryTreeList);
-				$utility[$id]       = $masteryTreeListDto;
-			}
-			$info['Utility'] = $utility;
+			$info[$treeName] = $tree;
+
 		}
 
 		parent::__construct($info);
