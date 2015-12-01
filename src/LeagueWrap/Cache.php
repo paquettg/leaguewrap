@@ -20,7 +20,7 @@ class Cache implements CacheInterface {
 	 * Adds the response string into the cache under the given key.
 	 *
 	 * @param string $key
-	 * @param string $response
+	 * @param \LeagueWrap\Response $response
 	 * @param int $seconds
 	 * @return bool
 	 */
@@ -50,7 +50,7 @@ class Cache implements CacheInterface {
 	 * Gets the contents that are stored at the given key.
 	 *
 	 * @param string $key
-	 * @return string
+	 * @return \LeagueWrap\Response
 	 */
 	public function get($key)
 	{

@@ -314,7 +314,7 @@ abstract class AbstractApi {
 	 * @param bool $static
 	 * @param string $uri
 	 * @param array $params
-	 * @return string
+	 * @return \LeagueWrap\Response
 	 * @throws LimitReachedException
 	 */
 	protected function clientRequest($static, $uri, $params)
