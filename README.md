@@ -1,7 +1,7 @@
 LeagueWrap
 ==========
 
-Version 0.6.3
+Version 0.6.4
 
 [![Build Status](https://travis-ci.org/paquettg/leaguewrap.png)](https://travis-ci.org/paquettg/leaguewrap)
 [![Coverage Status](https://coveralls.io/repos/paquettg/leaguewrap/badge.png)](https://coveralls.io/r/paquettg/leaguewrap)
@@ -509,6 +509,17 @@ The documentation for the Stat Api is not complete but it is fully functional.
 
 ```php
 $stat = $api->stat();
+```
+
+Champion Mastery
+----
+
+The documentation for the Champion mastery Api is not complete but it is fully functional.
+
+```php
+$championMastery = $api->championMastery();
+$masteryList = $championMastery->champions($summonerId);
+$championPointsAnnie = $masteryList->getChampion(1)->championPoints
 ```
 
 Team
