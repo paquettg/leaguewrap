@@ -106,6 +106,9 @@ Abstract class AbstractListDto extends AbstractDto implements ArrayAccess, Itera
 	 */
 	protected function getListByKey()
 	{
+		if($this->listKey == "")
+			return $this->info;
+
 		if (is_null($this->listKey) ||
 			! isset($this->info[$this->listKey])
 		)

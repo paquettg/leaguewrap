@@ -1,0 +1,407 @@
+[
+  {
+    "playerId": 30447079,
+    "championId": 35,
+    "championLevel": 5,
+    "championPoints": 67464,
+    "lastPlayTime": 1453288320000,
+    "championPointsSinceLastLevel": 45864,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 25,
+    "championLevel": 5,
+    "championPoints": 34442,
+    "lastPlayTime": 1453235599000,
+    "championPointsSinceLastLevel": 12842,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 254,
+    "championLevel": 5,
+    "championPoints": 31998,
+    "lastPlayTime": 1451389871000,
+    "championPointsSinceLastLevel": 10398,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 11,
+    "championLevel": 5,
+    "championPoints": 21817,
+    "lastPlayTime": 1448295045000,
+    "championPointsSinceLastLevel": 217,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 203,
+    "championLevel": 4,
+    "championPoints": 19374,
+    "lastPlayTime": 1451745502000,
+    "championPointsSinceLastLevel": 6774,
+    "championPointsUntilNextLevel": 2226
+  },
+  {
+    "playerId": 30447079,
+    "championId": 154,
+    "championLevel": 4,
+    "championPoints": 18489,
+    "lastPlayTime": 1453142948000,
+    "championPointsSinceLastLevel": 5889,
+    "championPointsUntilNextLevel": 3111
+  },
+  {
+    "playerId": 30447079,
+    "championId": 28,
+    "championLevel": 4,
+    "championPoints": 18240,
+    "lastPlayTime": 1443559874000,
+    "championPointsSinceLastLevel": 5640,
+    "championPointsUntilNextLevel": 3360
+  },
+  {
+    "playerId": 30447079,
+    "championId": 60,
+    "championLevel": 4,
+    "championPoints": 15886,
+    "lastPlayTime": 1452168057000,
+    "championPointsSinceLastLevel": 3286,
+    "championPointsUntilNextLevel": 5714
+  },
+  {
+    "playerId": 30447079,
+    "championId": 32,
+    "championLevel": 4,
+    "championPoints": 13467,
+    "lastPlayTime": 1451698852000,
+    "championPointsSinceLastLevel": 867,
+    "championPointsUntilNextLevel": 8133
+  },
+  {
+    "playerId": 30447079,
+    "championId": 56,
+    "championLevel": 4,
+    "championPoints": 12773,
+    "lastPlayTime": 1452010558000,
+    "championPointsSinceLastLevel": 173,
+    "championPointsUntilNextLevel": 8827
+  },
+  {
+    "playerId": 30447079,
+    "championId": 50,
+    "championLevel": 3,
+    "championPoints": 11725,
+    "lastPlayTime": 1446660651000,
+    "championPointsSinceLastLevel": 5725,
+    "championPointsUntilNextLevel": 875
+  },
+  {
+    "playerId": 30447079,
+    "championId": 72,
+    "championLevel": 3,
+    "championPoints": 11635,
+    "lastPlayTime": 1443131145000,
+    "championPointsSinceLastLevel": 5635,
+    "championPointsUntilNextLevel": 965
+  },
+  {
+    "playerId": 30447079,
+    "championId": 121,
+    "championLevel": 3,
+    "championPoints": 9899,
+    "lastPlayTime": 1453232825000,
+    "championPointsSinceLastLevel": 3899,
+    "championPointsUntilNextLevel": 2701
+  },
+  {
+    "playerId": 30447079,
+    "championId": 245,
+    "championLevel": 3,
+    "championPoints": 9503,
+    "lastPlayTime": 1446669634000,
+    "championPointsSinceLastLevel": 3503,
+    "championPointsUntilNextLevel": 3097
+  },
+  {
+    "playerId": 30447079,
+    "championId": 420,
+    "championLevel": 3,
+    "championPoints": 6973,
+    "lastPlayTime": 1451685115000,
+    "championPointsSinceLastLevel": 973,
+    "championPointsUntilNextLevel": 5627
+  },
+  {
+    "playerId": 30447079,
+    "championId": 223,
+    "championLevel": 3,
+    "championPoints": 6300,
+    "lastPlayTime": 1451933859000,
+    "championPointsSinceLastLevel": 300,
+    "championPointsUntilNextLevel": 6300
+  },
+  {
+    "playerId": 30447079,
+    "championId": 57,
+    "championLevel": 2,
+    "championPoints": 5857,
+    "lastPlayTime": 1452612027000,
+    "championPointsSinceLastLevel": 4057,
+    "championPointsUntilNextLevel": 143
+  },
+  {
+    "playerId": 30447079,
+    "championId": 98,
+    "championLevel": 2,
+    "championPoints": 5820,
+    "lastPlayTime": 1452950914000,
+    "championPointsSinceLastLevel": 4020,
+    "championPointsUntilNextLevel": 180
+  },
+  {
+    "playerId": 30447079,
+    "championId": 33,
+    "championLevel": 2,
+    "championPoints": 5691,
+    "lastPlayTime": 1452274265000,
+    "championPointsSinceLastLevel": 3891,
+    "championPointsUntilNextLevel": 309
+  },
+  {
+    "playerId": 30447079,
+    "championId": 1,
+    "championLevel": 2,
+    "championPoints": 3729,
+    "lastPlayTime": 1443135919000,
+    "championPointsSinceLastLevel": 1929,
+    "championPointsUntilNextLevel": 2271
+  },
+  {
+    "playerId": 30447079,
+    "championId": 105,
+    "championLevel": 2,
+    "championPoints": 3684,
+    "lastPlayTime": 1451693196000,
+    "championPointsSinceLastLevel": 1884,
+    "championPointsUntilNextLevel": 2316
+  },
+  {
+    "playerId": 30447079,
+    "championId": 48,
+    "championLevel": 2,
+    "championPoints": 3413,
+    "lastPlayTime": 1447591306000,
+    "championPointsSinceLastLevel": 1613,
+    "championPointsUntilNextLevel": 2587
+  },
+  {
+    "playerId": 30447079,
+    "championId": 9,
+    "championLevel": 2,
+    "championPoints": 3353,
+    "lastPlayTime": 1448215972000,
+    "championPointsSinceLastLevel": 1553,
+    "championPointsUntilNextLevel": 2647
+  },
+  {
+    "playerId": 30447079,
+    "championId": 90,
+    "championLevel": 2,
+    "championPoints": 2734,
+    "lastPlayTime": 1434996478000,
+    "championPointsSinceLastLevel": 934,
+    "championPointsUntilNextLevel": 3266
+  },
+  {
+    "playerId": 30447079,
+    "championId": 68,
+    "championLevel": 2,
+    "championPoints": 2423,
+    "lastPlayTime": 1447195053000,
+    "championPointsSinceLastLevel": 623,
+    "championPointsUntilNextLevel": 3577
+  },
+  {
+    "playerId": 30447079,
+    "championId": 107,
+    "championLevel": 1,
+    "championPoints": 1684,
+    "lastPlayTime": 1444766606000,
+    "championPointsSinceLastLevel": 1684,
+    "championPointsUntilNextLevel": 116
+  },
+  {
+    "playerId": 30447079,
+    "championId": 36,
+    "championLevel": 1,
+    "championPoints": 1669,
+    "lastPlayTime": 1452173215000,
+    "championPointsSinceLastLevel": 1669,
+    "championPointsUntilNextLevel": 131
+  },
+  {
+    "playerId": 30447079,
+    "championId": 13,
+    "championLevel": 1,
+    "championPoints": 1510,
+    "lastPlayTime": 1431286035000,
+    "championPointsSinceLastLevel": 1510,
+    "championPointsUntilNextLevel": 290
+  },
+  {
+    "playerId": 30447079,
+    "championId": 51,
+    "championLevel": 1,
+    "championPoints": 1323,
+    "lastPlayTime": 1445882624000,
+    "championPointsSinceLastLevel": 1323,
+    "championPointsUntilNextLevel": 477
+  },
+  {
+    "playerId": 30447079,
+    "championId": 29,
+    "championLevel": 1,
+    "championPoints": 1317,
+    "lastPlayTime": 1450219465000,
+    "championPointsSinceLastLevel": 1317,
+    "championPointsUntilNextLevel": 483
+  },
+  {
+    "playerId": 30447079,
+    "championId": 74,
+    "championLevel": 1,
+    "championPoints": 1229,
+    "lastPlayTime": 1431013894000,
+    "championPointsSinceLastLevel": 1229,
+    "championPointsUntilNextLevel": 571
+  },
+  {
+    "playerId": 30447079,
+    "championId": 59,
+    "championLevel": 1,
+    "championPoints": 966,
+    "lastPlayTime": 1431008991000,
+    "championPointsSinceLastLevel": 966,
+    "championPointsUntilNextLevel": 834
+  },
+  {
+    "playerId": 30447079,
+    "championId": 113,
+    "championLevel": 1,
+    "championPoints": 914,
+    "lastPlayTime": 1432660626000,
+    "championPointsSinceLastLevel": 914,
+    "championPointsUntilNextLevel": 886
+  },
+  {
+    "playerId": 30447079,
+    "championId": 78,
+    "championLevel": 1,
+    "championPoints": 795,
+    "lastPlayTime": 1452003601000,
+    "championPointsSinceLastLevel": 795,
+    "championPointsUntilNextLevel": 1005
+  },
+  {
+    "playerId": 30447079,
+    "championId": 421,
+    "championLevel": 1,
+    "championPoints": 479,
+    "lastPlayTime": 1443553906000,
+    "championPointsSinceLastLevel": 479,
+    "championPointsUntilNextLevel": 1321
+  },
+  {
+    "playerId": 30447079,
+    "championId": 38,
+    "championLevel": 1,
+    "championPoints": 455,
+    "lastPlayTime": 1449673099000,
+    "championPointsSinceLastLevel": 455,
+    "championPointsUntilNextLevel": 1345
+  },
+  {
+    "playerId": 30447079,
+    "championId": 53,
+    "championLevel": 1,
+    "championPoints": 312,
+    "lastPlayTime": 1442771809000,
+    "championPointsSinceLastLevel": 312,
+    "championPointsUntilNextLevel": 1488
+  },
+  {
+    "playerId": 30447079,
+    "championId": 143,
+    "championLevel": 1,
+    "championPoints": 299,
+    "lastPlayTime": 1434578621000,
+    "championPointsSinceLastLevel": 299,
+    "championPointsUntilNextLevel": 1501
+  },
+  {
+    "playerId": 30447079,
+    "championId": 40,
+    "championLevel": 1,
+    "championPoints": 288,
+    "lastPlayTime": 1439064772000,
+    "championPointsSinceLastLevel": 288,
+    "championPointsUntilNextLevel": 1512
+  },
+  {
+    "playerId": 30447079,
+    "championId": 58,
+    "championLevel": 1,
+    "championPoints": 218,
+    "lastPlayTime": 1443188278000,
+    "championPointsSinceLastLevel": 218,
+    "championPointsUntilNextLevel": 1582
+  },
+  {
+    "playerId": 30447079,
+    "championId": 16,
+    "championLevel": 1,
+    "championPoints": 202,
+    "lastPlayTime": 1449847037000,
+    "championPointsSinceLastLevel": 202,
+    "championPointsUntilNextLevel": 1598
+  },
+  {
+    "playerId": 30447079,
+    "championId": 101,
+    "championLevel": 1,
+    "championPoints": 193,
+    "lastPlayTime": 1448290661000,
+    "championPointsSinceLastLevel": 193,
+    "championPointsUntilNextLevel": 1607
+  },
+  {
+    "playerId": 30447079,
+    "championId": 41,
+    "championLevel": 1,
+    "championPoints": 180,
+    "lastPlayTime": 1448219502000,
+    "championPointsSinceLastLevel": 180,
+    "championPointsUntilNextLevel": 1620
+  },
+  {
+    "playerId": 30447079,
+    "championId": 89,
+    "championLevel": 1,
+    "championPoints": 159,
+    "lastPlayTime": 1441729618000,
+    "championPointsSinceLastLevel": 159,
+    "championPointsUntilNextLevel": 1641
+  },
+  {
+    "playerId": 30447079,
+    "championId": 21,
+    "championLevel": 1,
+    "championPoints": 149,
+    "lastPlayTime": 1452196205000,
+    "championPointsSinceLastLevel": 149,
+    "championPointsUntilNextLevel": 1651
+  }
+]

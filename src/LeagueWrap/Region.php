@@ -22,6 +22,8 @@ class Region {
 
 	protected $defaultObserverDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
 
+	protected $championMasteryDomain = 'https://%s.api.pvp.net/';
+
 	/**
 	 * @param $region
 	 */
@@ -75,6 +77,11 @@ class Region {
 	public function getObserverDomain()
 	{
 		return sprintf($this->defaultObserverDomain, $this->getRegion());
+	}
+
+	public function getChampionMasteryDomain()
+	{
+		return sprintf($this->championMasteryDomain, $this->getRegion());
 	}
 
 	/**

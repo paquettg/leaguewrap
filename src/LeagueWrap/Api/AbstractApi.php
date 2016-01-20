@@ -211,11 +211,8 @@ abstract class AbstractApi {
 	 * @throws RegionException
 	 * @throws \Exception
 	 */
-	protected function request($path, $params = [], $static = false, $observer = false)
+	protected function request($path, $params = [], $static = false, $observer = false, $championMastery = false)
 	{
-		// get version
-		$version = $this->getVersion();
-
 		// get and validate the region
 		if ($this->region->isLocked($this->permittedRegions))
 		{
@@ -231,6 +228,10 @@ abstract class AbstractApi {
 		{
 			$this->client->baseUrl($this->region->getObserverDomain());
 		}
+		elseif ($championMastery)
+		{
+			$this->client->baseUrl($this->region->getChampionMasteryDomain());
+		}
 		else
 		{
 			$this->client->baseUrl($this->region->getDomain());
@@ -244,7 +245,12 @@ abstract class AbstractApi {
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri = ($observer) ? $path : $this->region->getRegion().'/'.$version.'/'.$path;
+		$uri = null;
+		if($observer || $championMastery)
+			$uri = $path;
+		else
+			$uri = $this->region->getRegion().'/'.$this->getVersion().'/'.$path;
+
 
 		// check cache
 		if ($this->cache instanceof CacheInterface)

@@ -1,0 +1,29 @@
+[
+  {
+    "playerId": 30447079,
+    "championId": 35,
+    "championLevel": 5,
+    "championPoints": 67464,
+    "lastPlayTime": 1453288320000,
+    "championPointsSinceLastLevel": 45864,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 25,
+    "championLevel": 5,
+    "championPoints": 34442,
+    "lastPlayTime": 1453235599000,
+    "championPointsSinceLastLevel": 12842,
+    "championPointsUntilNextLevel": 0
+  },
+  {
+    "playerId": 30447079,
+    "championId": 254,
+    "championLevel": 5,
+    "championPoints": 31998,
+    "lastPlayTime": 1451389871000,
+    "championPointsSinceLastLevel": 10398,
+    "championPointsUntilNextLevel": 0
+  }
+]

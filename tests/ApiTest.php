@@ -67,6 +67,12 @@ class ApiTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($matchlist instanceof Leaguewrap\Api\MatchList);
     }
 
+    public function testChampionMastery() {
+        $api = new Api('key');
+        $championMastery = $api->championMastery();
+        $this->assertTrue($championMastery instanceof Leaguewrap\Api\ChampionMastery);
+    }
+
     public function testCurrentGame()
     {
         $api = new Api('key');
