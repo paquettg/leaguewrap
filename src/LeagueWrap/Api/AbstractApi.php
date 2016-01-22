@@ -5,6 +5,7 @@ use LeagueWrap\Dto\Summoner;
 use LeagueWrap\Dto\AbstractDto;
 use LeagueWrap\Api;
 use LeagueWrap\Cache;
+use LeagueWrap\Region;
 use LeagueWrap\Response;
 use LeagueWrap\CacheInterface;
 use LeagueWrap\ClientInterface;
@@ -17,6 +18,8 @@ use LeagueWrap\Exception\InvalidIdentityException;
 use LeagueWrap\Exception\CacheNotFoundException;
 
 abstract class AbstractApi {
+
+	// TODO add api tests for correct domain
 
 	use ConfigTrait;
 
@@ -168,6 +171,19 @@ abstract class AbstractApi {
 	}
 
 	/**
+	 * @return Region region of this api
+	 */
+	public function getRegion() {
+		return $this->region;
+	}
+
+	/**
+	 * @return String domain used for the request
+	 */
+	abstract function getDomain();
+
+
+	/**
 	 * Sets the amount of seconds we should remember the response for.
 	 * Leave it empty (or null) if you want to use the default set for
 	 * each api request.
@@ -202,16 +218,16 @@ abstract class AbstractApi {
 	 * @param string $path
 	 * @param array $params
 	 * @param bool $static
-	 * @param bool $observer
+	 * @param bool $isVersionized
 	 * @return mixed
 	 * @throws CacheNotFoundException
 	 * @throws HttpClientError
 	 * @throws HttpServerError
 	 * @throws LimitReachedException
 	 * @throws RegionException
-	 * @throws \Exception
+	 * @throws string
 	 */
-	protected function request($path, $params = [], $static = false, $observer = false, $championMastery = false)
+	protected function request($path, $params = [], $static = false, $isVersionized = true)
 	{
 		// get and validate the region
 		if ($this->region->isLocked($this->permittedRegions))
@@ -219,23 +235,7 @@ abstract class AbstractApi {
 			throw new RegionException('The region "'.$this->region->getRegion().'" is not permited to query this API.');
 		}
 
-		// set the region based domain
-		if ($static)
-		{
-			$this->client->baseUrl($this->region->getStaticDataDomain());
-		}
-		elseif ($observer)
-		{
-			$this->client->baseUrl($this->region->getObserverDomain());
-		}
-		elseif ($championMastery)
-		{
-			$this->client->baseUrl($this->region->getChampionMasteryDomain());
-		}
-		else
-		{
-			$this->client->baseUrl($this->region->getDomain());
-		}
+		$this->client->baseUrl($this->getDomain());
 
 		if ($this->timeout > 0)
 		{
@@ -245,17 +245,13 @@ abstract class AbstractApi {
 		// add the key to the param list
 		$params['api_key'] = $this->key;
 
-		$uri = null;
-		if($observer || $championMastery)
-			$uri = $path;
-		else
-			$uri = $this->region->getRegion().'/'.$this->getVersion().'/'.$path;
+		$uri = ($isVersionized) ? $this->getVersion().'/'.$path : $path;
 
 
 		// check cache
 		if ($this->cache instanceof CacheInterface)
 		{
-			$cacheKey = md5($uri.'?'.http_build_query($params));
+			$cacheKey = md5($this->getDomain().$uri.'?'.http_build_query($params));
 			if ($this->cache->has($cacheKey))
 			{
 				$content = $this->cache->get($cacheKey);
@@ -332,6 +328,7 @@ abstract class AbstractApi {
 		{
 			throw new LimitReachedException('You have hit the request limit in your collection.');
 		}
+
 		$response = $this->client->request($uri, $params);
 		++$this->requests;
 		// check if it's a valid response object

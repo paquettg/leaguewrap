@@ -62,6 +62,14 @@ class Stats extends AbstractApi {
 	}
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Gets the stats summary by summoner id.
 	 *
 	 * @param mixed $identity

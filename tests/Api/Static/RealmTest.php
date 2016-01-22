@@ -23,7 +23,7 @@ class StaticRealmTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/realm', [
+		             ->with('v1.2/realm', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/realm.json'));
@@ -38,7 +38,7 @@ class StaticRealmTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('kr/v1.2/realm', [
+		             ->with('v1.2/realm', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/realm.kr.json'));

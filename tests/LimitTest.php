@@ -42,7 +42,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -67,7 +67,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -102,7 +102,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -150,7 +150,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->times(3);
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->twice()
@@ -223,7 +223,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()

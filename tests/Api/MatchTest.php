@@ -24,7 +24,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 			])->once()
 			->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
@@ -39,24 +39,24 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 					 ->times(4);
 		$this->client->shouldReceive('request')
-					 ->with('na/v2.2/match/1399898747', [
+					 ->with('v2.2/match/1399898747', [
 						'api_key' => 'key',
 					 ])->once()
 					 ->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
 		$this->client->shouldReceive('request')
-					 ->with('na/v1.2/champion', [
+					 ->with('v1.2/champion', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 					 ])->once()
 					 ->andReturn(file_get_contents('tests/Json/Static/champion.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/summonerspell.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/items.json'));
@@ -72,7 +72,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 			])->once()
 			->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
@@ -87,7 +87,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 			])->once()
 			->andReturn(file_get_contents('tests/Json/matchhistory.match.1399898747.json'));
@@ -102,7 +102,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 				'includeTimeline' => true
 			])->once()
@@ -118,7 +118,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 				'includeTimeline' => true
 			])->once()
@@ -134,7 +134,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 			->once();
 		$this->client->shouldReceive('request')
-			->with('na/v2.2/match/1399898747', [
+			->with('v2.2/match/1399898747', [
 				'api_key' => 'key',
 				'includeTimeline' => true
 			])->once()

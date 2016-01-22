@@ -23,7 +23,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/rune', [
+		             ->with('v1.2/rune', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/rune.json'));
@@ -39,7 +39,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/rune', [
+		             ->with('v1.2/rune', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/rune.json'));
@@ -54,7 +54,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('kr/v1.2/rune', [
+		             ->with('v1.2/rune', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/rune.kr.json'));
@@ -71,7 +71,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/rune/5267', [
+		             ->with('v1.2/rune/5267', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/rune.5267.json'));
@@ -86,7 +86,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/rune/5001', [
+		             ->with('v1.2/rune/5001', [
 						'api_key'  => 'key',
 						'runeData' => 'image',
 		             ])->once()
@@ -102,7 +102,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/rune', [
+		             ->with('v1.2/rune', [
 						'api_key'      => 'key',
 						'runeListData' => 'all',
 		             ])->once()

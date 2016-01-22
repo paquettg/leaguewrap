@@ -33,6 +33,14 @@ class Game extends AbstractApi {
 	];
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * The amount of time we intend to remember the response for.
 	 *
 	 * @var int

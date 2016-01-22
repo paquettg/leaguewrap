@@ -11,18 +11,46 @@ class Region {
 	protected $region;
 
 	/**
+	 * @param array @platformIds platform ids for regions
+	 */
+	protected $platformIds = [
+		'na'   => 'NA1',
+		'euw'  => 'EUW1',
+		'br'   => 'BR1',
+		'lan'  => 'LA1',
+		'las'  => 'LA2',
+		'oce'  => 'OC1',
+		'eune' => 'EUN1',
+		'tr'   => 'TR1',
+		'ru'   => 'RU',
+		'kr'   => 'KR'
+	];
+
+	/**
+	 * @return String platform id for the selected version
+	 */
+	protected function getPlatformId() {
+		if(array_key_exists($this->region, $this->platformIds))
+			return $this->platformIds[$this->region];
+		else
+			return strtoupper($this->region);
+	}
+
+	/**
 	 * The default domain to attempt to query
 	 */
-	protected $defaultDomain = 'https://%s.api.pvp.net/api/lol/';
+	protected $defaultDomain = 'https://%s.api.pvp.net/api/lol/%s/';
 
 	/**
 	 * The default domain for static queries
 	 */
 	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/';
 
-	protected $defaultObserverDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
+	protected $featuredGameDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
 
-	protected $championMasteryDomain = 'https://%s.api.pvp.net/';
+	protected $currentGameDomain = 'https://%s.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/%s/';
+
+	protected $championMasteryDomain = 'https://%s.api.pvp.net/championmastery/location/%s/';
 
 	/**
 	 * @param $region
@@ -46,17 +74,11 @@ class Region {
 	/**
 	 * Returns the domain that this region needs to make its request.
 	 *
-	 * @param bool $static
 	 * @return string
 	 */
-	public function getDomain($static = false)
+	public function getDefaultDomain()
 	{
-		if ($static)
-		{
-			return $this->getStaticDataDomain();
-		}
-
-		return sprintf($this->defaultDomain, $this->getRegion());
+		return sprintf($this->defaultDomain, $this->getRegion(), $this->getRegion());
 	}
 
 	/**
@@ -69,19 +91,23 @@ class Region {
 		return $this->defaultStaticDomain;
 	}
 
+	public function getCurrentGameDomain() {
+		return sprintf($this->currentGameDomain, $this->getRegion(), $this->getPlatformId());
+	}
+
 	/**
 	 * Returns the observer domain that this region needs to make its request.
 	 *
 	 * @return string
 	 */
-	public function getObserverDomain()
+	public function getFeaturedGamesDomain()
 	{
-		return sprintf($this->defaultObserverDomain, $this->getRegion());
+		return sprintf($this->featuredGameDomain, $this->getRegion());
 	}
 
 	public function getChampionMasteryDomain()
 	{
-		return sprintf($this->championMasteryDomain, $this->getRegion());
+		return sprintf($this->championMasteryDomain, $this->getRegion(), $this->getPlatformId());
 	}
 
 	/**

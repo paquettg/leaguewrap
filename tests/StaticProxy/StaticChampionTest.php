@@ -22,7 +22,7 @@ class StaticProxyStaticChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -38,7 +38,7 @@ class StaticProxyStaticChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()

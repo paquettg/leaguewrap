@@ -40,6 +40,14 @@ class Featuredgames extends AbstractApi {
 	protected $defaultRemember = 900;
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getFeaturedGamesDomain();
+	}
+
+	/**
 	 * Requests all featured games.
 	 *
 	 * @return \LeagueWrap\Dto\AbstractDto
@@ -51,7 +59,7 @@ class Featuredgames extends AbstractApi {
 	 */
 	public function featuredGames()
 	{
-		$response = $this->request('featured', [], false, true);
+		$response = $this->request('featured', [], false, false);
 
 		return $this->attachStaticDataToDto(new FeaturedGamesDto($response));
 	}

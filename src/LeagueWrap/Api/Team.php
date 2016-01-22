@@ -48,6 +48,14 @@ class Team extends AbstractApi {
 	protected $defaultRemember = 43200;
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Gets the team information by summoner id or list of summoner ids.
 	 *
 	 * @param Summoner|Int $identities

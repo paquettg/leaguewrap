@@ -23,19 +23,18 @@ class RegionTest extends PHPUnit_Framework_TestCase {
     public function testGetDomain()
     {
         $region = new Region('euw');
-        $this->assertEquals('https://euw.api.pvp.net/api/lol/', $region->getDomain());
+        $this->assertEquals('https://euw.api.pvp.net/api/lol/euw/', $region->getDefaultDomain());
     }
 
 	public function testGetDomainStaticData()
 	{
 		$region = new Region('na');
-		$this->assertEquals('https://global.api.pvp.net/api/lol/static-data/', $region->getDomain(true));
 		$this->assertEquals('https://global.api.pvp.net/api/lol/static-data/', $region->getStaticDataDomain());
 	}
 
 	public function testGetObserverDomain()
 	{
 		$region = new Region('na');
-		$this->assertEquals('https://na.api.pvp.net/observer-mode/rest/', $region->getObserverDomain());
+		$this->assertEquals('https://na.api.pvp.net/observer-mode/rest/', $region->getFeaturedGamesDomain());
 	}
 }

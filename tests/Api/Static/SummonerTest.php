@@ -23,7 +23,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
@@ -40,7 +40,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 						'locale'   => 'fr_FR',
@@ -59,7 +59,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion/266', [
+		             ->with('v1.2/champion/266', [
 						'api_key' => 'key',
 						'locale'  => 'fr_FR',
 		             ])->once()
@@ -76,7 +76,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'api_key'   => 'key',
 						'dataById'  => 'true',
 						'locale'    => 'fr_FR',
@@ -96,7 +96,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'api_key'   => 'key',
 						'dataById'  => 'true',
 						'champData' => 'all',

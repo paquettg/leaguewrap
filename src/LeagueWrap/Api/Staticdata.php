@@ -101,6 +101,14 @@ class Staticdata extends AbstractApi {
 	}
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getStaticDataDomain();
+	}
+
+	/**
 	 * Gets all static champion data with the given $data option.
 	 *
 	 * @param mixed $data

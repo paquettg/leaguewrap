@@ -41,40 +41,16 @@ class ChampionMastery extends AbstractApi
     protected $defaultRemember = 900;
 
     /**
-     * @param array @platformIds platform ids for regions
+     * @return String domain used for the request
      */
-    protected $platformIds = [
-        'na'   => 'NA1',
-        'euw'  => 'EUW1',
-        'br'   => 'BR1',
-        'lan'  => 'LA1',
-        'las'  => 'LA2',
-        'oce'  => 'OC1',
-        'eune' => 'EUN1',
-        'tr'   => 'TR1',
-        'ru'   => 'RU',
-        'kr'   => 'KR'
-    ];
-
-    /**
-     * Intercept client request to patch platform id into url (ugly hack!)
-     *
-     * @param bool $static
-     * @param string $uri
-     * @param array $params
-     * @return string
-     * @throws \LeagueWrap\Exception\LimitReachedException
-     */
-    protected function clientRequest($static, $uri, $params)
+    function getDomain()
     {
-        $uri = sprintf($uri, $this->platformIds[$this->region->getRegion()]);
-
-        return parent::clientRequest($static, $uri, $params);
+        return $this->getRegion()->getChampionMasteryDomain();
     }
 
     public function champions($identity) {
         $summonerId = $this->extractId($identity);
-        $response = $this->request('championmastery/location/'.'%1$s'.'/player/'.$summonerId.'/champions', [], false, false, true);
+        $response = $this->request('player/'.$summonerId.'/champions', [], false, false);
 
         $championMasteryList = new ChampionMasteryList($response);
         $this->attachResponse($identity, $championMasteryList, "championmastery");
@@ -83,7 +59,7 @@ class ChampionMastery extends AbstractApi
 
     public function champion($identity, $championId) {
         $summonerId = $this->extractId($identity);
-        $response = $this->request('championmastery/location/'.'%1$s'.'/player/'.$summonerId.'/champion/'.$championId, [], false, false, true);
+        $response = $this->request('player/'.$summonerId.'/champion/'.$championId, [], false, false);
 
         $mastery = new \LeagueWrap\Dto\ChampionMastery($response);
         $this->attachResponse($identity, $mastery, "championmastery");
@@ -92,7 +68,7 @@ class ChampionMastery extends AbstractApi
 
     public function topChampions($identity, $count = 3) {
         $summonerId = $this->extractId($identity);
-        $response = $this->request('championmastery/location/'.'%1$s'.'/player/'.$summonerId.'/topchampions', ['count' => $count], false, false, true);
+        $response = $this->request('player/'.$summonerId.'/topchampions', ['count' => $count], false, false);
 
         $mastery = new \LeagueWrap\Dto\ChampionMasteryList($response);
         $this->attachResponse($identity, $mastery, "championmastery");
@@ -101,7 +77,7 @@ class ChampionMastery extends AbstractApi
 
     public function score($identity) {
         $summonerId = $this->extractId($identity);
-        $response = $this->request('championmastery/location/'.'%1$s'.'/player/'.$summonerId.'/score', [], false, false, true);
+        $response = $this->request('player/'.$summonerId.'/score', [], false, false);
 
         $score = intval($response);
         $this->attachResponse($identity, $score, "score");

@@ -43,20 +43,12 @@ class Currentgame extends AbstractApi {
 	protected $defaultRemember = 900;
 
 	/**
-	 * @param array @platformIds platform ids for regions
+	 * @return String domain used for the request
 	 */
-	protected $platformIds = [
-		'na'   => 'NA1',
-		'euw'  => 'EUW1',
-		'br'   => 'BR1',
-		'lan'  => 'LA1',
-		'las'  => 'LA2',
-		'oce'  => 'OC1',
-		'eune' => 'EUN1',
-		'tr'   => 'TR1',
-		'ru'   => 'RU',
-		'kr'   => 'KR'
-	];
+	function getDomain()
+	{
+		return $this->getRegion()->getCurrentGameDomain();
+	}
 
 	/**
 	 * Gets the current game of summoner.
@@ -73,7 +65,7 @@ class Currentgame extends AbstractApi {
 	public function currentGame($identity)
 	{
 		$summonerId = $this->extractId($identity);
-		$response   = $this->request('consumer/getSpectatorGameInfo/'.'%1$s'.'/'.$summonerId, [], false, true);
+		$response   = $this->request($summonerId, [], false, false);
 		$game       = $this->attachStaticDataToDto(new CurrentGameDto($response));
 
 		$this->attachResponse($identity, $game, 'game');
@@ -81,19 +73,4 @@ class Currentgame extends AbstractApi {
 		return $game;
 	}
 
-	/**
-	 * Intercept client request to patch platform id into url (ugly hack!)
-	 *
-	 * @param bool $static
-	 * @param string $uri
-	 * @param array $params
-	 * @return string
-	 * @throws \LeagueWrap\Exception\LimitReachedException
-	 */
-	protected function clientRequest($static, $uri, $params)
-	{
-		$uri = sprintf($uri, $this->platformIds[$this->region->getRegion()]);
-
-		return parent::clientRequest($static, $uri, $params);
-	}
 }

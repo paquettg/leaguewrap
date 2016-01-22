@@ -63,6 +63,14 @@ class Summoner extends AbstractApi {
 	}
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Attempt to get a summoner by key.
 	 *
 	 * @param string $key

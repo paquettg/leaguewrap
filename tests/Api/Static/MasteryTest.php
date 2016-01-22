@@ -24,7 +24,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 				])->once()
 				->andReturn(file_get_contents('tests/Json/Static/mastery.json'));
@@ -40,7 +40,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 				])->once()
 				->andReturn(file_get_contents('tests/Json/Static/mastery.json'));
@@ -55,7 +55,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 						'locale' => 'ko_KR',
 				])->once()
@@ -73,7 +73,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery/6111', [
+				->with('v1.2/mastery/6111', [
 						'api_key' => 'key',
 				])->once()
 				->andReturn(file_get_contents('tests/Json/Static/mastery.6111.json'));
@@ -88,7 +88,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery/6111', [
+				->with('v1.2/mastery/6111', [
 						'api_key' => 'key',
 						'masteryData' => 'ranks',
 				])->once()
@@ -104,7 +104,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 				->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 						'masteryListData' => 'all',
 				])->once()
@@ -120,7 +120,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 	{
 		$this->client->shouldReceive('baseUrl')->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 						'masteryListData' => 'tree'
 				])->once()
@@ -138,7 +138,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 	{
 		$this->client->shouldReceive('baseUrl')->once();
 		$this->client->shouldReceive('request')
-				->with('na/v1.2/mastery', [
+				->with('v1.2/mastery', [
 						'api_key' => 'key',
 						'masteryListData' => 'all'
 				])->once()

@@ -22,7 +22,7 @@ class StaticProxyStaticTeamTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v2.4/team/by-summoner/492066', [
+		             ->with('v2.4/team/by-summoner/492066', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/team.492066.json'));

@@ -67,6 +67,14 @@ class Champion extends AbstractApi {
 	}
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Gets the information for a single champion
 	 *
 	 * @param int $championId

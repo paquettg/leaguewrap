@@ -23,7 +23,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+		             ->with('v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
@@ -38,7 +38,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+		             ->with('v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
@@ -53,12 +53,12 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+		             ->with('v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -74,13 +74,13 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+		             ->with('v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',
 						'season'  => 3,
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -98,7 +98,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/ranked', [
+		             ->with('v1.3/stats/by-summoner/74602/ranked', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.ranked.74602.season4.json'));
@@ -113,7 +113,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/ranked', [
+		             ->with('v1.3/stats/by-summoner/74602/ranked', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.ranked.74602.season4.json'));
@@ -128,7 +128,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/ranked', [
+		             ->with('v1.3/stats/by-summoner/74602/ranked', [
 						'api_key' => 'key',
 						'season'  => 3,
 		             ])->once()

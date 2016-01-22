@@ -22,7 +22,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     public function testChampions() {
         $this->client->shouldReceive('baseUrl')->once();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/EUW1/player/30447079/champions', [
+            ->with('player/30447079/champions', [
                 'api_key' => 'key'
             ])->once()
             ->andReturn(file_get_contents('tests/Json/championmastery.30447079.json'));
@@ -37,7 +37,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     public function testChampionId() {
         $this->client->shouldReceive('baseUrl')->once();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/EUW1/player/30447079/champion/1', [
+            ->with('player/30447079/champion/1', [
                 'api_key' => 'key'
             ])->once()
             ->andReturn(file_get_contents('tests/Json/championmastery.30447079.1.json'));
@@ -53,7 +53,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     public function testTopChampions() {
         $this->client->shouldReceive('baseUrl')->once();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/EUW1/player/30447079/topchampions', [
+            ->with('player/30447079/topchampions', [
                 'api_key' => 'key',
                 'count' => 3
             ])->once()
@@ -69,7 +69,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     public function testTopChampionsWithCount() {
         $this->client->shouldReceive('baseUrl')->once();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/EUW1/player/30447079/topchampions', [
+            ->with('player/30447079/topchampions', [
                 'api_key' => 'key',
                 'count' => 1
             ])->once()
@@ -85,7 +85,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     public function testScore() {
         $this->client->shouldReceive('baseUrl')->once();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/EUW1/player/30447079/score', [
+            ->with('player/30447079/score', [
                 'api_key' => 'key'
             ])->once()
             ->andReturn(100);
@@ -102,12 +102,12 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         $this->client->shouldReceive('baseUrl')
             ->twice();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/NA1/player/74602/score', [
+            ->with('player/74602/score', [
                 'api_key' => 'key'
             ])->once()
             ->andReturn(999);
         $this->client->shouldReceive('request')
-            ->with('na/v1.4/summoner/by-name/bakasan', [
+            ->with('v1.4/summoner/by-name/bakasan', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -122,12 +122,12 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         $this->client->shouldReceive('baseUrl')
             ->twice();
         $this->client->shouldReceive('request')
-            ->with('championmastery/location/NA1/player/74602/champions', [
+            ->with('player/74602/champions', [
                 'api_key' => 'key'
             ])->once()
             ->andReturn(file_get_contents('tests/Json/championmastery.30447079.topcount3.json'));
         $this->client->shouldReceive('request')
-            ->with('na/v1.4/summoner/by-name/bakasan', [
+            ->with('v1.4/summoner/by-name/bakasan', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));

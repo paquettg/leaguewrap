@@ -41,6 +41,14 @@ class League extends AbstractApi {
 	protected $defaultRemember = 43200;
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Gets the league information by summoner id or list of summoner ids. To only
 	 * get the single entry information for the summoner(s) ensure that $entry
 	 * is set to true.

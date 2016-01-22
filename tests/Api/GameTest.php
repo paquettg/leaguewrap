@@ -23,7 +23,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+		             ->with('v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
@@ -38,7 +38,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+		             ->with('v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
@@ -53,12 +53,12 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+		             ->with('v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -74,12 +74,12 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+		             ->with('v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -96,12 +96,12 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/game/by-summoner/74602/recent', [
+		             ->with('v1.3/game/by-summoner/74602/recent', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/game.recent.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));

@@ -40,6 +40,14 @@ class Match extends AbstractApi {
 	protected $defaultRemember = 1800;
 
 	/**
+	 * @return String domain used for the request
+	 */
+	function getDomain()
+	{
+		return $this->getRegion()->getDefaultDomain();
+	}
+
+	/**
 	 * Get the match by match id.
 	 *
 	 * @param int $matchId

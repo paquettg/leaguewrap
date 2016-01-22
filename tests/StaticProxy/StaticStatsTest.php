@@ -22,7 +22,7 @@ class StaticProxyStaticStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/summary', [
+		             ->with('v1.3/stats/by-summoner/74602/summary', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.summary.74602.season4.json'));
@@ -37,7 +37,7 @@ class StaticProxyStaticStatsTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.3/stats/by-summoner/74602/ranked', [
+		             ->with('v1.3/stats/by-summoner/74602/ranked', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/stats.ranked.74602.season4.json'));

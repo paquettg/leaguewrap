@@ -23,7 +23,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
         $this->client->shouldReceive('baseUrl')
             ->once();
         $this->client->shouldReceive('request')
-            ->with('na/v2.2/matchlist/by-summoner/74602', [
+            ->with('v2.2/matchlist/by-summoner/74602', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/matchlist.74602.json'));
@@ -41,7 +41,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
         $this->client->shouldReceive('baseUrl')
             ->once();
         $this->client->shouldReceive('request')
-            ->with('na/v2.2/matchlist/by-summoner/74602', [
+            ->with('v2.2/matchlist/by-summoner/74602', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/matchlist.74602.json'));
@@ -56,12 +56,12 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
         $this->client->shouldReceive('baseUrl')
             ->twice();
         $this->client->shouldReceive('request')
-            ->with('na/v2.2/matchlist/by-summoner/74602', [
+            ->with('v2.2/matchlist/by-summoner/74602', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/matchlist.74602.json'));
         $this->client->shouldReceive('request')
-            ->with('na/v1.4/summoner/by-name/bakasan', [
+            ->with('v1.4/summoner/by-name/bakasan', [
                 'api_key' => 'key',
             ])->once()
             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -79,7 +79,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
         $this->client->shouldReceive('baseUrl')
             ->once();
         $this->client->shouldReceive('request')
-            ->with('na/v2.2/matchlist/by-summoner/74602', [
+            ->with('v2.2/matchlist/by-summoner/74602', [
                 'api_key' => 'key',
                 'rankedQueues' => 'RANKED_SOLO_5x5',
                 'seasons' => 'SEASON2015',

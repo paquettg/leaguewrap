@@ -23,7 +23,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
@@ -40,7 +40,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
@@ -56,7 +56,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('tr/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
@@ -74,7 +74,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner-spell/1', [
+		             ->with('v1.2/summoner-spell/1', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/summonerspell.1.json'));
@@ -89,7 +89,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'   => 'key',
 						'dataById'  => 'true',
 						'spellData' => 'all',

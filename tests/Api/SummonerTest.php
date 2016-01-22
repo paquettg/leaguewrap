@@ -23,7 +23,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
@@ -38,7 +38,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -54,7 +54,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -68,14 +68,15 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testInfoMixed()
 	{
 		$this->client->shouldReceive('baseUrl')
-		             ->twice();
+		            ->with('https://na.api.pvp.net/api/lol/na/')
+					->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/7024,97235', [
+		             ->with('v1.4/summoner/7024,97235', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.7024,97235.json'));
@@ -94,12 +95,12 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/1337', [
+		             ->with('v1.4/summoner/by-name/1337', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.1337.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -148,7 +149,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/name', [
+		             ->with('v1.4/summoner/74602/name', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.name.74602.json'));
@@ -163,7 +164,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602,7024,97235/name', [
+		             ->with('v1.4/summoner/74602,7024,97235/name', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.name.74602,7024,97235.json'));
@@ -182,7 +183,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/runes', [
+		             ->with('v1.4/summoner/74602/runes', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
@@ -197,7 +198,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/runes', [
+		             ->with('v1.4/summoner/74602/runes', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
@@ -212,12 +213,12 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/runes', [
+		             ->with('v1.4/summoner/74602/runes', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -233,12 +234,12 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/97235,7024/runes', [
+		             ->with('v1.4/summoner/97235,7024/runes', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.7024,97235.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/7024,97235', [
+		             ->with('v1.4/summoner/7024,97235', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.7024,97235.json'));
@@ -257,7 +258,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/masteries', [
+		             ->with('v1.4/summoner/74602/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
@@ -272,7 +273,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/masteries', [
+		             ->with('v1.4/summoner/74602/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
@@ -287,7 +288,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('br/v1.4/summoner/401129,1234567823/masteries', [
+		             ->with('v1.4/summoner/401129,1234567823/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.401129.1234567823.br.json'));
@@ -302,12 +303,12 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/masteries', [
+		             ->with('v1.4/summoner/74602/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -323,12 +324,12 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->times(2);
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/97235,7024/masteries', [
+		             ->with('v1.4/summoner/97235,7024/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.7024,97235.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/7024,97235', [
+		             ->with('v1.4/summoner/7024,97235', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.7024,97235.json'));
@@ -347,17 +348,17 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->times(3);
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/masteries', [
+		             ->with('v1.4/summoner/74602/masteries', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.masteries.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602/runes', [
+		             ->with('v1.4/summoner/74602/runes', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.runes.74602.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/74602', [
+		             ->with('v1.4/summoner/74602', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/summoner.74602.json'));
@@ -376,7 +377,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(new LeagueWrap\Response('', 404));

@@ -23,7 +23,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -40,7 +40,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -57,13 +57,13 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/champion.free.json'));
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -79,7 +79,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -101,7 +101,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -117,7 +117,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -133,7 +133,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion/10', [
+		             ->with('v1.2/champion/10', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/champion.10.json'));
@@ -148,7 +148,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion/10', [
+		             ->with('v1.2/champion/10', [
 						'api_key' => 'key',
 		             ])->twice()
 		             ->andReturn(file_get_contents('tests/Json/champion.10.json'),
@@ -163,9 +163,9 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->client->shouldReceive('baseUrl')
 		             ->once()
-		             ->with('https://kr.api.pvp.net/api/lol/');
+		             ->with('https://kr.api.pvp.net/api/lol/kr/');
 		$this->client->shouldReceive('request')
-		             ->with('kr/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
@@ -182,16 +182,16 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->client->shouldReceive('baseUrl')
 		             ->once()
-		             ->with('https://ru.api.pvp.net/api/lol/');
+		             ->with('https://ru.api.pvp.net/api/lol/ru/');
 		$this->client->shouldReceive('request')
-		             ->with('ru/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/champion.ru.json'));
 
 		$api = new Api('key', $this->client);
-		$api->setRegion('RU');
+		$api->setRegion('ru');
 		$champion  = $api->champion();
 		$champions = $champion->all();
 		$this->assertTrue($champions->getChampion(53) instanceof LeagueWrap\Dto\Champion);
@@ -206,7 +206,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'false',
 						'api_key'    => 'key',
 		             ])->once()

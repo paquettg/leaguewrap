@@ -23,21 +23,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$champions = file_get_contents('tests/Json/champion.free.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with('4be3fe5c15c888d40a1793190d77166b', $champions, 60)
+		            ->with('39a7ac3476de98ba9d05b2d6824c5d03', $champions, 60)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->with('39a7ac3476de98ba9d05b2d6824c5d03')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->with('39a7ac3476de98ba9d05b2d6824c5d03')
 		            ->andReturn($champions);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'freeToPlay' => 'true',
 						'api_key'    => 'key',
 		             ])->once()
@@ -62,13 +62,13 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('3edf33d12f4be66653c05dd30c42e32c')
+		            ->with('ce0ca052a398f2b25f35da9596372146')
 		            ->andReturn(false, true);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/champion/10101', [
+		             ->with('v1.2/champion/10101', [
 						'api_key'    => 'key',
 		             ])->once()
 		             ->andReturn(new LeagueWrap\Response(file_get_contents('tests/Json/champion.json'), 404));
@@ -84,7 +84,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		{
 			$this->cache->shouldReceive('get')
 		            	->once()
-		            	->with('3edf33d12f4be66653c05dd30c42e32c')
+		            	->with('ce0ca052a398f2b25f35da9596372146')
 		            	->andReturn($exception);
 			$champion->championById(10101);
 		}
@@ -95,11 +95,11 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$champions = file_get_contents('tests/Json/champion.free.json');
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->with('39a7ac3476de98ba9d05b2d6824c5d03')
 		            ->andReturn(true);
 		$this->cache->shouldReceive('get')
 		            ->twice()
-		            ->with('4be3fe5c15c888d40a1793190d77166b')
+		            ->with('39a7ac3476de98ba9d05b2d6824c5d03')
 		            ->andReturn($champions);
 
 		$this->client->shouldReceive('baseUrl')
@@ -122,7 +122,7 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
 		$this->cache->shouldReceive('has')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false);
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
@@ -138,21 +138,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$bakasan = file_get_contents('tests/Json/summoner.bakasan.json');
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', $bakasan, 10)
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b', $bakasan, 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn($bakasan);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn($bakasan);
@@ -171,21 +171,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$exception = new LeagueWrap\Response\Http404('', 404);
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', m::any(), 10)
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b', m::any(), 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn($exception);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn($response);
@@ -212,13 +212,13 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$response = new LeagueWrap\Response('', 404);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false, false);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->twice()
 		             ->andReturn($response);
@@ -248,21 +248,21 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 
 		$this->cache->shouldReceive('set')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2', m::any(), 10)
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b', m::any(), 10)
 		            ->andReturn(true);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false, true);
 		$this->cache->shouldReceive('get')
 		            ->once()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn($exception);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn($response);
@@ -292,13 +292,13 @@ class CacheTest extends PHPUnit_Framework_TestCase {
 		$exception = new LeagueWrap\Response\Http500('', 500);
 		$this->cache->shouldReceive('has')
 		            ->twice()
-		            ->with('9bd8e5b11e0ac9c0a52d5711c9057dd2')
+		            ->with('6afe3618f432d7b6a98336b85ae1e04b')
 		            ->andReturn(false, false);
 
 		$this->client->shouldReceive('baseUrl')
 		             ->twice();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.4/summoner/by-name/bakasan', [
+		             ->with('v1.4/summoner/by-name/bakasan', [
 						'api_key' => 'key',
 		             ])->twice()
 		             ->andReturn($response);

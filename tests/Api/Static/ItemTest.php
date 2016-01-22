@@ -23,7 +23,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/items.json'));
@@ -39,7 +39,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/items.json'));
@@ -54,7 +54,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key' => 'key',
 						'locale'  => 'ko_KR',
 		             ])->once()
@@ -72,7 +72,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item/1051', [
+		             ->with('v1.2/item/1051', [
 						'api_key' => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/item.1051.json'));
@@ -87,7 +87,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item/1051', [
+		             ->with('v1.2/item/1051', [
 						'api_key'  => 'key',
 						'itemData' => 'gold',
 		             ])->once()
@@ -102,7 +102,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key'      => 'key',
 						'itemListData' => 'all',
 		             ])->once()
@@ -119,7 +119,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-		             ->with('na/v1.2/item', [
+		             ->with('v1.2/item', [
 						'api_key'      => 'key',
 						'itemListData' => 'gold,image',
 		             ])->once()

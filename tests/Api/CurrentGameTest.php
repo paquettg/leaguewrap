@@ -24,7 +24,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 		             ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -40,7 +40,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -63,7 +63,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -81,7 +81,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -98,7 +98,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -117,7 +117,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->once();
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
@@ -136,29 +136,29 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 		$this->client->shouldReceive('baseUrl')
 			         ->times(5);
 		$this->client->shouldReceive('request')
-			         ->with('consumer/getSpectatorGameInfo/EUW1/30447079', [
+			         ->with('30447079', [
 						'api_key' => 'key',
 			         ])->once()
 			         ->andReturn(file_get_contents('tests/Json/currentgame.30447079.json'));
 		$this->client->shouldReceive('request')
-		             ->with('euw/v1.2/champion', [
+		             ->with('v1.2/champion', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/champion.euw.json'));
 		$this->client->shouldReceive('request')
-		             ->with('euw/v1.2/summoner-spell', [
+		             ->with('v1.2/summoner-spell', [
 						'api_key'  => 'key',
 						'dataById' => 'true',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/summonerspell.euw.json'));
 		$this->client->shouldReceive('request')
-		             ->with('euw/v1.2/mastery', [
+		             ->with('v1.2/mastery', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/mastery.euw.json'));
 		$this->client->shouldReceive('request')
-		             ->with('euw/v1.2/rune', [
+		             ->with('v1.2/rune', [
 						'api_key'  => 'key',
 		             ])->once()
 		             ->andReturn(file_get_contents('tests/Json/Static/rune.euw.json'));
