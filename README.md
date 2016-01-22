@@ -561,6 +561,20 @@ The documentation for the Static Data Api is not complete but it is fully functi
 $staticData = $api->staticData();
 ```
 
+Status
+-----------
+
+The documentation for the Status Api is not complete but it is fully functional.
+
+```php
+$status = $api->status();
+$shardStatus = $status->shardStatus('euw');
+$service = $shardStatus->getService('Game');
+if(sizeof($service->incidents) > 0)
+    echo "There are incidents";
+```
+
+
 Disclaimer
 ----------
 
