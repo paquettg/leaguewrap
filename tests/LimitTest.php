@@ -60,6 +60,7 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testSingleFileLimit()
 	{
+		$this->skipIfWindows();
 		$this->limit1->shouldReceive('isValid')
 		             ->once()
 		             ->andReturn(false);
@@ -233,5 +234,13 @@ class LimitTest extends PHPUnit_Framework_TestCase {
 		$champion = $api->champion();
 		$info = $champion->free();
 		$this->assertTrue(is_array($info->champions));
+	}
+
+	/**
+	 * marks the test as skipped on windows machines
+	 */
+	public function skipIfWindows() {
+		if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')
+			$this->markTestSkipped("FileLimit does not work on windows");
 	}
 }

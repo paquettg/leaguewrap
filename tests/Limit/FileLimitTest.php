@@ -13,6 +13,7 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 
 	public function testHit()
 	{
+        $this->skipIfWindows();
 		$limit = new FileLimit;
 		$limit->setRate(10, 10, 'ru');
 		$status = $limit->hit();
@@ -21,6 +22,7 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 
 	public function testHitRemaining()
 	{
+        $this->skipIfWindows();
 		$limit = new FileLimit;
 		$limit->setRate(10, 10, 'eune');
 		$limit->hit();
@@ -29,6 +31,7 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 
 	public function testHitFour()
 	{
+        $this->skipIfWindows();
 		$limit = new FileLimit;
 		$limit->setRate(10, 10, 'euw');
 		$status = $limit->hit(4);
@@ -37,6 +40,7 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 
 	public function testHitFourRemaining()
 	{
+        $this->skipIfWindows();
 		$limit = new FileLimit;
 		$limit->setRate(10, 10, 'br');
 		$limit->hit(4);
@@ -58,10 +62,19 @@ class LimitFileLimitTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testTimeRunOut()
-	{
+    {
+        $this->skipIfWindows();
 		$limit = new FileLimit;
 		$limit->setRate(8, 0, 'euna');
 		$limit->hit(8);
 		$this->assertEquals(8, $limit->remaining());
 	}
+
+    /**
+    * marks the test as skipped on windows machines
+    */
+    public function skipIfWindows() {
+	    if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')
+		    $this->markTestSkipped("FileLimit does not work on windows");
+    }
 }
