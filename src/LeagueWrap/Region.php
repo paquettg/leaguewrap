@@ -52,6 +52,8 @@ class Region {
 
 	protected $championMasteryDomain = 'https://%s.api.pvp.net/championmastery/location/%s/';
 
+	protected $statusDomain = 'http://status.leagueoflegends.com/';
+
 	/**
 	 * @param $region
 	 */
@@ -108,6 +110,11 @@ class Region {
 	public function getChampionMasteryDomain()
 	{
 		return sprintf($this->championMasteryDomain, $this->getRegion(), $this->getPlatformId());
+	}
+
+	public function getStatusDomain()
+	{
+		return $this->statusDomain;
 	}
 
 	/**

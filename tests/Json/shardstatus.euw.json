@@ -1,0 +1,77 @@
+{
+  "name": "EU West",
+  "slug": "euw",
+  "locales": [
+    "en_GB",
+    "de_DE",
+    "es_ES",
+    "fr_FR",
+    "it_IT"
+  ],
+  "hostname": "prod.euw1.lol.riotgames.com",
+  "region_tag": "eu",
+  "services": [
+    {
+      "name": "Client",
+      "slug": "client",
+      "status": "online",
+      "incidents": []
+    },
+    {
+      "name": "Game",
+      "slug": "game",
+      "status": "online",
+      "incidents": [
+        {
+          "id": 3773,
+          "active": true,
+          "created_at": "2016-01-20T16:04:17.000Z",
+          "updates": [
+            {
+              "id": 4310,
+              "author": "Riot Masima",
+              "content": "Solo/Duo Queue will be enabled while we triage technical issues on Dynamic Queue. Ranked placement and rating will carry over between the queues.",
+              "severity": "info",
+              "created_at": "2016-01-20T16:04:59.000Z",
+              "updated_at": "2016-01-20T16:06:11.000Z",
+              "translations": [
+                {
+                  "locale": "de_DE",
+                  "content": "Solo/Duo Queue wird vorÃ¼bergehend aktiviert wÃ¤hrend wir uns mit einem technischen Problem bei der Dynamischen Warteschlange befassen. Die derzeitige Ranglistenplatzierung und der Stand der Einstufungsspiele wird Ã¼bertragen.",
+                  "updated_at": "2016-01-20T18:24:25.000Z"
+                },
+                {
+                  "locale": "es_ES",
+                  "content": "Activaremos la Cola Solo/DÃºo mientras investigamos los problemas tÃ©cnicos con la Cola DinÃ¡mica. Los posicionamientos y resultados de las clasificatorias serÃ¡n compatibles entre ambas colas.",
+                  "updated_at": "2016-01-20T17:40:48.000Z"
+                },
+                {
+                  "locale": "fr_FR",
+                  "content": "La file classÃ©e Solo/Duo sera ouverte pendant que nous travaillons sur des soucis techniques concernant la file dynamique (la nouvelle file de classÃ©es). Les placements et MMR dÃ©pendent de vos rÃ©sultats sur les deux files confondues.",
+                  "updated_at": "2016-01-20T17:56:24.000Z"
+                },
+                {
+                  "locale": "it_IT",
+                  "content": "Le code Solo/Duo saranno abilitate mentre stiamo investigando i problemi tecnici sulle code dinamiche. I piazzamenti e le classifiche saranno presenti nelle code.",
+                  "updated_at": "2016-01-20T17:57:07.000Z"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Store",
+      "slug": "store",
+      "status": "online",
+      "incidents": []
+    },
+    {
+      "name": "Website",
+      "slug": "web",
+      "status": "online",
+      "incidents": []
+    }
+  ]
+}
