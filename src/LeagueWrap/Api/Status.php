@@ -47,6 +47,13 @@ class Status extends AbstractApi
 		return $this->getRegion()->getStatusDomain();
 	}
 
+	/**
+	 * @return ShardList A list of all available shards
+	 * @throws \LeagueWrap\Exception\CacheNotFoundException
+	 * @throws \LeagueWrap\Exception\RegionException
+	 * @throws \LeagueWrap\Response\HttpClientError
+	 * @throws \LeagueWrap\Response\HttpServerError
+	 */
 	public function shards()
 	{
 		$response = $this->request('shards', [], true, false);
@@ -54,6 +61,14 @@ class Status extends AbstractApi
 
 	}
 
+	/**
+	 * @param null|String $region if no region is passed, the api region will be used
+	 * @return ShardStatus Detailed status updates for the given region
+	 * @throws \LeagueWrap\Exception\CacheNotFoundException
+	 * @throws \LeagueWrap\Exception\RegionException
+	 * @throws \LeagueWrap\Response\HttpClientError
+	 * @throws \LeagueWrap\Response\HttpServerError
+	 */
 	public function shardStatus($region = null)
 	{
 		if (!isset($region))
