@@ -21,7 +21,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGame()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 		             ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -37,7 +37,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGameGetBan()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -60,7 +60,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGameObserver()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -78,7 +78,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGameParticipant()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -95,7 +95,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGameParticipantMasteries()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -114,7 +114,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testCurrentGameParticipantRunes()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
@@ -133,8 +133,11 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 
 	public function testAttachStaticData()
 	{
-		$this->client->shouldReceive('baseUrl')
-			         ->times(5);
+		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
+			         ->once();
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+			->times(4);
+
 		$this->client->shouldReceive('request')
 			         ->with('30447079', [
 						'api_key' => 'key',

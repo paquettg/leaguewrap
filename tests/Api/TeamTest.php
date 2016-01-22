@@ -20,7 +20,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeam()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/492066', [
@@ -47,7 +47,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/492066', [
@@ -63,7 +63,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamRosterArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/492066', [
@@ -79,7 +79,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/492066', [
@@ -100,7 +100,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamSummonerMember()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/492066', [
@@ -121,7 +121,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamMultiple()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.4/team/by-summoner/18991200,492066', [
@@ -139,7 +139,7 @@ class ApiTeamTest extends PHPUnit_Framework_TestCase {
 
 	public function testTeamSummonerMultiple()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/18991200,492066', [

@@ -20,7 +20,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 	public function testRecent()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/game/by-summoner/74602/recent', [
@@ -35,7 +35,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 	public function testRecentArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/game/by-summoner/74602/recent', [
@@ -50,7 +50,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 	public function testRecentSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/game/by-summoner/74602/recent', [
@@ -71,7 +71,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 	public function testRecentStatsSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/game/by-summoner/74602/recent', [
@@ -93,7 +93,7 @@ class ApiGameTest extends PHPUnit_Framework_TestCase {
 
 	public function testRecentStatsSummonerRaw()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/game/by-summoner/74602/recent', [

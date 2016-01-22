@@ -20,7 +20,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeague()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/272354', [
@@ -47,7 +47,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/272354', [
@@ -68,7 +68,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueSummonerEntry()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/272354', [
@@ -90,7 +90,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueEntryArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/272354', [
@@ -106,7 +106,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueSummonerPlayerOrTeam()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/272354', [
@@ -128,7 +128,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueMultiple()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/74602,272354', [
@@ -146,7 +146,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testLeagueMultipleSummoners()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602,272354,7024', [
@@ -171,7 +171,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testEntry()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/by-summoner/74602/entry', [
@@ -186,7 +186,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testEntrySummoners()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602,272354,7024', [
@@ -211,7 +211,7 @@ class ApiLeagueTest extends PHPUnit_Framework_TestCase {
 
 	public function testChallenger()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v2.5/league/challenger', [

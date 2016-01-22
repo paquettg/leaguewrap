@@ -20,7 +20,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
 
     public function testMatchList()
     {
-        $this->client->shouldReceive('baseUrl')
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
             ->once();
         $this->client->shouldReceive('request')
             ->with('v2.2/matchlist/by-summoner/74602', [
@@ -38,7 +38,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
 
     public function testMatchListArrayAccess()
     {
-        $this->client->shouldReceive('baseUrl')
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
             ->once();
         $this->client->shouldReceive('request')
             ->with('v2.2/matchlist/by-summoner/74602', [
@@ -53,7 +53,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
 
     public function testListSummoner()
     {
-        $this->client->shouldReceive('baseUrl')
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
             ->twice();
         $this->client->shouldReceive('request')
             ->with('v2.2/matchlist/by-summoner/74602', [
@@ -76,7 +76,7 @@ class MatchListTest extends PHPUnit_Framework_TestCase {
     {
         $startTime = 1283846202;
         $endTime = 1283846202 + 1000;
-        $this->client->shouldReceive('baseUrl')
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
             ->once();
         $this->client->shouldReceive('request')
             ->with('v2.2/matchlist/by-summoner/74602', [

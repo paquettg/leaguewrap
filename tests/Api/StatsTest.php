@@ -20,7 +20,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testSummary()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/summary', [
@@ -35,7 +35,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testSummaryArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/summary', [
@@ -50,7 +50,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testSummarySummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/summary', [
@@ -71,7 +71,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testSummonerySummonerSeason()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/summary', [
@@ -95,7 +95,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testRanked()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/ranked', [
@@ -110,7 +110,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testRankedArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/ranked', [
@@ -125,7 +125,7 @@ class ApiStatsTest extends PHPUnit_Framework_TestCase {
 
 	public function testRankedArrayAccessSeason()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.3/stats/by-summoner/74602/ranked', [

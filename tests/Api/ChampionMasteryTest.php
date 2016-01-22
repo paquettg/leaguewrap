@@ -10,7 +10,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $client       = m::mock('LeagueWrap\Client');
+        $client = m::mock('LeagueWrap\Client');
         $this->client = $client;
     }
 
@@ -19,8 +19,11 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function testChampions() {
-        $this->client->shouldReceive('baseUrl')->once();
+    public function testChampions()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://euw.api.pvp.net/championmastery/location/EUW1/')
+            ->once();
         $this->client->shouldReceive('request')
             ->with('player/30447079/champions', [
                 'api_key' => 'key'
@@ -34,8 +37,10 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($championMasteries instanceof \LeagueWrap\Dto\ChampionMasteryList);
     }
 
-    public function testChampionId() {
-        $this->client->shouldReceive('baseUrl')->once();
+    public function testChampionId()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://euw.api.pvp.net/championmastery/location/EUW1/')->once();
         $this->client->shouldReceive('request')
             ->with('player/30447079/champion/1', [
                 'api_key' => 'key'
@@ -50,8 +55,10 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testTopChampions() {
-        $this->client->shouldReceive('baseUrl')->once();
+    public function testTopChampions()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://euw.api.pvp.net/championmastery/location/EUW1/')->once();
         $this->client->shouldReceive('request')
             ->with('player/30447079/topchampions', [
                 'api_key' => 'key',
@@ -66,8 +73,10 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($championMastery instanceof \LeagueWrap\Dto\ChampionMasteryList);
     }
 
-    public function testTopChampionsWithCount() {
-        $this->client->shouldReceive('baseUrl')->once();
+    public function testTopChampionsWithCount()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://euw.api.pvp.net/championmastery/location/EUW1/')->once();
         $this->client->shouldReceive('request')
             ->with('player/30447079/topchampions', [
                 'api_key' => 'key',
@@ -82,8 +91,10 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($championMastery instanceof \LeagueWrap\Dto\ChampionMasteryList);
     }
 
-    public function testScore() {
-        $this->client->shouldReceive('baseUrl')->once();
+    public function testScore()
+    {
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://euw.api.pvp.net/championmastery/location/EUW1/')->once();
         $this->client->shouldReceive('request')
             ->with('player/30447079/score', [
                 'api_key' => 'key'
@@ -98,9 +109,14 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testScoreAttachResponse() {
+    public function testScoreAttachResponse()
+    {
         $this->client->shouldReceive('baseUrl')
-            ->twice();
+            ->with('https://na.api.pvp.net/api/lol/na/')
+            ->once();
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://na.api.pvp.net/championmastery/location/NA1/')
+            ->once();
         $this->client->shouldReceive('request')
             ->with('player/74602/score', [
                 'api_key' => 'key'
@@ -112,15 +128,20 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
             ])->once()
             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
-        $api     = new Api('key', $this->client);
+        $api = new Api('key', $this->client);
         $bakasan = $api->summoner()->info('bakasan');
         $api->championMastery()->score($bakasan);
         $this->assertTrue($bakasan->score == 999);
     }
 
-        public function testChampionsAttachResponse() {
+    public function testChampionsAttachResponse()
+    {
         $this->client->shouldReceive('baseUrl')
-            ->twice();
+            ->with('https://na.api.pvp.net/api/lol/na/')
+            ->once();
+        $this->client->shouldReceive('baseUrl')
+            ->with('https://na.api.pvp.net/championmastery/location/NA1/')
+            ->once();
         $this->client->shouldReceive('request')
             ->with('player/74602/champions', [
                 'api_key' => 'key'
@@ -132,7 +153,7 @@ class ChampionMasteryTest extends PHPUnit_Framework_TestCase
             ])->once()
             ->andReturn(file_get_contents('tests/Json/summoner.bakasan.json'));
 
-        $api     = new Api('key', $this->client);
+        $api = new Api('key', $this->client);
         $bakasan = $api->summoner()->info('bakasan');
         $api->championMastery()->champions($bakasan);
         $this->assertTrue($bakasan->championmastery instanceof \LeagueWrap\Dto\ChampionMasteryList);

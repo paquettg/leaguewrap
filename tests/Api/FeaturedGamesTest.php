@@ -21,7 +21,7 @@ class FeaturedGamesTest extends PHPUnit_Framework_TestCase
 
 	public function testFeaturedGames()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/observer-mode/rest/')
 		             ->once()
 		             ->with('https://na.api.pvp.net/observer-mode/rest/');
 		$this->client->shouldReceive('request')
