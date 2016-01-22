@@ -20,7 +20,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSummonerSpellDefault()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/summoner-spell', [
@@ -37,7 +37,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 
 	public function testArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/summoner-spell', [
@@ -53,7 +53,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSummonerSpellRegionTR()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/summoner-spell', [
@@ -71,7 +71,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSummonerSpellById()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/summoner-spell/1', [
@@ -86,7 +86,7 @@ class StaticSummonerSpellTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetSummonerSpellAll()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/summoner-spell', [

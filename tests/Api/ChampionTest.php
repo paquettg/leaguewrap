@@ -20,7 +20,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testAll()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -37,7 +37,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testAllArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -54,7 +54,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testFreeWillNotBeStoredPermanently() 
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -76,7 +76,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testAllIterator()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -98,7 +98,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testFree()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -114,7 +114,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testFreeCountable()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -130,7 +130,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testChampionById()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion/10', [
@@ -145,8 +145,10 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testChampionByIdWithStaticImport()
 	{
-		$this->client->shouldReceive('baseUrl')
-		             ->twice();
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
+		             ->once();
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+			->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion/10', [
 						'api_key' => 'key',
@@ -161,7 +163,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testAllRegionKR()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://kr.api.pvp.net/api/lol/kr/')
 		             ->once()
 		             ->with('https://kr.api.pvp.net/api/lol/kr/');
 		$this->client->shouldReceive('request')
@@ -203,7 +205,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testAllBadRquest()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [

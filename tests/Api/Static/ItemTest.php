@@ -20,7 +20,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemDefault()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item', [
@@ -36,7 +36,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item', [
@@ -51,7 +51,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemRegionKR()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item', [
@@ -69,7 +69,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemById()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item/1051', [
@@ -84,7 +84,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemGold()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item/1051', [
@@ -99,7 +99,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemAll()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item', [
@@ -116,7 +116,7 @@ class StaticItemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetItemArray()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/item', [

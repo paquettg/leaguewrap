@@ -20,7 +20,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetChampionDefault()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -37,7 +37,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -53,7 +53,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetChampionRegionFR()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -72,7 +72,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetChampionById()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion/266', [
@@ -90,7 +90,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
     public function testGetChampionByIdTags()
     {
-        $this->client->shouldReceive('baseUrl')
+        $this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
             ->once();
         $this->client->shouldReceive('request')
             ->with('v1.2/champion/266', [
@@ -106,7 +106,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetChampionTags()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -126,7 +126,7 @@ class StaticChampionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetChampionAll()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [

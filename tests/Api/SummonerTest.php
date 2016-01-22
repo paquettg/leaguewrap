@@ -20,7 +20,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfo()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/by-name/bakasan', [
@@ -35,7 +35,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfoId()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602', [
@@ -51,7 +51,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfoGetNull()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602', [
@@ -67,7 +67,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfoMixed()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		            ->with('https://na.api.pvp.net/api/lol/na/')
 					->twice();
 		$this->client->shouldReceive('request')
@@ -92,7 +92,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testInfoDistinguishesBetweenIntegerIdsAndNumericNames()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/by-name/1337', [
@@ -146,7 +146,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testName()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/name', [
@@ -161,7 +161,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testNameArray()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602,7024,97235/name', [
@@ -180,7 +180,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testRunes()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/runes', [
@@ -195,7 +195,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testRuneArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/runes', [
@@ -210,7 +210,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testRunesSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/runes', [
@@ -231,7 +231,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testRunesSummonerArray()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/97235,7024/runes', [
@@ -255,7 +255,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testMasteries()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/masteries', [
@@ -270,7 +270,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testMasteriesArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/masteries', [
@@ -285,7 +285,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testMasteriesArrayOnlyOneMasterySummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://br.api.pvp.net/api/lol/br/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/401129,1234567823/masteries', [
@@ -300,7 +300,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testMasteriesSummoner()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->twice();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/masteries', [
@@ -321,7 +321,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testMasteriesSummonerArray()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->times(2);
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/97235,7024/masteries', [
@@ -345,7 +345,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 
 	public function testAllInfo()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->times(3);
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/74602/masteries', [
@@ -374,7 +374,7 @@ class ApiSummonerTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testInfoSummonerNotFound()
 	{
-		$this->client->shouldReceive('baseUrl')
+		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.4/summoner/by-name/bakasan', [
