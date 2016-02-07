@@ -5,7 +5,7 @@ namespace LeagueWrap\Api;
 
 use LeagueWrap\Dto\ChampionMasteryList;
 
-class ChampionMastery extends AbstractApi
+class Championmastery extends AbstractApi
 {
 
     /**
