@@ -42,6 +42,7 @@ class Summoner extends AbstractApi {
 		'ru',
 		'tr',
 		'kr',
+		'jp'
 	];
 
 	/**

@@ -30,6 +30,7 @@ class Game extends AbstractApi {
 		'kr',
 		'ru',
 		'tr',
+		'jp'
 	];
 
 	/**

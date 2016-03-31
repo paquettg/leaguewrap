@@ -56,6 +56,7 @@ class Staticdata extends AbstractApi {
 		'oce',
 		'ru',
 		'tr',
+		'jp'
 	];
 
 	/**
