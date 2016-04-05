@@ -38,6 +38,7 @@ class Team extends AbstractApi {
 		'ru',
 		'tr',
 		'kr',
+		'jp'
 	];
 
 	/**

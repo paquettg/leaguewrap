@@ -30,6 +30,7 @@ class Featuredgames extends AbstractApi {
 		'ru',
 		'tr',
 		'kr',
+		'jp'
 	];
 
 	/**

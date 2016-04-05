@@ -30,6 +30,7 @@ class Match extends AbstractApi {
 		'kr',
 		'ru',
 		'tr',
+		'jp'
 	];
 
 	/**
