@@ -23,7 +23,8 @@ class Region {
 		'eune' => 'EUN1',
 		'tr'   => 'TR1',
 		'ru'   => 'RU',
-		'kr'   => 'KR'
+		'kr'   => 'KR',
+		'jp'   => 'JP1'
 	];
 
 	/**
