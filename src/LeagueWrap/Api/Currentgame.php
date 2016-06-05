@@ -33,6 +33,7 @@ class Currentgame extends AbstractApi {
 		'ru',
 		'tr',
 		'kr',
+		'jp'
 	];
 
 	/**
