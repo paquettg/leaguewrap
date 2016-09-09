@@ -147,7 +147,7 @@ class ApiChampionTest extends PHPUnit_Framework_TestCase {
 	{
 		$this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
 		             ->once();
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 			->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion/10', [

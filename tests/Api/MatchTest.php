@@ -41,7 +41,7 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
             ->with('https://na.api.pvp.net/api/lol/na/')
             ->once();
         $this->client->shouldReceive('baseUrl')
-            ->with('https://global.api.pvp.net/api/lol/static-data/')
+            ->with('https://global.api.pvp.net/api/lol/static-data/na/')
             ->times(3);
         $this->client->shouldReceive('request')
             ->with('v2.2/match/1399898747', [

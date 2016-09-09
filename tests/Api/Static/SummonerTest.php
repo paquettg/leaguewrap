@@ -21,7 +21,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testGetChampionDefault()
 	{
 		$this->client->shouldReceive('baseUrl')
-				     ->with('https://global.api.pvp.net/api/lol/static-data/')
+				     ->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -39,7 +39,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testGetChampionRegionFR()
 	{
 		$this->client->shouldReceive('baseUrl')
-			         ->with('https://global.api.pvp.net/api/lol/static-data/')
+			         ->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -59,7 +59,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testGetChampionById()
 	{
 		$this->client->shouldReceive('baseUrl')
-					 ->with('https://global.api.pvp.net/api/lol/static-data/')
+					 ->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion/266', [
@@ -77,7 +77,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testGetChampionTags()
 	{
 		$this->client->shouldReceive('baseUrl')
-					 ->with('https://global.api.pvp.net/api/lol/static-data/')
+					 ->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [
@@ -98,7 +98,7 @@ class StaticSummonerTest extends PHPUnit_Framework_TestCase {
 	public function testGetChampionAll()
 	{
 		$this->client->shouldReceive('baseUrl')
-					 ->with('https://global.api.pvp.net/api/lol/static-data/')
+					 ->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/champion', [

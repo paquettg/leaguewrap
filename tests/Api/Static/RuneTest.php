@@ -20,7 +20,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRuneDefault()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune', [
@@ -36,7 +36,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune', [
@@ -51,7 +51,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRuneRegionKR()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/kr/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune', [
@@ -68,7 +68,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRuneById()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune/5267', [
@@ -83,7 +83,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRuneImage()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune/5001', [
@@ -99,7 +99,7 @@ class StaticRuneTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetRuneAll()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 		             ->once();
 		$this->client->shouldReceive('request')
 		             ->with('v1.2/rune', [
