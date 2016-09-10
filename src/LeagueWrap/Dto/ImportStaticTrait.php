@@ -19,6 +19,8 @@ trait ImportStaticTrait {
 		];
 		foreach ($this->staticFields as $field => $data)
 		{
+			if( !isset($this->info[$field]) )
+				continue;
 			$fieldValue = $this->info[$field];
 			if ( ! isset($fields[$splHash][$data]))
 			{
@@ -45,6 +47,8 @@ trait ImportStaticTrait {
 		$info    = $optimizer->getDataFromHash($splHash);
 		foreach ($this->staticFields as $field => $data)
 		{
+			if( !isset($this->info[$field]) )
+				continue;
 			$infoArray  = $info[$data];
 			$fieldValue = $this->info[$field];
 			$staticData = $infoArray[$fieldValue];

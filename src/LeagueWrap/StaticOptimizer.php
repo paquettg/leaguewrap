@@ -19,7 +19,7 @@ class StaticOptimizer {
 	 *
 	 * @param array
 	 */
-	protected $requests;
+	protected $requests = [];
 
 	/**
 	 * Keep the results from the requests in $requests.
