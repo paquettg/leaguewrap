@@ -135,7 +135,7 @@ class CurrentGameTest extends PHPUnit_Framework_TestCase
 	{
 		$this->client->shouldReceive('baseUrl')->with('https://euw.api.pvp.net/observer-mode/rest/consumer/getSpectatorGameInfo/EUW1/')
 			         ->once();
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/euw/')
 			->times(4);
 
 		$this->client->shouldReceive('request')

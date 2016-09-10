@@ -45,7 +45,7 @@ class Region {
 	/**
 	 * The default domain for static queries
 	 */
-	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/';
+	protected $defaultStaticDomain = 'https://global.api.pvp.net/api/lol/static-data/%s/';
 
 	protected $featuredGameDomain = 'https://%s.api.pvp.net/observer-mode/rest/';
 
@@ -91,7 +91,7 @@ class Region {
 	 */
 	public function getStaticDataDomain()
 	{
-		return $this->defaultStaticDomain;
+		return sprintf($this->defaultStaticDomain, $this->getRegion());
 	}
 
 	public function getCurrentGameDomain() {

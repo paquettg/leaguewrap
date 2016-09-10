@@ -29,7 +29,7 @@ class RegionTest extends PHPUnit_Framework_TestCase {
 	public function testGetDomainStaticData()
 	{
 		$region = new Region('na');
-		$this->assertEquals('https://global.api.pvp.net/api/lol/static-data/', $region->getStaticDataDomain());
+		$this->assertEquals('https://global.api.pvp.net/api/lol/static-data/na/', $region->getStaticDataDomain());
 	}
 
 	public function testGetFeaturedGamesDomain()

@@ -21,7 +21,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryDefault()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
@@ -37,7 +37,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testArrayAccess()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
@@ -52,7 +52,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryRegionKR()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
@@ -70,7 +70,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryById()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery/6111', [
@@ -85,7 +85,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryRank()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery/6111', [
@@ -101,7 +101,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryAll()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')
 				->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
@@ -118,7 +118,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryAsTree()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')->once();
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
 						'api_key' => 'key',
@@ -136,7 +136,7 @@ class StaticMasteryTest extends PHPUnit_Framework_TestCase
 
 	public function testGetMasteryAsTreeLegacy()
 	{
-		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/')->once();
+		$this->client->shouldReceive('baseUrl')->with('https://global.api.pvp.net/api/lol/static-data/na/')->once();
 		$this->client->shouldReceive('request')
 				->with('v1.2/mastery', [
 						'api_key' => 'key',
