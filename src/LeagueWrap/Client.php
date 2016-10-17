@@ -85,6 +85,7 @@ class Client implements ClientInterface {
 						 'http_errors' => false]);
 		$body     = $response->getBody();
 		$code     = $response->getStatusCode();
+		$headers  = $response->getHeaders();
 		if ($body instanceof Stream)
 		{
 			$body->seek(0);
@@ -95,7 +96,7 @@ class Client implements ClientInterface {
 			// no content
 			$content = '';
 		}
-		$response = new Response($content, $code);
+		$response = new Response($content, $code, $headers);
 
 		return $response;
 	}

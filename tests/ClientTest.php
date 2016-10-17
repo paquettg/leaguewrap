@@ -26,6 +26,15 @@ class ClientTest extends PHPUnit_Framework_TestCase {
 		$client->addMock($handlerStack);
 		$response = $client->request('', []);
 		$this->assertEquals('foo', $response);
+		$this->assertEquals(200, $response->getCode());
+		$this->assertTrue($response->hasHeader('X-Foo'));
+		$this->assertFalse($response->hasHeader('Missing-Header'));
+		$this->assertEquals('Bar', $response->getHeader('X-Foo'));
+		$this->assertNull($response->getHeader('that does not exists'));
+		$headers = $response->getHeaders();
+		$this->assertArrayHasKey('X-Foo', $headers);
+		$this->assertCount(1, $headers);
+		$this->assertEquals('Bar', $headers['X-Foo']);
 	}
 
 	/**

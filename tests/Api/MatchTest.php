@@ -153,4 +153,47 @@ class ApiMatchTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($frame->participantFrame(1) instanceof LeagueWrap\Dto\TimelineParticipantFrame);
         $this->assertTrue($frame->events[0] instanceof LeagueWrap\Dto\TimelineFrameEvent);
     }
+
+    /**
+     * @expectedException LeagueWrap\Response\UnderlyingServiceRateLimitReached
+     * @expectedExceptionMessage Did not receive 'X-Rate-Limit-Type' and 'Retry-After' headers
+     */
+    public function testUnderlyingServiceRateLimit()
+    {
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('v1.2/champion', [
+                'freeToPlay' => 'false',
+                'api_key'    => 'key',
+            ])->once()
+            ->andReturn(new LeagueWrap\Response('', 429));
+
+        $api       = new Api('key', $this->client);
+        $champion  = $api->champion();
+        $champions = $champion->all();
+    }
+
+    /**
+     * @expectedException LeagueWrap\Response\Http429
+     * @expectedExceptionMessage Rate limit exceeded.
+     */
+    public function testNormalRateLimitReached()
+    {
+        $this->client->shouldReceive('baseUrl')->with('https://na.api.pvp.net/api/lol/na/')
+            ->once();
+        $this->client->shouldReceive('request')
+            ->with('v1.2/champion', [
+                'freeToPlay' => 'false',
+                'api_key'    => 'key',
+            ])->once()
+            ->andReturn(new LeagueWrap\Response('', 429, [
+                'Retry-After' => 123,
+                'X-Rate-Limit-Type' => 'user'
+            ]));
+
+        $api       = new Api('key', $this->client);
+        $champion  = $api->champion();
+        $champions = $champion->all();
+    }
 } 
