@@ -220,19 +220,24 @@ try
 {
 	$summoner = $api->summoner(); // Load up the summoner request object.
 }
-catch (LeagueWrap\Response\Http404)
+catch (LeagueWrap\Response\Http404 $e)
 {
 	// Only thrown when a 404 http error is found
 }
-catch (LeagueWrap\Response\HttpClientError)
+catch (LeagueWrap\Response\HttpClientError $e)
 {
 	// All Http4XX extend this abstract class.
 	// Which is a catch all for client errors
 }
-catch (LeagueWrap\Response\ResponseException)
+catch (LeagueWrap\Response\ResponseException $e)
 {
 	// All http error codes extends from this abstract class.
 	// This is a catch all (both 4xx and 5xx http errors)
+}
+catch (LeagueWrap\Response\UnderlyingServiceRateLimitReached $e)
+{
+    // See https://github.com/paquettg/leaguewrap/issues/119
+    // Extends Http429 for backwards compatibility
 }
 ```
 
