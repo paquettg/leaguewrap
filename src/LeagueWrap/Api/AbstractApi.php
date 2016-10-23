@@ -16,6 +16,7 @@ use LeagueWrap\Exception\RegionException;
 use LeagueWrap\Exception\LimitReachedException;
 use LeagueWrap\Exception\InvalidIdentityException;
 use LeagueWrap\Exception\CacheNotFoundException;
+use LeagueWrap\Response\ResponseException;
 
 abstract class AbstractApi {
 
@@ -535,13 +536,10 @@ abstract class AbstractApi {
 			}
 
 			$class = 'LeagueWrap\Response\Http'.$code;
-			$exception = new $class($message, $code);
 
-			if ($exception instanceof Response\ResponseException) {
+			if (class_exists($class) && is_subclass_of($class, ResponseException::class)) {
 				throw $class::withResponse($message, $response);
 			}
-
-			throw $exception;
 		}
 	}
 }
