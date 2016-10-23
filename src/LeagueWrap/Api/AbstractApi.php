@@ -519,9 +519,10 @@ abstract class AbstractApi {
 	{
 		$code = $response->getCode();
 		if ($code === 429 && !$response->hasHeader('Retry-After')) {
-		    throw new Response\UnderlyingServiceRateLimitReached(
+			throw Response\UnderlyingServiceRateLimitReached::withResponse(
 				"Did not receive 'X-Rate-Limit-Type' and 'Retry-After' headers. ".
-				"See https://developer.riotgames.com/docs/rate-limiting for more details"
+				"See https://developer.riotgames.com/docs/rate-limiting for more details",
+				$response
 			);
 		}
 		if (intval($code / 100) != 2)
@@ -534,7 +535,13 @@ abstract class AbstractApi {
 			}
 
 			$class = 'LeagueWrap\Response\Http'.$code;
-			throw new $class($message, $code);
+			$exception = new $class($message, $code);
+
+			if ($exception instanceof Response\ResponseException) {
+				throw $class::withResponse($message, $response);
+			}
+
+			throw $exception;
 		}
 	}
 }

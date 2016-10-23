@@ -233,6 +233,15 @@ catch (LeagueWrap\Response\ResponseException $e)
 {
 	// All http error codes extends from this abstract class.
 	// This is a catch all (both 4xx and 5xx http errors)
+	
+	// To get more detailed information about the response, the following methods are available
+	$e->hasResponse(); // Checks if response was attached
+	$response = $e->getResponse(); // Instance of LeagueWrap\Response
+	// In some cases like resolving 429 status codes, information from headers could be useful
+	// see: https://developer.riotgames.com/docs/rate-limiting 
+	$headers = $response->getHeaders(); // ['Retry-After' => ..., ...]
+	$response->hasHeader('Retry-After');
+	$response->getHeader('that does not exist'); // null
 }
 catch (LeagueWrap\Response\UnderlyingServiceRateLimitReached $e)
 {
