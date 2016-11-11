@@ -13,6 +13,10 @@
             "homepage": "http://gillespaquette.ca"
         }
     ],
+    "abandoned": "league-php/leaguewrap",
+    "suggest": {
+        "league-php": "Successor of this package."
+    },
     "require": {
         "php": ">=5.5",
         "guzzlehttp/guzzle": "~6.1.0"
@@ -23,7 +27,7 @@
         "satooshi/php-coveralls": "~0.6.0"
     },
     "autoload": {
-        "psr-0": { 
+        "psr-0": {
         	"LeagueWrap": "src/"
        	}
     },
